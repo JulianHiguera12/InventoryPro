@@ -1,0 +1,169 @@
+/* DASHBOARD GENERAL */
+.dashboard {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background-color: #F7F5F2;
+    border-radius: 12px;
+    min-height: 700px; 
+    width: calc(100% - 10px);
+    margin: 5px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Título del dashboard */
+.dashboard h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin: 5px;
+}
+
+/* CONTENEDOR DE CARDS */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* CARD INDIVIDUAL */
+.card {
+    flex: 1 1 180px;
+    background-color: #ECE8D8;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: default;
+    font-size: 1.4rem;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.card p {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 5px;
+    color: #4a90e2; 
+}
+
+/* ALERTAS HOY CARD */
+.alertas-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #E74C3C;
+    margin-bottom: 12px;
+}
+
+.alertas-card .alertas-detalle p {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.alertas-card .alertas-detalle span {
+    font-weight: 700;
+}
+
+/* Tabla de productos críticos */
+.tabla-criticos table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+    border: 3px solid #4a90e2;
+}
+
+/* Título de la tabla crítica */
+.tabla-criticos h3 {
+    font-size: 1.6rem;       
+    font-weight: 700;        
+    color: black;         
+    margin-bottom: 15px;     
+    text-align: center;       
+    letter-spacing: 0.5px;  
+}
+
+/* Encabezado */
+.tabla-criticos th {
+    background-color: #4a90e2;
+    color: #fff;
+    font-weight: 500;
+    padding: 12px 10px;
+    font-size: 1.2rem;
+    border-right: 2px solid #357abd; 
+}
+
+.tabla-criticos th:last-child {
+    border-right: none;
+}
+
+/* Filas y celdas */
+.tabla-criticos td {
+    padding: 12px 10px;
+    font-size: 1.2rem;
+    color: #333;
+    border-bottom: 2px solid #d1d1d1;
+    border-right: 2px solid #d1d1d1; 
+}
+
+.tabla-criticos td:last-child {
+    border-right: none;
+}
+
+/* Filas pares para guía visual */
+.tabla-criticos tr:nth-child(even) td {
+    background-color: rgba(74,144,226,0.05);
+}
+
+/* Hover */
+.tabla-criticos tr:hover td {
+    background-color: rgba(74,144,226,0.15);
+    transition: background 0.2s;
+}
+
+/* Botón comprar */
+.comprar-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 0.3s;
+}
+
+.comprar-btn img {
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+}
+
+.comprar-btn:hover {
+    background-color: #357abd;
+}
+
+/* Filas vacías: altura y divisiones visibles */
+.tabla-criticos td:empty {
+    height: 40px;
+    background-color: rgba(0,0,0,0.02);
+}

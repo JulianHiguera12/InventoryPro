@@ -1,0 +1,206 @@
+/* Reset y variables */
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #f5f5f5;
+    --card-bg: #fff;
+    --text-color: #333;
+}
+
+/* App Layout */
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* HEADER */
+/* Topbar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 25px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo */
+.topbar-left .logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #4a90e2;
+}
+
+/* Búsqueda */
+.topbar-center .search-input {
+    width: 700px;          
+    padding: 8px 12px;     
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1.2rem;
+    text-align: left;      
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 8px rgba(74,144,226,0.3);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 8px rgba(74,144,226,0.3);
+}
+
+/* Topbar derecha */
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+}
+
+/* Botón de notificaciones */
+.notification-btn {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;      
+    padding: 6px;
+    border-radius: 8px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.notification-btn:hover {
+    background-color: rgba(74, 144, 226, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Badge de notificaciones */
+.notification-btn .badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background-color: #e74c3c;
+    color: #fff;
+    font-size: 0.85rem;      
+    padding: 3px 6px;
+    border-radius: 50%;
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Icono de campana */
+.icon-bell {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Icono de la campana más grande */
+.notification-btn .icon-bell {
+    font-size: 1.5rem;  
+    line-height: 1;   
+}
+
+/* Menú de usuario */
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+/* Botón del usuario */
+.user-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;                  
+    padding: 6px 12px;
+    border-radius: 10px;
+    background-color: #fff;
+    border: 1px solid #d1d1d1;
+    cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 1.2rem;           
+    font-weight: 600;
+    color: #333;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.user-info:hover {
+    background-color: rgba(74, 144, 226, 0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Avatar del usuario */
+.user-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Nombre dentro del botón */
+#nombreUsuario {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Dropdown del usuario */
+.user-menu[aria-expanded="true"] .user-dropdown {
+    display: block;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 5px;
+    min-width: 160px;
+    background: #fff;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    list-style: none;
+    padding: 5px 0;
+    display: none;
+    z-index: 1000;
+}
+
+.user-dropdown li a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+}
+
+.user-dropdown li a:hover {
+    background-color: rgba(74,144,226,0.1);
+}
+
+
+
+/* Cerrar sesión */
+.logout-btn {
+    padding: 0 15px;        
+    height: 35px;         
+    border: none;
+    border-radius: 8px;
+    background-color: #4a90e2;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.logout-btn:hover {
+    background-color: #357abd;
+}
+

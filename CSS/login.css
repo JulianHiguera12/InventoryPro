@@ -1,0 +1,494 @@
+/* RESET GLOBAL */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+
+/* Contenedor principal de la pantalla de login */
+.login-screen {
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    height: 100vh;       
+    background-color: #f0f2f5; 
+    padding: 20px;
+    gap: 20px;
+}
+
+/* CARRUSEL */
+.login-carousel {
+    flex: 2;
+    width: 100%;
+    max-width: 1200px;
+    height: clamp(400px, 50vw, 500px);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+
+.carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-slide {
+    flex: 0 0 100%;
+    height: 100%;
+    position: relative;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+}
+
+/* CAPTION Y BRANDING */
+
+.carousel-caption {
+    position: absolute;
+    bottom: 10%;
+    left: 15px;
+    transform: translateX(0);
+    max-width: calc(100% - 30px);
+    width: auto;
+    padding: 6px 10px;
+    color: #fff;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 1;
+}
+
+/* Estilos internos del caption */
+.carousel-caption h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+    line-height: 1;
+    letter-spacing: 0.04em; 
+}
+
+.carousel-caption p {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    max-width: auto;
+    opacity: 1;
+    margin: 0;
+    letter-spacing: 0.04em;
+}
+
+.carousel-icon {
+    font-size: 2.4rem;
+    line-height: 1;
+    margin-bottom: 0.6rem;
+    opacity: 0.95;
+}
+/* Branding */
+.carousel-brand {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 20px;
+    color: #fff;
+    text-align: center;
+    z-index: 12;
+    pointer-events: none;
+}
+
+/* Contenedor del formulario (tu código existente) */
+.login-container {
+    flex: 0 1 450px;  /* Se adapta hasta 450px */
+    width: 100%;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-container h1 {
+    font-size: clamp(30px, 2vw, 30px);
+    text-align: center;
+    margin: 10px;
+}
+
+.login-subtitle {
+    font-size: clamp(18px, 1vw, 18px);
+    text-align: center;
+    margin: 10px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.input-field, .btn-submit {
+    width: 100%;
+    padding: 12px;
+    margin: 5px;
+    font-size: clamp(16px, 1vw, 16px);
+    border-radius: 10px;
+}
+
+.btn-submit {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #45a049;
+}
+
+.login-options, .login-register {
+    text-align: center;
+    font-size: clamp(16px, 1vw, 16px);
+    margin: 10px;
+}
+
+.login-error {
+    max-width: 100%;        /* No sobrepasa el contenedor */
+    box-sizing: border-box;  /* Padding incluido en ancho */
+    padding: 12px;
+    margin: 10px auto;       /* Centrado horizontal */
+    font-size: clamp(14px, 1vw, 16px);
+    text-align: center;
+    border-radius: 6px;
+    background-color: #ffe6e6;
+    color: #b00020;
+    width: 100%;
+    padding: 12px;
+    margin: 5px;
+    font-size: clamp(20px, 1.2vw, 20px);
+    border-radius: 10px;   
+}
+
+.login-error.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* RESPONSIVE */
+
+/* Móviles pequeños: 320px - 480px */
+@media (max-width: 480px) {
+    .login-screen {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+        height: 100vh;
+    }
+
+    .login-carousel {
+        width: 100%;
+        height: 200px;
+        max-height: 400px;
+        overflow: hidden !important;
+        position: relative;
+        border-radius: 12px;
+    }
+
+    .carousel-track {
+        height: 100%;
+        display: flex;
+    }
+
+    .carousel-slide {
+        flex: 0 0 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        border-radius: 12px;
+    }
+
+    .carousel-caption {
+        position: absolute;
+        bottom: 8%;
+        left: 15px;
+        transform: translateX(0);
+        max-width: calc(100% - 30px);
+        width: auto;
+        padding: 4px 6px;
+        font-size: 0.8rem;
+        color: #fff;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        z-index: 10;
+        pointer-events: none;
+        opacity: 1;
+    }
+
+  /* Estilos internos del caption */
+.carousel-caption h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+    line-height: 1;
+    letter-spacing: 0.04em;
+}
+
+.carousel-caption p {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    max-width: auto;
+    opacity: 1;
+    margin: 0;
+    letter-spacing: 0.04em;
+}
+
+    .carousel-icon {
+        font-size: 1.5rem;
+        line-height: 1;
+        margin-bottom: 0.3rem;
+        opacity: 0.95;
+    }
+
+    .login-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .login-options {
+        justify-content: center;
+    }
+}
+
+/* Móviles grandes / tablet pequeña: 480px - 768px */
+@media (min-width: 480px) and (max-width: 768px) {
+    .login-screen {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+        height: 100vh;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .login-carousel {
+        width: 100%;
+        height: 250px;
+        max-height: 350px;
+        overflow: hidden;
+        position: relative;
+        border-radius: 12px;
+    }
+
+    .carousel-track {
+        height: 100%;
+        display: flex;
+    }
+
+    .carousel-slide {
+        flex: 0 0 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        border-radius: 12px;
+    }
+
+    .carousel-caption {
+        position: absolute;
+        bottom: 10%;
+        left: 15px;
+        transform: translateX(0);
+        max-width: calc(100% - 30px);
+        width: auto;
+        padding: 6px 8px;
+        font-size: 0.85rem;
+        color: #fff;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        z-index: 10;
+        pointer-events: none;
+        opacity: 1;
+    }
+
+    /* Estilos internos del caption */
+    .carousel-caption h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem 0;
+        text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+        line-height: 1;
+        letter-spacing: 0.04em;
+    }
+
+    .carousel-caption p {
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1;
+        max-width: auto;
+        opacity: 1;
+        margin: 0;
+        letter-spacing: 0.04em;
+    }
+
+    .carousel-icon {
+        font-size: 1.6rem;
+        line-height: 1;
+        margin-bottom: 0.4rem;
+        opacity: 0.95;
+    }
+
+    .login-container {
+        width: 100%;
+        max-width: 420px;
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .login-options {
+        justify-content: center;
+    }
+}
+
+/* Tablets verticales / iPad / portátiles pequeños: 768px - 1024px */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .login-screen {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        align-items: center;
+        justify-content: flex-start;
+        height: 100vh;
+    }
+
+    .login-carousel {
+        width: 100%;
+        height: 280px;              
+        max-height: 350px;
+        overflow: hidden;         
+        position: relative;
+        border-radius: 12px;
+    }
+
+    .carousel-track {
+        height: 100%;
+        display: flex;
+    }
+
+    .carousel-slide {
+        flex: 0 0 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        border-radius: 12px;
+    }
+
+    .carousel-caption {
+        position: absolute;
+        bottom: 10%;
+        left: 15px;
+        transform: translateX(0);
+        max-width: calc(100% - 30px);
+        width: auto;
+        padding: 8px 10px;
+        font-size: 0.95rem;
+        color: #fff;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        z-index: 10;
+        pointer-events: none;
+        opacity: 1;
+    }
+
+   /* Estilos internos del caption */
+    .carousel-caption h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem 0;
+        text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+        line-height: 1;
+        letter-spacing: 0.04em;
+    }
+
+    .carousel-caption p {
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1;
+        max-width: auto;
+        opacity: 1;
+        margin: 0;
+        letter-spacing: 0.04em;
+    }
+
+    .carousel-icon {
+        font-size: 1.7rem;
+        line-height: 1;
+        margin-bottom: 0.4rem;
+        opacity: 0.95;
+    }
+
+    /* Login container */
+    .login-container {
+        width: 100%;
+        max-width: 450px;
+        padding: 25px;
+        border-radius: 12px;
+    }
+
+    .login-options {
+        justify-content: center;
+    }
+}

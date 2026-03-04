@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InventoryPro</title>
+
+    <!-- CSS modular -->
+    <link rel="stylesheet" href="../CSS/login.css">
+    <link rel="stylesheet" href="../CSS/carousel.css">
+    <link rel="stylesheet" href="../CSS/mainContent.css">
+    <link rel="stylesheet" href="../CSS/modals.css">
+    <link rel="stylesheet" href="../CSS/errorLogin.css">
+    <link rel="stylesheet" href="../CSS/sidebar.css">
+    <link rel="stylesheet" href="../CSS/layout.css">
+
+    <!-- Librerías externas con defer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" defer></script>
+</head>
+<body>
+
+    <!-- Pantalla de Login -->
+    <div id="loginScreen" class="login-screen">
+
+        <!-- Espacio izquierdo 5% -->
+        <div class="spacer-left"></div>
+
+        <!-- Carrusel 60% -->
+        <div class="login-carousel">
+            <div class="carousel-track">
+                <!-- Slides -->
+                <div class="carousel-slide active">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80" alt="Frutas y verduras frescas">
+                    <div class="carousel-caption">
+                        <span class="carousel-icon">🥦</span>
+                        <h2>Frutas & Verduras</h2>
+                        <p>Controla tu inventario de productos frescos</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=800&q=80" alt="Granos y cereales">
+                    <div class="carousel-caption">
+                        <span class="carousel-icon">🌾</span>
+                        <h2>Granos & Cereales</h2>
+                        <p>Arroz, frijoles, lentejas y más</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=800&q=80" alt="Lácteos">
+                    <div class="carousel-caption">
+                        <span class="carousel-icon">🥛</span>
+                        <h2>Lácteos</h2>
+                        <p>Leche, quesos, yogures y derivados</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?w=800&q=80" alt="Carnes y proteínas">
+                    <div class="carousel-caption">
+                        <span class="carousel-icon">🥩</span>
+                        <h2>Carnes & Proteínas</h2>
+                        <p>Gestiona tu stock de proteínas fácilmente</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=800&q=80" alt="Aceites y enlatados">
+                    <div class="carousel-caption">
+                        <span class="carousel-icon">🛒</span>
+                        <h2>Canasta Familiar</h2>
+                        <p>Todo tu mercado en un solo sistema</p>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Indicadores del carrusel -->
+            <div class="carousel-dots">
+                <span class="dot active" onclick="irASlide(0)"></span>
+                <span class="dot" onclick="irASlide(1)"></span>
+                <span class="dot" onclick="irASlide(2)"></span>
+                <span class="dot" onclick="irASlide(3)"></span>
+                <span class="dot" onclick="irASlide(4)"></span>
+            </div>
+
+            <!-- Flechas del carrusel -->
+            <button class="carousel-arrow left" onclick="moverCarrusel(-1)">
+                <span class="arrow-icon">&#8249;</span>
+            </button>
+            <button class="carousel-arrow right" onclick="moverCarrusel(1)">
+                <span class="arrow-icon">&#8250;</span>
+            </button>
+
+            <!-- Branding del carrusel -->
+            <div class="carousel-brand">
+                <span>🛍️ InventoryPro</span>
+            </div>
+        </div>
+
+        <!-- Formulario login 30% -->
+        <div class="login-container">
+            <h1 id="login-title">¡Bienvenido de nuevo!</h1> <!-- saludo cordial -->
+            <p class="login-subtitle">Ingresa tus credenciales para continuar</p>
+
+            <form id="formLogin">
+                <input type="text" id="usuario" class="input-field" placeholder="Usuario" required>
+                <input type="password" id="password" class="input-field" placeholder="Contraseña" required>
+
+                <!-- Opciones login -->
+                <div class="login-options">
+                <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button type="submit" class="btn-submit">Iniciar Sesión</button>
+            </form>
+
+            <!-- Mensaje de error / aviso -->
+            <p id="login-error" class="login-error" style="display:none;">Usuario o contraseña incorrectos</p>
+
+            <!-- Información adicional -->
+            <p class="login-register">¿No tienes cuenta? <a href="#">Regístrate aquí</a></p>
+        </div>
+
+    </div>
+
+    <!-- Sistema principal -->
+    <div class="app-layout">
+
+    <!-- HEADER SUPERIOR -->
+    <header class="topbar">
+        <!-- Logo -->
+        <div class="topbar-left">
+            <div class="logo">InventoryPro</div>
+        </div>
+
+        <!-- Barra de búsqueda -->
+        <div class="topbar-center">
+            <input type="search" placeholder="Buscar productos..." class="search-input">
+        </div>
+
+        <!-- Notificaciones y usuario -->
+        <div class="topbar-right">
+            <!-- Icono de notificaciones -->
+            <button class="notification-btn" title="Notificaciones">
+                <span class="icon-bell">🔔</span>
+                <span class="badge">3</span>
+            </button>
+
+            <!-- Usuario en el header -->
+            <nav class="user-menu" aria-label="Menú de usuario">
+                <button class="user-info" id="userInfo" aria-haspopup="true" aria-expanded="false">
+                    <!-- Icono de género dinámico (insertado con JS) -->
+                    
+                    <!-- Nombre -->
+                    <span id="nombreUsuario"><img src="../IMG/woman.png" alt="Avatar del usuario" class="user-icon">Laura Olmos</span>                    
+                </button>
+            </nav>
+
+            <!-- Cerrar sesión -->
+            <button id="btnCerrarSesion" class="logout-btn">Cerrar Sesión</button>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="main-container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="active">Inicio</li>
+                <li>Perfil Usuario</li>
+                <li>Registro de Productos</li>
+                <li>Estadísticas</li>
+                <li>Reportes</li>
+                <li>Notificaciones</li>
+                <li>Mapa</li>
+                <li>Configuraciones</li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- DASHBOARD -->
+    <section class="dashboard">
+        <h2>Resumen del Inventario</h2>
+
+        <div class="cards">
+            <div class="card">Stock Total <p id="stockTotal">0</p></div>
+            <div class="card">Inventario $ <p id="valorInventario">$0</p></div>
+            <div class="card">Movimientos <p>0</p></div>
+            <div class="card alertas-card">
+                <h3>Alertas Hoy</h3>
+                <div id="alertasHoy" class="alertas-detalle">
+                    <p>Bajas: <span id="alertasBajas">0</span></p>
+                    <p>Críticas: <span id="alertasCriticas">0</span></p>
+                </div>
+            </div>
+            <div class="card">Stock Bajo <p id="stockBajo">0</p></div>
+        </div>
+
+            <div class="tabla-criticos">
+            <h3>Productos con Stock Crítico</h3>
+            <table class="tabla-criticos">
+                <thead>
+                    <tr>
+                        <th>Nombre del producto</th>
+                        <th>Cantidad</th>
+                        <th>Comprar</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaCriticos">
+                    <!-- Filas vacías para diseño -->
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+<!-- Modals -->
+<div id="modalEditar" class="modal"></div>
+<div id="modalExportar" class="modal"></div>
+<div id="modalUsuario" class="modal"></div>
+
+<!-- Notificaciones -->
+<div id="notificacion" class="notificacion"></div>
+
+<!-- Scripts propios -->
+<script src="../JS/carrusel.js" defer></script>
+<script src="../JS/login.js" defer></script>
+<script src="../JS/productos.js" defer></script>
+<script src="../JS/usuarios.js" defer></script>
+<script src="../InventoryPro/JS/iconUser.js" defer></script>
+
+
+<!-- Script Carrusel inline inicial -->
+<script defer>
+    let slideActual = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+    let intervalo = setInterval(() => mostrarSlide(slideActual + 1), 4000);
+
+    function mostrarSlide(index) {
+        slides.forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+        slideActual = (index + slides.length) % slides.length;
+        slides[slideActual].classList.add('active');
+        dots[slideActual].classList.add('active');
+    }
+
+    function moverCarrusel(direccion) {
+        mostrarSlide(slideActual + direccion);
+        reiniciarIntervalo();
+    }
+
+    function irASlide(index) {
+        mostrarSlide(index);
+        reiniciarIntervalo();
+    }
+
+    function reiniciarIntervalo() {
+        clearInterval(intervalo);
+        intervalo = setInterval(() => mostrarSlide(slideActual + 1), 4000);
+    }
+</script>
+
+<!-- Saludo de Bienvenida -->
+<script>
+    const loginTitle = document.getElementById('login-title');
+    const ahora = new Date();
+    const hora = ahora.getHours();
+    let saludo = "¡Bienvenido de nuevo!";
+
+    if (hora >= 0 && hora < 12) {
+        // De 00:00 a 11:59 → Buenos días
+        saludo = "¡Buenos días!";
+    } else if (hora >= 12 && hora < 18) {
+        // De 12:00 a 17:59 → Buenas tardes
+        saludo = "¡Buenas tardes!";
+    } else {
+        // De 18:00 a 23:59 → Buenas noches
+        saludo = "¡Buenas noches!";
+    }
+
+    loginTitle.textContent = saludo;
+</script>
+
+</body>
+</html>

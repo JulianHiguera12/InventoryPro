@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+
+       <!-- CSS modular -->
+        <link rel="stylesheet" href="../CSS/login.css">
+        <link rel="stylesheet" href="../CSS/carousel.css">
+        <link rel="stylesheet" href="../CSS/mainContent.css">
+        <link rel="stylesheet" href="../CSS/modals.css">
+        <link rel="stylesheet" href="../CSS/errorLogin.css">
+        <link rel="stylesheet" href="../CSS/sidebar.css">
+        <link rel="stylesheet" href="../CSS/layout.css">
+        <link rel="stylesheet" href="../CSS/gestionUsuarios.css">
+        <link rel="stylesheet" href="../CSS/modalCreateUsers.css">
+        <link rel="stylesheet" href="../CSS/modalUpdateUsers.css">
+        <link rel="stylesheet" href="../CSS/modalDeleteUsers.css">
+
+</head>
+<body>
+        <!-- HEADER SUPERIOR -->
+        <header class="topbar">
+            <!-- Logo -->
+            <div class="topbar-left">
+                <div class="logo">InventoryPro</div>
+            </div>
+
+            <!-- Barra de búsqueda -->
+            <div class="topbar-center">
+                <input type="search" placeholder="Buscar productos..." class="search-input">
+            </div>
+
+            <!-- Notificaciones y usuario -->
+            <div class="topbar-right">
+                <!-- Icono de notificaciones -->
+                <button class="notification-btn" title="Notificaciones">
+                    <span class="icon-bell">🔔</span>
+                    <span class="badge">3</span>
+                </button>
+
+                <!-- Usuario en el header -->
+                    <!-- Usuario en el header -->
+                <nav class="user-menu" aria-label="Menú de usuario">
+                    <button class="user-info" id="userInfo" aria-haspopup="true" aria-expanded="false">
+                        <img src="../IMG/woman.png" alt="Avatar del usuario" class="user-icon">
+                        <span id="nombreUsuario">Laura Olmos</span>
+                    </button>
+
+                    <!-- Dropdown -->
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#" class="dropdown-item">👤 Mi Perfil</a>
+                        <a href="#" class="dropdown-item">⚙ Configuraciones</a>
+                        <button id="btnCerrarSesion" class="logout-btn">🚪 Cerrar Sesión</button>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <div class="main-container">
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li id="navInicio" class="active"><a href="../home.html">Inicio</a></li>
+                        <li id="navRegistro"><a href="registroProductos.html">Registro de Productos</a></li>
+                        <li id="navEstadisticas"><a href="estadisticas.html">Estadísticas</a></li>
+                        <li id="navReportes"><a href="reportes.html">Reportes</a></li>
+                        <li id="navNotificaciones"><a href="notificaciones.html">Notificaciones</a></li>
+                        <!--<li id="navMapa"><a href="mapa.html">Mapa</a></li> -->
+                        <li id="navConfiguraciones"><a href="configuraciones.html">Configuraciones</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- CONTENIDO PERFIL -->
+            <section class="dashboard">
+                <h2>Gestión de Usuarios</h2>
+
+                <!-- Información del Administrador -->
+                <div class="admin-info">
+                    <img src="../IMG/woman.png" alt="Avatar del usuario" class="user-icon">
+                    <div class="admin-details">
+                        <h3 id="adminNombre">Laura Olmos</h3>
+                        <p id="adminRol">Administrador del Sistema</p>
+                        <p id="adminCorreo">admin@inventorypro.com</p>
+                    </div>
+                </div>
+
+                <!-- Acciones de Usuario -->
+                <div class="user-actions">
+                    <button class="action-btn" id="btnCrear">➕<span>Crear Usuario</span></button>
+                    <button class="action-btn" id="btnActualizar">✏️<span>Actualizar Usuario</span></button>
+                    <button class="action-btn" id="btnEliminar">🗑️<span>Eliminar Usuario</span></button>
+                </div>
+
+                <!-- MODAL CREAR USUARIO COMPLETO -->
+                <div id="modalCrear" class="modal">
+                    <div class="modal-content">
+                        <!-- Botón de cierre -->
+                        <button class="close-btn" data-modal="modalCrear">&times;</button>
+
+                        <!-- Título del modal -->
+                        <h3>Crear Usuario</h3>
+
+                        <!-- FORMULARIO -->
+                        <form id="formCrearUsuarioCompleto">
+                            <!-- Nombres -->
+                            <div class="form-row">
+                                <label for="primerNombre">Primer Nombre:</label>
+                                <input type="text" id="primerNombre" name="primerNombre" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="segundoNombre">Segundo Nombre:</label>
+                                <input type="text" id="segundoNombre" name="segundoNombre">
+                            </div>
+                            <div class="form-row">
+                                <label for="primerApellido">Primer Apellido:</label>
+                                <input type="text" id="primerApellido" name="primerApellido" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="segundoApellido">Segundo Apellido:</label>
+                                <input type="text" id="segundoApellido" name="segundoApellido">
+                            </div>
+
+                            <!-- Contacto -->
+                            <div class="form-row">
+                                <label for="correoNuevo">Correo:</label>
+                                <input type="email" id="correoNuevo" name="correoNuevo" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="telefono">Teléfono:</label>
+                                <input type="tel" id="telefono" name="telefono" pattern="[0-9]{10}" placeholder="10 dígitos">
+                            </div>
+                            <div class="form-row">
+                                <label for="direccion">Dirección:</label>
+                                <input type="text" id="direccion" name="direccion">
+                            </div>
+
+                            <!-- Datos adicionales -->
+                            <div class="form-row">
+                                <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                                <input type="date" id="fechaNacimiento" name="fechaNacimiento">
+                            </div>
+
+                            <!-- Credenciales -->
+                            <div class="form-row">
+                                <label for="passwordNuevo">Contraseña:</label>
+                                <input type="password" id="passwordNuevo" name="passwordNuevo" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="rolNuevo">Rol:</label>
+                                <select id="rolNuevo" name="rolNuevo" required>
+                                    <option value="">Selecciona un rol</option>
+                                    <option value="admin">Administrador</option>
+                                    <option value="aux">Auxiliar</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label for="activoNuevo">Activo:</label>
+                                <select id="activoNuevo" name="activoNuevo" required>
+                                    <option value="true">Sí</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+
+                            <!-- Botones -->
+                            <div class="form-buttons">
+                                <button type="submit" class="btn-submit">Crear Usuario</button>
+                                <button type="button" class="btn-cancel" data-modal="modalCrear">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- MODAL ACTUALIZAR USUARIO -->
+                <div class="modal" id="modalActualizar">
+                    <div class="modal-content">
+                        <span class="close-btn" data-modal="modalActualizar">&times;</span>
+                        <h2>Actualizar Usuario</h2>
+                        <form id="formActualizarUsuario">
+                            <div class="form-row">
+                                <label for="usuarioActualizar">Usuario a actualizar:</label>
+                                <input type="text" id="usuarioActualizar" name="usuarioActualizar" required>
+                            </div>
+                            <!-- Puedes repetir los campos como en crear -->
+                            <div class="form-buttons">
+                                <button type="submit" class="btn-submit">Actualizar</button>
+                                <button type="button" class="btn-cancel" data-modal="modalActualizar">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- MODAL ELIMINAR USUARIO -->
+                <div class="modal" id="modalEliminar">
+                    <div class="modal-content">
+                        <span class="close-btn" data-modal="modalEliminar">&times;</span>
+                        <h2>Eliminar Usuario</h2>
+                        <form id="formEliminarUsuario">
+                            <div class="form-row">
+                                <label for="usuarioEliminar">Usuario a eliminar:</label>
+                                <input type="text" id="usuarioEliminar" name="usuarioEliminar" required>
+                            </div>
+                            <div class="form-buttons">
+                                <button type="submit" class="btn-submit btn-danger">Eliminar</button>
+                                <button type="button" class="btn-cancel" data-modal="modalEliminar">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+            </section>
+        </div>
+
+        <!-- Notificaciones -->
+        <div id="notificacion" class="notificacion"></div>
+
+        <!-- Scripts propios -->
+        <script src="../JS/carrusel.js" defer></script>
+        <script src="../JS/login.js" defer></script>
+        <script src="../JS/productos.js" defer></script>
+        <script src="../JS/usuarios.js" defer></script>
+        <script type="module" src="../JS/modalesUsuarios.js" defer></script>
+</body>
+</html>

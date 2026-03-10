@@ -1,12 +1,7 @@
 // Archivo: gestionProductos.js
-// Este JS maneja la creación, edición y control de permisos de productos
-// de manera simple y clara. Solo administradores pueden editar productos.
-
 document.addEventListener("DOMContentLoaded", () => {
 
-    // =========================
     // Datos simulados
-    // =========================
     let productos = [
         { codigo: "P001", nombre: "Producto A", categoria: "Cat1", precio: 10.0, stock: 5, estado: "activo" },
         { codigo: "P002", nombre: "Producto B", categoria: "Cat2", precio: 20.0, stock: 2, estado: "inactivo" }
@@ -15,9 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Usuario actual: cambiar rol a "admin" o "auxiliar"
     const usuarioActual = { nombre: "Laura Olmos", rol: "auxiliar" };
 
-    // =========================
     // Referencias DOM
-    // =========================
     const tablaBody = document.getElementById("prod-table-body");
     const modalEditar = document.getElementById("prod-modal-edit");
     const formEditar = document.getElementById("prod-form-edit");

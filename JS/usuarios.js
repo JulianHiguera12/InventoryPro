@@ -21,7 +21,7 @@ function actualizarHeaderUsuario() {
     const avatar = userInfoBtn.querySelector('.user-icon');
     if (avatar) avatar.src = usuarioActual.avatar;
 
-    // Mostrar / ocultar dropdown al hacer clic en el usuario
+    // Mostrar dropdown al hacer clic en el usuario
     userInfoBtn.addEventListener('click', (e) => {
         e.stopPropagation(); 
         dropdown.classList.toggle('active');

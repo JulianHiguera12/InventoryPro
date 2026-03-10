@@ -12,10 +12,10 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-image: url("../IMG/Logo_InventoryPro.jpeg"); /* ruta del logo */
+    background-image: url("../IMG/Logo_InventoryPro.jpeg");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 420px; /* tamaño del logo */
+    background-size: 420px;
     background-attachment: fixed;
 }
 

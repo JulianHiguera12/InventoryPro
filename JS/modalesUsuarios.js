@@ -1,7 +1,7 @@
-// modalesUsuarios.js - Versión robusta y con diagnóstico
+// modalesUsuarios.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Script de modales cargado'); // ← para verificar que se ejecuta
+    console.log('Script de modales cargado');
 
     const openModal = (modalId) => {
         const modal = document.getElementById(modalId);
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Cerrar con tecla ESC (opcional pero útil)
+    // Cerrar con tecla ESC
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
             document.querySelectorAll('.modal.active, .modal-usuario.active').forEach(modal => {

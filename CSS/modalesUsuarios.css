@@ -1,9 +1,4 @@
-/* =============================================
-   MODALES USUARIOS - Crear, Actualizar, Eliminar
-   Estilo 100% alineado con el modal de productos
-   ============================================= */
-
-/* Overlay global (fondo oscuro) */
+/* MODALES USUARIOS - Crear, Actualizar, Eliminar */
 .modal,
 .modal-usuario {
     position: fixed;
@@ -81,7 +76,7 @@
     color: #4A90E2;
 }
 
-/* Formulario dentro del modal - ocupa todo el grid */
+/* Formulario dentro del modal */
 .modal-content form,
 .form-usuario-crear,
 .form-usuario-actualizar,
@@ -133,7 +128,7 @@ legend.form-usuario-subtitulo {
     color: #333;
 }
 
-/* Inputs, selects y textarea - mismo estilo neumórfico */
+/* Inputs, selects y textarea */
 .modal-content input,
 .modal-content select,
 .modal-content textarea,
@@ -177,7 +172,7 @@ legend.form-usuario-subtitulo {
     font-style: italic;
 }
 
-/* Botones del footer - idénticos a productos */
+/* Botones del footer */
 .modal-content .form-buttons,
 .form-buttons {
     grid-column: 1 / -1;
@@ -205,7 +200,7 @@ legend.form-usuario-subtitulo {
     align-items: center;
 }
 
-/* Botón principal (Crear / Actualizar) - verde */
+/* Botón principal (Crear / Actualizar) */
 .modal-content .btn-submit,
 .modal-content .btn-update,
 .btn-usuario-crear,
@@ -222,7 +217,7 @@ legend.form-usuario-subtitulo {
     box-shadow: 0 10px 28px rgba(0,0,0,0.35);
 }
 
-/* Botón Cancelar - rojo */
+/* Botón Cancelar */
 .modal-content .btn-cancel,
 .btn-usuario-cancelar,
 .btn-cancel {
@@ -238,7 +233,7 @@ legend.form-usuario-subtitulo {
     box-shadow: 0 10px 28px rgba(0,0,0,0.35);
 }
 
-/* Botón Eliminar - rojo intenso */
+/* Botón Eliminar */
 .modal-content .btn-danger,
 .btn-danger {
     background: linear-gradient(135deg, #28a745, #218838);

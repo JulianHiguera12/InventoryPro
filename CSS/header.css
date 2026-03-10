@@ -14,7 +14,7 @@
     min-height: 100vh;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 420px; /* tamaño del logo */
+    background-size: 420px;
     background-attachment: fixed;
 }
 
@@ -67,14 +67,14 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: 10px;              /* aumenta padding para que no se vea apretado */
+    padding: 10px;
     border-radius: 50%;
     transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .notification-btn .icon-bell {
-    font-size: 2rem;          /* ← solo la campana crece */
-    line-height: 1;             /* evita que suba o baje raro */
+    font-size: 2rem;
+    line-height: 1;
     display: block;
 }
 

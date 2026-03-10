@@ -1,10 +1,7 @@
-// ===============================
 // MODALES PRODUCTOS - CREAR, EDITAR, VER, BUSCAR
-// ===============================
-
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ======== MODALES ========
+    // MODALES
     const modalCreate = document.getElementById('prod-modal-create');
     const modalEdit = document.getElementById('prod-modal-edit');
     const modalView = document.getElementById('prod-modal-view');
@@ -14,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const formSearch = document.getElementById('prod-form-search');
     const searchResults = document.getElementById('prod-search-results');
 
-    // ======== FUNCIONES DE ABRIR Y CERRAR MODALES ========
+    // FUNCIONES DE ABRIR Y CERRAR MODALES
     function openModal(modal) {
         modal.classList.add('active');
     }
@@ -41,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ======== FUNCIONES DE VER Y EDITAR ========
+    // FUNCIONES DE VER Y EDITAR
     window.verProducto = function(codigo) {
         const producto = productManager.obtener(codigo);
         if(!producto) return alert('Producto no encontrado');
@@ -91,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         openModal(modalEdit);
     };
 
-    // ======== BÚSQUEDA DE PRODUCTOS ========
+    // BÚSQUEDA DE PRODUCTOS
     function renderSearchResults(results) {
         searchResults.innerHTML = '';
         if(results.length === 0){

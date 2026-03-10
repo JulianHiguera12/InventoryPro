@@ -118,7 +118,7 @@ body {
     transform: scale(1.05);
 }
 
-/* INVENTORY SUMMARY (CONTENIDO PRINCIPAL) - estilo tarjeta consistente */
+/* INVENTORY SUMMARY (CONTENIDO PRINCIPAL) */
 .inventory-summary {
     flex: 1;
     height: 100%;

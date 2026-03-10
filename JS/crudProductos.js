@@ -1,20 +1,17 @@
-// ===============================
 // CRUD COMPLETO - GESTIÓN DE PRODUCTOS
-// ===============================
-
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ======== VARIABLES ========
+    // VARIABLES DOM
     const btnCreate = document.getElementById('prod-btn-create');
     const modalCreate = document.getElementById('prod-modal-create');
     const formCreate = document.getElementById('prod-form-create');
     const tableBody = document.getElementById('prod-table-body');
 
-    const btnEdit = document.getElementById('prod-btn-edit'); // Si lo necesitas
+    const btnEdit = document.getElementById('prod-btn-edit');
     const modalEdit = document.getElementById('prod-modal-edit');
     const formEdit = document.getElementById('prod-form-edit');
 
-    // ======== CLASES ========
+    // CLASES Y GESTIÓN DE PRODUCTOS
     class Producto {
         constructor(codigo, nombre, fechaElab, fechaVence, tipo, fechaCompra, proveedor, fechaVenta) {
             this.codigo = codigo.trim();
@@ -63,14 +60,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const productManager = new ProductManager();
 
-    // ======== FUNCIONES AUXILIARES ========
+    // FUNCIONES AUXILIARES
     function sumarDias(fecha, dias) {
         const date = new Date(fecha);
         date.setDate(date.getDate() + dias);
         return date.toISOString().split('T')[0];
     }
 
-    // ======== RENDER TABLA PRINCIPAL ========
+    // RENDER TABLA PRINCIPAL CON SEMÁFORO DE VENCIMIENTO
     function renderTabla() {
         tableBody.innerHTML = '';
         productManager.productos.forEach(p => {
@@ -102,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderTabla();
 
-    // ======== CREAR PRODUCTO ========
+    // CREAR PRODUCTO
     btnCreate.addEventListener('click', () => {
         modalCreate.classList.add('active');
     });
@@ -114,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const fechaElab = document.getElementById('prod-input-fecha-elab').value;
         let fechaVence = document.getElementById('prod-input-fecha-vence').value;
 
-        // Ajuste automático de fecha de vencimiento según tipo de producto
+        // Ajuste automático fecha de vencimiento según tipo de producto
         switch(tipo.toLowerCase()) {
             case 'lácteo': case 'lacteo': fechaVence = sumarDias(fechaElab, 7); break;
             case 'carne': case 'embutido': fechaVence = sumarDias(fechaElab, 3); break;
@@ -140,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // ======== EDITAR PRODUCTO ========
+    // EDITAR PRODUCTO
     function abrirEditar(codigo) {
         const producto = productManager.obtener(codigo);
         if(!producto) return alert('Producto no encontrado');

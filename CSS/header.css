@@ -12,7 +12,6 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-image: url("../IMG/Logo_InventoryPro.jpeg"); /* ruta del logo */
     background-repeat: no-repeat;
     background-position: center;
     background-size: 420px; /* tamaño del logo */
@@ -24,27 +23,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 25px;
+    padding: 10px;
     background-color: #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    font-family: 'Segoe UI', Tahoma, sans-serif;
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
-/* Logo */
 .topbar-left .logo {
     font-size: 2rem;
     font-weight: 700;
     color: var(--primary-color);
+    margin-left: 30px;      
 }
 
 /* Búsqueda */
 .topbar-center .search-input {
-    width: 700px;
-    padding: 8px 12px;
-    border-radius: 8px;
+    width: 900px;
+    padding: 15px;
+    border-radius: 999px;
     border: 1px solid #ccc;
     font-size: 1.1rem;
     transition: all 0.3s ease;
@@ -69,10 +67,15 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.4rem;
-    padding: 6px;
-    border-radius: 8px;
+    padding: 10px;              /* aumenta padding para que no se vea apretado */
+    border-radius: 50%;
     transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.notification-btn .icon-bell {
+    font-size: 2rem;          /* ← solo la campana crece */
+    line-height: 1;             /* evita que suba o baje raro */
+    display: block;
 }
 
 .notification-btn:hover {
@@ -86,8 +89,8 @@
     right: -8px;
     background-color: var(--danger-color);
     color: #fff;
-    font-size: 0.75rem;
-    padding: 3px 6px;
+    font-size: 0.8rem;
+    padding: 8px;
     border-radius: 50%;
     font-weight: 700;
 }
@@ -101,9 +104,9 @@
 .user-info {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
-    border-radius: 10px;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 999px;
     background-color: #fff;
     border: 1px solid #d1d1d1;
     cursor: pointer;
@@ -130,12 +133,12 @@
     position: absolute;
     top: 120%;
     right: 0;
-    width: 200px;
+    width: 300px;
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(8px);
     border-radius: 15px;
     box-shadow: 0 8px 20px 5px rgba(0,0,0,0.25);
-    padding: 8px;
+    padding: 10px;
     display: none;
     z-index: 1000;
     flex-direction: column;

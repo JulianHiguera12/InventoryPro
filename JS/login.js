@@ -9,25 +9,30 @@ if (formLogin) {
         const password = document.getElementById('password').value;
 
         if (usuario === 'admin' && password === 'admin') {
-            // Guardar sesión si quieres (opcional)
+
+            // Guardar sesión
             sessionStorage.setItem('usuario', usuario);
             sessionStorage.setItem('rol', 'admin');
 
-            // Redirigir a la página principal
+            // Redirigir al sistema
             window.location.href = "home.html";
+
         } else {
+
             const errorMsg = document.getElementById('login-error');
             if (errorMsg) {
                 errorMsg.style.display = 'block';
                 errorMsg.textContent = "Usuario o contraseña incorrectos";
             }
+
         }
     });
 }
 
-// Cerrar sesión (en cualquier página que tenga btnCerrarSesion)
+/* Cerrar sesión */
 if (btnCerrarSesion) {
     btnCerrarSesion.addEventListener('click', () => {
-        sessionStorage.clear(); 
-        window.location.href = "login.html"; 
+        sessionStorage.clear();
+        window.location.href = "login.html";
+    });
 }

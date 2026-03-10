@@ -4,15 +4,18 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>InventoryPro</title>
-        
-       <!-- CSS modular -->
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/jpeg" href="/IMG/Logo_InventoryProCopy.png">
+
+        <!-- CSS modular -->
         <link rel="stylesheet" href="../CSS/login.css">
         <link rel="stylesheet" href="../CSS/carousel.css">
-        <link rel="stylesheet" href="../CSS/mainContent.css">
+        <link rel="stylesheet" href="../CSS/mainContainer.css">
         <link rel="stylesheet" href="../CSS/modals.css">
         <link rel="stylesheet" href="../CSS/errorLogin.css">
-        <link rel="stylesheet" href="../CSS/dashboard.css">
-        <link rel="stylesheet" href="../CSS/layout.css">
+
+        <link rel="stylesheet" href="../CSS/header.css">
         <link rel="stylesheet" href="../CSS/gestionUsuarios.css">
         <link rel="stylesheet" href="../CSS/modalCreateUsers.css">
         <link rel="stylesheet" href="../CSS/modalUpdateUsers.css">
@@ -75,21 +78,26 @@
         <!-- CONTENEDOR PRINCIPAL -->
         <div class="main-container">
             <!-- SIDEBAR -->
-                    <aside class="sidebar">
+        <aside class="sidebar">
             <nav class="sidebar-nav">
                 <ul>
                     <li id="navInicio" class="active"><a href="#">Inicio</a></li>
-                    <li id="navRegistro"><a href="registroProductos.html">Registro de Productos</a></li>
-                    <li id="navEstadisticas"><a href="estadisticas.html">Estadísticas</a></li>
-                    <li id="navReportes"><a href="reportes.html">Reportes</a></li>
-                    <li id="navNotificaciones"><a href="notificaciones.html">Notificaciones</a></li>
-                    <!--<li id="navMapa"><a href="mapa.html">Mapa</a></li> -->
-                    <li id="navConfiguraciones"><a href="configuraciones.html">Configuraciones</a></li>
+                    <li id="navRegistro"><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
+                    <li id="navEstadisticas"><a href="/HTML/estadisticas.html">Estadísticas</a></li>
+                    <li id="navReportes"><a href="/HTML/reportes.html">Reportes</a></li>
+                    <li id="navNotificaciones"><a href="/HTML/notificaciones.html">Notificaciones</a></li>
+                    <!--<li id="navMapa"><a href="/HTML/mapa.html">Mapa</a></li> -->
+                    <li id="navConfiguraciones"><a href="/HTML/configuraciones.html">Configuraciones</a></li>
                 </ul>
             </nav>
+
+            <!-- Logo agregado debajo del menú (sin tocar nada de arriba) -->
+            <div class="sidebar-logo">
+                <img src="/IMG/Logo_InventoryProCopy.png" alt="InventoryPro Logo" class="logo-img">
+            </div>
         </aside>
             <!-- DASHBOARD -->
-            <section class="dashboard">
+            <section class="inventory-summary">
                 <h2>Resumen del Inventario</h2>
 
                 <div class="cards">
@@ -172,6 +180,7 @@
         <!-- Scripts propios -->
         <script src="../JS/carrusel.js" defer></script>
         <script src="../JS/login.js" defer></script>
+        <script src="../JS/logo.js" defer></script>
         <script src="../JS/productos.js" defer></script>
         <script src="../JS/usuarios.js" defer></script>
 

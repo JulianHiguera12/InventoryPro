@@ -1,0 +1,276 @@
+/* =============================================
+   MODALES USUARIOS - Crear, Actualizar, Eliminar
+   Estilo 100% alineado con el modal de productos
+   ============================================= */
+
+/* Overlay global (fondo oscuro) */
+.modal,
+.modal-usuario {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    z-index: 3000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active,
+.modal-usuario.active {
+    display: flex;
+}
+
+/* Contenedor principal del modal (tarjeta) */
+.modal-content,
+.user-modal-content {
+    width: 1000px;
+    max-width: 95%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+    background: rgba(245, 249, 252, 0.95);
+    backdrop-filter: blur(12px);
+    border-radius: 25px;
+    box-shadow:
+        8px 8px 25px rgba(0,0,0,0.25),
+        -8px -8px 25px rgba(255,255,255,0.1);
+    font-family: system-ui, 'Segoe UI', sans-serif;
+    animation: fadeInModal 0.3s ease forwards;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Animación de entrada */
+@keyframes fadeInModal {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Título del modal */
+.modal-content h3,
+.modal-content h2,
+.user-modal-content h3 {
+    grid-column: 1 / -1;
+    font-size: 1.5rem;
+    color: #333;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* Botón cerrar (X) */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #4A90E2;
+}
+
+/* Formulario dentro del modal - ocupa todo el grid */
+.modal-content form,
+.form-usuario-crear,
+.form-usuario-actualizar,
+.form-usuario-eliminar {
+    display: contents;
+}
+
+/* Secciones del formulario */
+.modal-content .form-section,
+.modal-content .form-usuario-grupo,
+.form-grupo {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 10px 0;
+    margin-bottom: 10px;
+    grid-column: 1 / -1;
+}
+
+/* Fieldset y legend */
+.modal-content fieldset.form-section,
+fieldset.form-usuario-grupo {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.modal-content legend.section-title,
+legend.form-usuario-subtitulo {
+    font-size: 1.2rem;
+    color: #4A90E2;
+    font-weight: 600;
+    padding: 0 5px;
+}
+
+/* Cada fila de formulario */
+.modal-content .form-row,
+.form-usuario-fila {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Etiquetas */
+.modal-content .form-row label,
+.form-usuario-fila label {
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 5px 0;
+    color: #333;
+}
+
+/* Inputs, selects y textarea - mismo estilo neumórfico */
+.modal-content input,
+.modal-content select,
+.modal-content textarea,
+.form-usuario-crear input,
+.form-usuario-crear select,
+.form-usuario-actualizar input,
+.form-usuario-actualizar select,
+.form-usuario-eliminar input,
+.form-usuario-eliminar select,
+.form-usuario-eliminar textarea {
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid rgba(0,0,0,0.15);
+    background: rgba(255,255,255,0.9);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.15),
+                -5px -5px 15px rgba(255,255,255,0.7);
+    font-size: 1rem;
+    transition: all 0.25s ease;
+}
+
+/* Textarea (si lo usas) */
+.modal-content textarea {
+    height: 80px;
+    resize: none;
+}
+
+/* Focus - mismo efecto azul */
+.modal-content input:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
+    outline: none;
+    border-color: #4A90E2;
+    box-shadow: 0 0 12px rgba(74,144,226,0.4),
+                inset 2px 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Placeholder elegante */
+.modal-content input::placeholder,
+.modal-content textarea::placeholder {
+    color: rgba(0,0,0,0.4);
+    font-style: italic;
+}
+
+/* Botones del footer - idénticos a productos */
+.modal-content .form-buttons,
+.form-buttons {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 10px 0 0 0;
+}
+
+.modal-content .form-buttons button,
+.form-buttons button {
+    width: 180px;
+    height: 48px;
+    border-radius: 15px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2), inset 0 -2px 0 rgba(0,0,0,0.1);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Botón principal (Crear / Actualizar) - verde */
+.modal-content .btn-submit,
+.modal-content .btn-update,
+.btn-usuario-crear,
+.btn-submit {
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: #fff;
+}
+
+.modal-content .btn-submit:hover,
+.modal-content .btn-update:hover,
+.btn-usuario-crear:hover {
+    background: linear-gradient(135deg, #218838, #1c5930);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+
+/* Botón Cancelar - rojo */
+.modal-content .btn-cancel,
+.btn-usuario-cancelar,
+.btn-cancel {
+    background: linear-gradient(135deg, #dc3545, #b02a37);
+    color: #fff;
+}
+
+.modal-content .btn-cancel:hover,
+.btn-usuario-cancelar:hover,
+.btn-cancel:hover {
+    background: linear-gradient(135deg, #b02a37, #7a1820);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+
+/* Botón Eliminar - rojo intenso */
+.modal-content .btn-danger,
+.btn-danger {
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: #fff;
+}
+
+.modal-content .btn-danger:hover,
+.btn-danger:hover {
+    background: linear-gradient(135deg, #c82333, #a71d2a);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .modal-content,
+    .user-modal-content {
+        width: 95%;
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+
+/* Ajuste para modal Eliminar */
+#modalEliminar .modal-content {
+    max-width: 580px;
+    text-align: center;
+}
+
+/* Campos readonly (trazabilidad) */
+.input-readonly {
+    background: #f1f5f9;
+    color: #64748b;
+    cursor: not-allowed;
+}

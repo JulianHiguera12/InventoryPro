@@ -1,5 +1,4 @@
 // --- usuarios.js ---
-
 // Usuario actual (ejemplo)
 const usuarioActual = {
     nombre: "Laura Olmos",

@@ -1,37 +1,41 @@
+import { auth } from "./firebase.js";
+import { signInWithEmailAndPassword, signOut }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
 const formLogin = document.getElementById('formLogin');
 const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 
 if (formLogin) {
-    formLogin.addEventListener('submit', (e) => {
+    formLogin.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const usuario = document.getElementById('usuario').value;
         const password = document.getElementById('password').value;
+        const errorMsg = document.getElementById('login-error');
 
-        if (usuario === 'admin' && password === 'admin') {
+        const email = usuario + "@inventorypro.com";
 
-            // Guardar sesión
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
             sessionStorage.setItem('usuario', usuario);
-            sessionStorage.setItem('rol', 'admin');
+            sessionStorage.setItem('uid', user.uid);
 
-            // Redirigir al sistema
             window.location.href = "home.html";
 
-        } else {
-
-            const errorMsg = document.getElementById('login-error');
+        } catch (error) {
             if (errorMsg) {
                 errorMsg.style.display = 'block';
                 errorMsg.textContent = "Usuario o contraseña incorrectos";
             }
-
         }
     });
 }
 
-/* Cerrar sesión */
 if (btnCerrarSesion) {
-    btnCerrarSesion.addEventListener('click', () => {
+    btnCerrarSesion.addEventListener('click', async () => {
+        await signOut(auth);
         sessionStorage.clear();
         window.location.href = "login.html";
     });

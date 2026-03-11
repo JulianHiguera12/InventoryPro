@@ -1,0 +1,321 @@
+/* MODALES PRODUCTO (CREAR, EDITAR, VER y BUSCAR) */
+
+/* Contenedor del modal */
+.product-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.product-modal.active {
+    display: flex;
+}
+
+/* Contenido del modal */
+.product-modal-content {
+    width: 1000px;
+    max-width: 95%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+    background: rgba(245, 249, 252, 0.95);
+    backdrop-filter: blur(12px);
+    border-radius: 25px;
+    box-shadow:
+        8px 8px 25px rgba(0,0,0,0.25),
+        -8px -8px 25px rgba(255,255,255,0.1);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    animation: fadeInModal 0.3s ease forwards;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Header semántico */
+.product-modal-content header {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Título del modal */
+.product-modal-content h3 {
+    font-size: 2rem;
+    color: #4A90E2;
+    border-bottom: 2px solid #4A90E2;
+    padding-bottom: 10px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* Botón cerrar */
+.product-modal-content .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.2s ease;
+}
+
+.product-modal-content .close-btn:hover {
+    color: #4A90E2;
+}
+
+/* Formulario dentro del modal */
+.product-modal form {
+    display: contents;
+}
+
+/* Secciones del formulario */
+.product-modal .form-section {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 10px 0;
+    margin-bottom: 10px;
+    grid-column: 1 / -1;
+}
+
+/* Fieldset y legend */
+.product-modal fieldset.form-section {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.product-modal legend.section-title {
+    font-size: 1.2rem;
+    color: #4A90E2;
+    font-weight: 600;
+    padding: 0 5px;
+}
+
+/* Cada fila de formulario */
+.product-modal .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Etiquetas de formulario */
+.product-modal .form-row label {
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 5px 0;
+    color: #333;
+}
+
+/* Inputs, selects y textarea */
+.product-modal input,
+.product-modal select,
+.product-modal textarea {
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid rgba(0,0,0,0.15);
+    background: rgba(255,255,255,0.9);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.15),
+                -5px -5px 15px rgba(255,255,255,0.7);
+    font-size: 1rem;
+    transition: all 0.25s ease;
+}
+
+/* Textarea */
+.product-modal textarea {
+    height: 80px;
+    resize: none;
+}
+
+/* Focus */
+.product-modal input:focus,
+.product-modal select:focus,
+.product-modal textarea:focus {
+    outline: none;
+    border-color: #4A90E2;
+    box-shadow: 0 0 12px rgba(74,144,226,0.4),
+                inset 2px 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Placeholder elegante */
+.product-modal input::placeholder,
+.product-modal textarea::placeholder {
+    color: rgba(0,0,0,0.4);
+    font-style: italic;
+}
+
+/* TABLA RESULTADOS DE BÚSQUEDA */
+.product-modal .prod-search-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.95rem;
+}
+
+.product-modal .prod-search-table th,
+.product-modal .prod-search-table td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.product-modal .prod-search-table th {
+    background-color: #f0f4f8;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Placeholder en resultados */
+#prod-search-results td {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    padding: 15px 10px;
+    background-color: rgba(240, 244, 248, 0.3);
+}
+
+/* Botones dentro de los modales */
+.product-modal .form-buttons {
+    grid-column: 1 / -1;          
+    display: flex;
+    justify-content: flex-end;    
+    align-items: center;          
+    gap: 10px;
+    margin: 10px 0 0 0;             
+}
+
+/* Botones uniformes */
+.product-modal .form-buttons button {
+    width: 140px;              
+    height: 48px;              
+    border-radius: 15px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2), inset 0 -2px 0 rgba(0,0,0,0.1);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Botón crear / guardar */
+.product-modal .btn-submit {
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: #fff;
+}
+
+.product-modal .btn-submit:hover {
+    background: linear-gradient(135deg, #218838, #1c5930);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+
+/* Botón actualizar / editar */
+.product-modal .btn-update {
+    background: linear-gradient(135deg, #2196F3, #0b66c2);
+    color: #fff;
+}
+
+.product-modal .btn-update:hover {
+    background: linear-gradient(135deg, #0b66c2, #064785);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+
+/* Botón cancelar / cerrar */
+.product-modal .btn-cancel {
+    background: linear-gradient(135deg, #dc3545, #b02a37);
+    color: #fff;
+}
+
+.product-modal .btn-cancel:hover {
+    background: linear-gradient(135deg, #b02a37, #7a1820);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+
+/* BOTONES ACCIÓN EN TABLA DE RESULTADOS */
+
+.prod-search-table td > button {
+    padding: 6px 12px;
+    border-radius: 12px;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.15),
+                -3px -3px 8px rgba(255,255,255,0.7);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Botón Ver */
+.prod-search-table .btn-update {
+    background: linear-gradient(135deg, #2196F3, #0b66c2);
+    color: #fff;
+}
+
+.prod-search-table .btn-update:hover {
+    background: linear-gradient(135deg, #0b66c2, #064785);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+/* Botón Editar */
+.prod-search-table .btn-submit {
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: #fff;
+}
+
+.prod-search-table .btn-submit:hover {
+    background: linear-gradient(135deg, #218838, #1c5930);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.prod-search-table td > button + button {
+    margin-left: 8px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .prod-search-table td > button {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+        border-radius: 10px;
+    }
+}
+/* Animación de aparición del modal */
+@keyframes fadeInModal {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Clases full-width para inputs grandes */
+.product-modal .full-width {
+    grid-column: 1 / -1;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .product-modal-content {
+        width: 95%;
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}

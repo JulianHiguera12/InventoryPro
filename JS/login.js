@@ -1,24 +1,38 @@
 const formLogin = document.getElementById('formLogin');
-const loginScreen = document.getElementById('loginScreen');
-const mainSystem = document.querySelector('.app-layout');
 const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 
-formLogin.addEventListener('submit', (e) => {
-    e.preventDefault();
+if (formLogin) {
+    formLogin.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-    const usuario = document.getElementById('usuario').value;
-    const password = document.getElementById('password').value;
+        const usuario = document.getElementById('usuario').value;
+        const password = document.getElementById('password').value;
 
-    if (usuario === 'admin' && password === 'admin') {
-        loginScreen.style.display = 'none';
-        mainSystem.style.display = 'block';
-    } else {
-        document.getElementById('login-error').style.display = 'block';
-    }
-});
+        if (usuario === 'admin' && password === 'admin') {
 
-btnCerrarSesion.addEventListener('click', () => {
-    mainSystem.style.display = 'none';
-    loginScreen.style.display = 'flex';
-    formLogin.reset();
-});
+            // Guardar sesión
+            sessionStorage.setItem('usuario', usuario);
+            sessionStorage.setItem('rol', 'admin');
+
+            // Redirigir al sistema
+            window.location.href = "home.html";
+
+        } else {
+
+            const errorMsg = document.getElementById('login-error');
+            if (errorMsg) {
+                errorMsg.style.display = 'block';
+                errorMsg.textContent = "Usuario o contraseña incorrectos";
+            }
+
+        }
+    });
+}
+
+/* Cerrar sesión */
+if (btnCerrarSesion) {
+    btnCerrarSesion.addEventListener('click', () => {
+        sessionStorage.clear();
+        window.location.href = "login.html";
+    });
+}

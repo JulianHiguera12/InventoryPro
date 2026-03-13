@@ -247,49 +247,49 @@
 
 /* BOTONES ACCIÓN EN TABLA DE RESULTADOS */
 
-.prod-search-table td > button {
-    padding: 6px 12px;
-    border-radius: 12px;
-    border: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-    box-shadow: 3px 3px 8px rgba(0,0,0,0.15),
-                -3px -3px 8px rgba(255,255,255,0.7);
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+/* Botones de acción en la columna Acciones */
+.prod-search-table .action-btn {
+    padding:        6px 14px;
+    margin:         0 4px;
+    border:         none;
+    border-radius:  12px;
+    font-size:      0.9rem;
+    font-weight:    600;
+    cursor:         pointer;
+    color:          white;
+    transition:     all 0.22s ease;
+    box-shadow:     0 3px 8px rgba(0,0,0,0.2);
+    min-width:      80px;
 }
 
-/* Botón Ver */
-.prod-search-table .btn-update {
-    background: linear-gradient(135deg, #2196F3, #0b66c2);
-    color: #fff;
+.prod-search-table .btn-view {
+    background:     linear-gradient(135deg, #6c757d, #5a6268);
 }
 
-.prod-search-table .btn-update:hover {
-    background: linear-gradient(135deg, #0b66c2, #064785);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+.prod-search-table .btn-edit {
+    background:     linear-gradient(135deg, #28a745, #218838);
 }
 
-/* Botón Editar */
-.prod-search-table .btn-submit {
-    background: linear-gradient(135deg, #28a745, #218838);
-    color: #fff;
+.prod-search-table .btn-delete {
+    background:     linear-gradient(135deg, #dc3545, #c82333);
 }
 
-.prod-search-table .btn-submit:hover {
-    background: linear-gradient(135deg, #218838, #1c5930);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+.prod-search-table .action-btn:hover {
+    transform:      translateY(-1px);
+    box-shadow:     0 6px 14px rgba(0,0,0,0.25);
+    filter:         brightness(1.08);
 }
 
-.prod-search-table td > button + button {
-    margin-left: 8px;
+.prod-search-table .action-btn:active {
+    transform:      translateY(1px);
+    box-shadow:     0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Espaciado en celdas de acciones */
+.prod-search-table td.actions-column {
+    white-space:    nowrap;
+    text-align:     center;
+    padding:        8px 12px !important;
 }
 
 /* Responsive */

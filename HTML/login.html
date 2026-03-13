@@ -109,12 +109,11 @@
                     <input type="text" id="usuario" class="input-field" placeholder="Usuario" required>
                     <input type="password" id="password" class="input-field" placeholder="Contraseña" required>
 
-                    <!-- Opciones login -->
+                <!--  -->
                     <div class="login-options">
-                        <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                        <a href="#" id="linkForgotPassword" class="forgot-password">¿Olvidaste tu contraseña?</a>
                     </div>
-
-                    <button type="submit" class="btn-submit">Iniciar Sesión</button>
+                        <button type="submit" class="btn-submit">Iniciar Sesión</button>
                 </form>
 
                 <!-- Mensaje de error / aviso -->
@@ -122,6 +121,43 @@
 
                 <!-- Información adicional -->
                 <p class="login-register">¿No tienes cuenta? <a href="#">Regístrate aquí</a></p>
+            </div>
+        </div>
+
+        <!-- Modal de Olvidé Contraseña -->
+        <div id="forgotModal" class="forgot-modal" style="display: none;">
+            <div class="forgot-overlay" onclick="closeForgotModal()"></div>
+            
+            <div class="forgot-card">
+                <button class="forgot-close" onclick="closeForgotModal()" aria-label="Cerrar">×</button>
+                
+                <h2>Recuperar contraseña</h2>
+                <p class="forgot-subtitle">Ingresa tu correo electrónico registrado y te enviaremos un enlace para restablecerla.</p>
+                
+                <form id="formForgot" class="login-form">
+                    <input 
+                        type="email" 
+                        id="emailForgot" 
+                        class="input-field" 
+                        placeholder="Correo electrónico" 
+                        required 
+                        autocomplete="email"
+                    >
+                    
+                    <button type="submit" class="btn-submit">Enviar enlace</button>
+                </form>
+                
+                <!-- Mensajes -->
+                <p id="forgot-success" class="login-error" style="display:none; color: #2e7d32; font-weight:500; text-align:center;">
+                    ¡Enlace enviado! Revisa tu correo (incluyendo spam).
+                </p>
+                <p id="forgot-error" class="login-error" style="display:none; text-align:center;">
+                    Error al procesar. Intenta nuevamente.
+                </p>
+                
+                <p style="text-align:center; margin-top:1.5rem;">
+                    <a href="#" onclick="closeForgotModal()" class="forgot-password">Volver al inicio de sesión</a>
+                </p>
             </div>
         </div>
 
@@ -181,6 +217,86 @@
             }
 
             loginTitle.textContent = saludo;
+        </script>
+
+        <script>
+            // Conectar el enlace "Olvidé contraseña" con la apertura del modal
+            document.addEventListener('DOMContentLoaded', function() {
+                const link = document.getElementById('linkForgotPassword');
+                if (link) {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        openForgotModal();
+                    });
+                } else {
+                    console.warn('No se encontró el elemento con id="linkForgotPassword"');
+                }
+            });
+        </script>
+
+        <script>
+            function openForgotModal() {
+                const modal = document.getElementById('forgotModal');
+                if (modal) {
+                    modal.style.display = 'flex';
+                    const input = document.getElementById('emailForgot');
+                    if (input) input.focus();
+                    // Limpiar mensajes anteriores
+                    const success = document.getElementById('forgot-success');
+                    const error = document.getElementById('forgot-error');
+                    if (success) success.style.display = 'none';
+                    if (error) error.style.display = 'none';
+                }
+            }
+
+            function closeForgotModal() {
+                const modal = document.getElementById('forgotModal');
+                if (modal) {
+                    modal.style.display = 'none';
+                    const form = document.getElementById('formForgot');
+                    if (form) form.reset();
+                    const success = document.getElementById('forgot-success');
+                    const error = document.getElementById('forgot-error');
+                    if (success) success.style.display = 'none';
+                    if (error) error.style.display = 'none';
+                }
+            }
+
+            // Manejo del envío del formulario (simulado)
+            const formForgot = document.getElementById('formForgot');
+            if (formForgot) {
+                formForgot.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const email = document.getElementById('emailForgot')?.value.trim();
+                    const success = document.getElementById('forgot-success');
+                    const error = document.getElementById('forgot-error');
+
+                    if (!success || !error) return;
+
+                    success.style.display = 'none';
+                    error.style.display = 'none';
+
+                    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+                        error.textContent = "Ingresa un correo electrónico válido";
+                        error.style.display = 'block';
+                        return;
+                    }
+
+                    // Simulación de envío (reemplaza con fetch real cuando tengas backend)
+                    setTimeout(() => {
+                        success.style.display = 'block';
+                        formForgot.reset();
+                    }, 1200);
+                });
+            }
+
+            // Cerrar con Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeForgotModal();
+                }
+            });
         </script>
 
     </body>

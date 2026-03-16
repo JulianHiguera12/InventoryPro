@@ -53,6 +53,6 @@ if (btnCerrarSesion) {
     btnCerrarSesion.addEventListener('click', async () => {
         await signOut(auth);
         sessionStorage.clear();
-        window.location.href = "login.html";
+        window.location.href = "index.html";
     });
 }

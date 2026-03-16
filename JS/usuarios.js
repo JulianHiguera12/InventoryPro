@@ -41,7 +41,7 @@ function actualizarHeaderUsuario() {
     if (btnCerrarSesion) {
         btnCerrarSesion.addEventListener('click', () => {
             // Limpiar sesión o redirigir al login
-            window.location.href = "../HTML/login.html"; 
+            window.location.href = "../HTML/index.html"; 
         });
     }
 

@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (e) { console.error(e); }
 
     // Cargar parámetros guardados
-    cargarParametros();
+    await cargarParametros();
 
     // Cargar usuarios
     await cargarUsuarios();
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         btnCerrarSesion.addEventListener('click', async () => {
             await signOut(auth);
             sessionStorage.clear();
-            window.location.href = '/HTML/login.html';
+            window.location.href = '/HTML/index.html';
         });
     }
 
@@ -304,23 +304,38 @@ function getDatosFormulario() {
 }
 
 // ── PARÁMETROS DE INVENTARIO ──────────────────────────────────────────────────
-function cargarParametros() {
-    const umbral   = localStorage.getItem('param-umbral-stock');
-    const diasVence = localStorage.getItem('param-dias-vencimiento');
-    if (umbral)    document.getElementById('param-umbral-stock').value      = umbral;
-    if (diasVence) document.getElementById('param-dias-vencimiento').value  = diasVence;
+async function cargarParametros() {
+    try {
+        const snap = await getDoc(doc(db, 'configuracion', 'parametros'));
+        if (snap.exists()) {
+            const data = snap.data();
+            if (data.umbralStock)       document.getElementById('param-umbral-stock').value      = data.umbralStock;
+            if (data.diasVencimiento)   document.getElementById('param-dias-vencimiento').value  = data.diasVencimiento;
+        }
+    } catch (e) {
+        console.error('Error cargando parámetros:', e);
+    }
 }
 
-function guardarParametros() {
-    const umbral   = document.getElementById('param-umbral-stock').value;
-    const diasVence = document.getElementById('param-dias-vencimiento').value;
+async function guardarParametros() {
+    const umbral      = document.getElementById('param-umbral-stock').value;
+    const diasVence   = document.getElementById('param-dias-vencimiento').value;
 
     if (!umbral || !diasVence) {
         showToast('Completa ambos parámetros.', 'error');
         return;
     }
 
-    localStorage.setItem('param-umbral-stock', umbral);
-    localStorage.setItem('param-dias-vencimiento', diasVence);
-    showToast('Parámetros guardados correctamente.');
+    try {
+        await setDoc(doc(db, 'configuracion', 'parametros'), {
+            umbralStock:      Number(umbral),
+            diasVencimiento:  Number(diasVence),
+            actualizadoPor:   sessionStorage.getItem('uid'),
+            actualizadoEn:    new Date().toISOString()
+        });
+        showToast('Parámetros guardados correctamente.');
+    } catch (e) {
+        console.error('Error guardando parámetros:', e);
+        showToast('Error al guardar parámetros.', 'error');
+    }
 }

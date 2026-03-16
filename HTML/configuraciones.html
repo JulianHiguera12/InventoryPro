@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuraciones | InventoryPro</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="/IMG/Logo_InventoryProCopy.png">
+
+    <!-- CSS modular (igual que el resto de páginas) -->
+    <link rel="stylesheet" href="/CSS/header.css">
+    <link rel="stylesheet" href="/CSS/mainContainer.css">
+
+    <!-- CSS propio de configuraciones -->
+    <style>
+        /* ── SECCIÓN PRINCIPAL ── */
+        .dashboard-config {
+            flex: 1;
+            padding: 28px 32px;
+            background-color: #f5f9fc;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow:
+                12px 12px 24px rgba(0,0,0,0.11),
+                -12px -12px 24px rgba(200,200,200,0.55);
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            overflow-y: auto;
+        }
+
+        .dashboard-config h2 {
+            margin: 0 0 4px 0;
+            font-size: 1.9rem;
+            color: #1a1a2e;
+            border-bottom: 3px solid #3b5bdb;
+            padding-bottom: 10px;
+            font-weight: 700;
+        }
+
+        /* ── TARJETAS DE SECCIÓN ── */
+        .config-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px 28px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+            border: 1px solid #e8ecf4;
+        }
+
+        .config-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .config-card-header .config-icon {
+            font-size: 1.6rem;
+        }
+
+        .config-card-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #1a1a2e;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .config-card-header .toggle-arrow {
+            font-size: 1rem;
+            color: #888;
+            transition: transform 0.3s ease;
+        }
+
+        .config-card-header.open .toggle-arrow {
+            transform: rotate(180deg);
+        }
+
+        .config-card-body {
+            display: none;
+        }
+
+        .config-card-body.open {
+            display: block;
+        }
+
+        /* ── PARÁMETROS DE INVENTARIO ── */
+        .config-param-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .config-param-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .config-param-item label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .config-param-item input {
+            padding: 10px 14px;
+            border: 1.5px solid #dde2ef;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .config-param-item input:focus {
+            border-color: #3b5bdb;
+        }
+
+        .config-param-item .param-hint {
+            font-size: 0.78rem;
+            color: #999;
+        }
+
+        .config-save-btn {
+            margin-top: 18px;
+            padding: 10px 28px;
+            background: linear-gradient(135deg, #3b5bdb, #2244c4);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .config-save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(59,91,219,0.35);
+        }
+
+        /* ── TABLA DE USUARIOS ── */
+        .users-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .users-filter-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-tab {
+            padding: 7px 18px;
+            border-radius: 20px;
+            border: 1.5px solid #dde2ef;
+            background: white;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-tab.active {
+            background: #3b5bdb;
+            border-color: #3b5bdb;
+            color: white;
+        }
+
+        .btn-nuevo-usuario {
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #28a745, #218838);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-nuevo-usuario:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(40,167,69,0.35);
+        }
+
+        .users-table-wrapper {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid #e8ecf4;
+        }
+
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .users-table thead tr {
+            background: #f0f4ff;
+        }
+
+        .users-table th {
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 700;
+            color: #3b5bdb;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+
+        .users-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #444;
+            vertical-align: middle;
+        }
+
+        .users-table tbody tr:hover {
+            background: #f8f9ff;
+        }
+
+        .badge-rol {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .badge-admin {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .badge-auxiliar {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-estado-activo {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-estado-inactivo {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-edit-user, .btn-delete-user {
+            padding: 5px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-edit-user {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .btn-delete-user {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .btn-edit-user:hover, .btn-delete-user:hover {
+            opacity: 0.75;
+        }
+
+        .empty-table-msg {
+            text-align: center;
+            padding: 30px;
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        /* ── TOAST DE ÉXITO ── */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast-success { background: #28a745; }
+        .toast-error   { background: #dc3545; }
+
+        /* ── MODAL ── */
+        .modal-cfg {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-cfg.active {
+            display: flex;
+        }
+
+        .modal-cfg-content {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            width: 560px;
+            max-width: 95vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .modal-cfg-content h3 {
+            margin: 0 0 24px 0;
+            font-size: 1.3rem;
+            color: #1a1a2e;
+        }
+
+        .modal-close-cfg {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #888;
+            line-height: 1;
+        }
+
+        .form-cfg-fila {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 16px;
+        }
+
+        .form-cfg-fila label {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-cfg-fila input,
+        .form-cfg-fila select {
+            padding: 10px 14px;
+            border: 1.5px solid #dde2ef;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-cfg-fila input:focus,
+        .form-cfg-fila select:focus {
+            border-color: #3b5bdb;
+        }
+
+        .form-cfg-botones {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            justify-content: flex-end;
+        }
+
+        .btn-cfg-guardar {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #3b5bdb, #2244c4);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-cfg-cancelar {
+            padding: 10px 24px;
+            background: #f1f3f5;
+            color: #555;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .config-param-grid { grid-template-columns: 1fr; }
+            .users-toolbar { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER SUPERIOR -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <div class="logo">InventoryPro</div>
+        </div>
+        <div class="topbar-center">
+            <input type="search" placeholder="Buscar productos..." class="search-input">
+        </div>
+        <div class="topbar-right">
+            <button class="notification-btn" title="Notificaciones">
+                <span class="icon-bell">🔔</span>
+                <span class="badge">3</span>
+            </button>
+            <nav class="user-menu" aria-label="Menú de usuario">
+                <button class="user-info" id="userInfo" aria-haspopup="true" aria-expanded="false">
+                    <img src="/IMG/woman.png" alt="Avatar del usuario" class="user-icon">
+                    <span id="nombreUsuario">Cargando...</span>
+                </button>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="/HTML/gestionUsuarios.html" class="dropdown-item">👤 Mi Perfil</a>
+                    <a href="/HTML/configuraciones.html" class="dropdown-item">⚙ Configuraciones</a>
+                    <button id="btnCerrarSesion" class="logout-btn">🚪 Cerrar Sesión</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li id="navInicio"><a href="/HTML/home.html">Inicio</a></li>
+                    <li id="navRegistro"><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
+                    <li id="navEstadisticas"><a href="/HTML/estadisticas.html">Estadísticas</a></li>
+                    <li id="navReportes"><a href="/HTML/reportes.html">Reportes</a></li>
+                    <li id="navNotificaciones"><a href="/HTML/notificaciones.html">Notificaciones</a></li>
+                    <li id="navConfiguraciones" class="active"><a href="/HTML/configuraciones.html">Configuraciones</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-logo">
+                <img src="/IMG/Logo_InventoryProCopy.png" alt="InventoryPro Logo" class="logo-img">
+            </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <section class="dashboard-config">
+            <h2>⚙️ Configuraciones</h2>
+
+            <!-- ── TARJETA 1: PARÁMETROS DE INVENTARIO ── -->
+            <div class="config-card">
+                <div class="config-card-header open" data-target="body-inventario">
+                    <span class="config-icon">📦</span>
+                    <h3>Parámetros de Inventario</h3>
+                    <span class="toggle-arrow">▼</span>
+                </div>
+                <div class="config-card-body open" id="body-inventario">
+                    <div class="config-param-grid">
+                        <div class="config-param-item">
+                            <label for="param-umbral-stock">Umbral mínimo de stock</label>
+                            <input type="number" id="param-umbral-stock" min="1" placeholder="Ej: 10">
+                            <span class="param-hint">Cantidad mínima antes de marcar producto con bajo stock</span>
+                        </div>
+                        <div class="config-param-item">
+                            <label for="param-dias-vencimiento">Rango de días para vencimientos</label>
+                            <input type="number" id="param-dias-vencimiento" min="1" placeholder="Ej: 30">
+                            <span class="param-hint">Días de anticipación para alertar productos próximos a vencer</span>
+                        </div>
+                    </div>
+                    <button class="config-save-btn" id="btn-guardar-params">💾 Guardar Parámetros</button>
+                </div>
+            </div>
+
+            <!-- ── TARJETA 2: GESTIÓN DE USUARIOS ── -->
+            <div class="config-card">
+                <div class="config-card-header open" data-target="body-usuarios">
+                    <span class="config-icon">👥</span>
+                    <h3>Gestión de Usuarios</h3>
+                    <span class="toggle-arrow">▼</span>
+                </div>
+                <div class="config-card-body open" id="body-usuarios">
+                    <div class="users-toolbar">
+                        <div class="users-filter-tabs">
+                            <button class="filter-tab active" data-filter="todos">Todos</button>
+                            <button class="filter-tab" data-filter="activo">Activos</button>
+                            <button class="filter-tab" data-filter="inactivo">Inactivos</button>
+                        </div>
+                        <button class="btn-nuevo-usuario" id="btn-nuevo-usuario">➕ Nuevo Usuario</button>
+                    </div>
+
+                    <div class="users-table-wrapper">
+                        <table class="users-table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Correo</th>
+                                    <th>Rol</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table-body">
+                                <tr>
+                                    <td colspan="5" class="empty-table-msg">Cargando usuarios...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <!-- ── MODAL CREAR / EDITAR USUARIO ── -->
+    <div id="modal-cfg-usuario" class="modal-cfg">
+        <div class="modal-cfg-content">
+            <button class="modal-close-cfg" id="modal-cfg-close">×</button>
+            <h3 id="modal-cfg-titulo">Nuevo Usuario</h3>
+
+            <form id="form-cfg-usuario" autocomplete="off">
+                <input type="hidden" id="cfg-usuario-uid">
+
+                <div class="form-cfg-fila">
+                    <label>Primer Nombre *</label>
+                    <input type="text" id="cfg-primer-nombre" required placeholder="Ej: Laura">
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Segundo Nombre</label>
+                    <input type="text" id="cfg-segundo-nombre" placeholder="Ej: Fernanda">
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Primer Apellido *</label>
+                    <input type="text" id="cfg-primer-apellido" required placeholder="Ej: Olmos">
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Segundo Apellido</label>
+                    <input type="text" id="cfg-segundo-apellido" placeholder="Ej: Torres">
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Correo Electrónico *</label>
+                    <input type="email" id="cfg-correo" required placeholder="ejemplo@empresa.com">
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Teléfono</label>
+                    <input type="tel" id="cfg-telefono" placeholder="Ej: 3124567890">
+                </div>
+                <div class="form-cfg-fila" id="cfg-password-fila">
+                    <label>Contraseña * <span style="font-weight:400;color:#999">(mínimo 6 caracteres)</span></label>
+                    <input type="password" id="cfg-password" placeholder="Contraseña">
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Rol *</label>
+                    <select id="cfg-rol" required>
+                        <option value="">Selecciona un rol</option>
+                        <option value="administrador">Administrador</option>
+                        <option value="auxiliar">Auxiliar</option>
+                    </select>
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Estado</label>
+                    <select id="cfg-estado">
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="form-cfg-botones">
+                    <button type="button" class="btn-cfg-cancelar" id="btn-cfg-cancelar">Cancelar</button>
+                    <button type="submit" class="btn-cfg-guardar">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="/JS/firebase.js"></script>
+    <script type="module" src="/JS/configuraciones.js"></script>
+    <script type="module" src="/JS/usuarios.js"></script>
+
+</body>
+</html>

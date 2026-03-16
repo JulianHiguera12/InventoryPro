@@ -19,9 +19,25 @@ if (formLogin) {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
+            // Verificar que el usuario esté activo en Firestore
+            const { db } = await import("./firebase.js");
+            const { doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+
+            const snap = await getDoc(doc(db, 'usuarios', user.uid));
+
+            if (snap.exists() && snap.data().activo === false) {
+                // Usuario desactivado — cerrar sesión inmediatamente
+                await signOut(auth);
+                if (errorMsg) {
+                    errorMsg.style.display = 'block';
+                    errorMsg.textContent = "Tu cuenta ha sido desactivada. Contacta al administrador.";
+                }
+                return;
+            }
+
+            // Guardar sesión y redirigir
             sessionStorage.setItem('usuario', usuario);
             sessionStorage.setItem('uid', user.uid);
-
             window.location.href = "home.html";
 
         } catch (error) {

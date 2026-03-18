@@ -1,26 +1,43 @@
-// --- usuarios.js ---
-// Usuario actual (ejemplo)
-const usuarioActual = {
-    nombre: "Laura Olmos",
-    avatar: "../IMG/woman.png" 
-};
+import { obtenerUsuarioActual } from './firebase.js';
 
-// Función principal
-function actualizarHeaderUsuario() {
+// Rutas de los avatares
+const AVATAR_HOMBRE = "../assets/img/man.png";
+const AVATAR_MUJER = "../assets/img/woman.png";
+
+async function actualizarHeaderUsuario() {
     const nombreSpan = document.getElementById('nombreUsuario');
     const userInfoBtn = document.getElementById('userInfo');
     const dropdown = document.getElementById('userDropdown');
 
     if (!nombreSpan || !userInfoBtn || !dropdown) return;
 
-    // Actualizar nombre
-    nombreSpan.textContent = usuarioActual.nombre;
+    // 🔥 Esperar datos de Firebase
+    const usuarioActual = await obtenerUsuarioActual();
 
-    // Actualizar avatar
+    // 🔴 Validación clave
+    if (!usuarioActual) {
+        console.warn("No se pudo obtener el usuario");
+        window.location.href = "../HTML/index.html";
+        return;
+    }
+
+    // ✅ Nombre
+    nombreSpan.textContent = usuarioActual.nombre || "Usuario";
+
+    // ✅ Avatar
     const avatar = userInfoBtn.querySelector('.user-icon');
-    if (avatar) avatar.src = usuarioActual.avatar;
 
-    // Mostrar dropdown al hacer clic en el usuario
+    if (avatar) {
+        if (usuarioActual.genero === "man") {
+            avatar.src = AVATAR_HOMBRE;
+        } else if (usuarioActual.genero === "woman") {
+            avatar.src = AVATAR_MUJER;
+        } else {
+            avatar.src = "../assets/img/avatar-default.png";
+        }
+    }
+
+    // --- Dropdown (igual que tenías) ---
     userInfoBtn.addEventListener('click', (e) => {
         e.stopPropagation(); 
         dropdown.classList.toggle('active');
@@ -28,7 +45,6 @@ function actualizarHeaderUsuario() {
         userInfoBtn.setAttribute('aria-expanded', String(isActive));
     });
 
-    // Cerrar dropdown si se hace clic fuera
     document.addEventListener('click', (e) => {
         if (!userInfoBtn.contains(e.target) && !dropdown.contains(e.target)) {
             dropdown.classList.remove('active');
@@ -36,35 +52,10 @@ function actualizarHeaderUsuario() {
         }
     });
 
-    // Manejo de "Cerrar Sesión"
     const btnCerrarSesion = document.getElementById('btnCerrarSesion');
     if (btnCerrarSesion) {
         btnCerrarSesion.addEventListener('click', () => {
-            // Limpiar sesión o redirigir al login
             window.location.href = "../HTML/index.html"; 
         });
     }
-
-    // Manejo de "Mi Perfil"
-    const perfilLink = dropdown.querySelector('a[href="#"]:first-of-type');
-    if (perfilLink) {
-        perfilLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Redirigir a perfil
-            window.location.href = "../HTML/perfil.html"; 
-        });
-    }
-
-    // Manejo de "Configuraciones"
-    const configLink = dropdown.querySelectorAll('a[href="#"]')[1];
-    if (configLink) {
-        configLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Redirigir a configuraciones
-            window.location.href = "../HTML/configuraciones.html"; 
-        });
-    }
 }
-
-// Ejecutar al cargar la página
-document.addEventListener('DOMContentLoaded', actualizarHeaderUsuario);

@@ -9,17 +9,9 @@
         <link rel="icon" type="image/jpeg" href="/IMG/Logo_InventoryProCopy.png">
 
         <!-- CSS modular -->
-        <link rel="stylesheet" href="../CSS/login.css">
-        <link rel="stylesheet" href="../CSS/carousel.css">
-        <link rel="stylesheet" href="../CSS/mainContainer.css">
-        <link rel="stylesheet" href="../CSS/modals.css">
-        <link rel="stylesheet" href="../CSS/errorLogin.css">
+        <link rel="stylesheet" href="/CSS/mainContainer.css">
+        <link rel="stylesheet" href="/CSS/layout.css">
 
-        <link rel="stylesheet" href="../CSS/header.css">
-        <link rel="stylesheet" href="../CSS/gestionUsuarios.css">
-        <link rel="stylesheet" href="../CSS/modalCreateUsers.css">
-        <link rel="stylesheet" href="../CSS/modalUpdateUsers.css">
-        <link rel="stylesheet" href="../CSS/modalDeleteUsers.css">
 
         <!-- Librerías externas con defer -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
@@ -32,47 +24,29 @@
 
         <!-- HEADER SUPERIOR -->
         <header class="topbar">
-            <!-- Logo -->
             <div class="topbar-left">
                 <div class="logo">InventoryPro</div>
             </div>
-
-            <!-- Barra de búsqueda -->
             <div class="topbar-center">
                 <input type="search" placeholder="Buscar productos..." class="search-input">
             </div>
-
-            <!-- Notificaciones y usuario -->
             <div class="topbar-right">
-                <!-- Icono de notificaciones -->
                 <button class="notification-btn" title="Notificaciones">
                     <span class="icon-bell">🔔</span>
                     <span class="badge">3</span>
                 </button>
-
-              <!-- Usuario en el header -->
-            <nav class="user-menu" aria-label="Menú de usuario">
-                <button class="user-info" id="userInfo" aria-haspopup="true" aria-expanded="false">
-                    <img src="../IMG/woman.png" alt="Avatar del usuario" class="user-icon">
-                    <span id="nombreUsuario">Laura Olmos</span>
-                </button>
-
-                <!-- Dropdown -->
-                <div class="user-dropdown" id="userDropdown">
-                    <a href="../HTML/gestionUsuarios.html" class="dropdown-item">
-                        <span class="icon">👤</span>
-                        <span class="label">Mi Perfil</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <span class="icon">⚙</span>
-                        <span class="label">Configuraciones</span>
-                    </a>
-                    <button id="btnCerrarSesion" class="logout-btn">
-                        <span class="icon">🚪</span>
-                        <span class="label">Cerrar Sesión</span>
+                <nav class="user-menu" aria-label="Menú de usuario">
+                    <button class="user-info" id="userInfo" aria-haspopup="true" aria-expanded="false">
+                        <img src="/IMG/man.png" alt="Avatar del usuario" class="user-icon">
+                        <span id="nombreUsuario">Cargando...</span>
                     </button>
-                </div>
-            </nav>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="/HTML/gestionUsuarios.html" class="dropdown-item">👤 Mi Perfil</a>
+                        <a href="/HTML/configuraciones.html" class="dropdown-item">⚙ Configuraciones</a>
+                        <button id="btnCerrarSesion" class="logout-btn">🚪 Cerrar Sesión</button>
+                    </div>
+                </nav>
+            </div>
         </header>
 
         <!-- CONTENEDOR PRINCIPAL -->
@@ -169,20 +143,16 @@
             </section>
         </div>
 
-        <!-- Modals -->
-        <div id="modalEditar" class="modal"></div>
-        <div id="modalExportar" class="modal"></div>
-        <div id="modalUsuario" class="modal"></div>
-
-        <!-- Notificaciones -->
-        <div id="notificacion" class="notificacion"></div>
-
         <!-- Scripts propios -->
-        <script src="../JS/carrusel.js" defer></script>
-        <script src="../JS/login.js" defer></script>
-        <script src="../JS/logo.js" defer></script>
-        <script src="../JS/productos.js" defer></script>
-        <script src="../JS/usuarios.js" defer></script>
+        <script src="/JS/usuarios.js" defer></script>
+        <script src="/JS/carrusel.js" defer></script>
+        <script src="/JS/login.js" defer></script>
+        <script src="/JS/logo.js" defer></script>
+        <script src="/JS/productos.js" defer></script>
+        <script src="/JS/configuraciones.js" defer></script>
+
+
+
 
 
         <!-- Script Carrusel inline inicial -->

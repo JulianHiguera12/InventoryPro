@@ -595,3 +595,67 @@ function aplicarRestriccionesPorRol() {
     if (btnCreate) btnCreate.style.display = 'none';
 
 }
+
+// 🎯 BOTÓN E INPUT
+const btnCSV = document.getElementById("btnCargarCSV");
+const inputCSV = document.getElementById("inputCSV");
+
+if (btnCSV && inputCSV) {
+
+  btnCSV.addEventListener("click", () => {
+    inputCSV.click();
+  });
+
+  inputCSV.addEventListener("change", function (e) {
+    const archivo = e.target.files[0];
+    if (!archivo) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+      const texto = event.target.result;
+      procesarCSV(texto);
+    };
+
+    reader.readAsText(archivo);
+  });
+}
+
+
+// ⚙️ FUNCIÓN PRINCIPAL
+async function procesarCSV(texto) {
+  const filas = texto.split("\n");
+  const encabezados = filas[0].split(",");
+
+  let exitos = 0;
+
+  for (let i = 1; i < filas.length; i++) {
+    const fila = filas[i].trim();
+    if (!fila) continue;
+
+    const valores = fila.split(",");
+    if (valores.length < encabezados.length) continue;
+
+    let producto = {};
+
+    encabezados.forEach((enc, index) => {
+      producto[enc.trim()] = valores[index].trim();
+    });
+
+    producto.cantidad = Number(producto.cantidad) || 0;
+    producto.estado = "disponible";
+    producto.fechaRegistro = new Date().toISOString();
+    producto.fechaModificacion = new Date().toISOString();
+    producto.usuarioRegistra = "admin";
+
+    try {
+      await addDoc(collection(db, "productos"), producto);
+      exitos++;
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  alert("✅ Se cargaron " + exitos + " productos");
+  location.reload();
+}

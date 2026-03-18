@@ -59,8 +59,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Cargar parámetros guardados
     await cargarParametros();
 
+    // Aplicar restricciones por rol  
+    aplicarRestriccionesPorRol();
+
+
     // Cargar usuarios
     await cargarUsuarios();
+
+        // ── APLICA RESTRICCIONES POR ROL ──
+    function aplicarRestriccionesPorRol() {
+        const rol = sessionStorage.getItem('rol');
+        if (rol !== 'auxiliar') return;
+
+        // Deshabilitar parámetros de inventario
+        const umbral = document.getElementById('param-umbral-stock');
+        const dias = document.getElementById('param-dias-vencimiento');
+        if (umbral) umbral.disabled = true;
+        if (dias) dias.disabled = true;
+
+        // Ocultar botón Guardar Parámetros
+        const btnGuardar = document.getElementById('btn-guardar-params');
+        if (btnGuardar) btnGuardar.style.display = 'none';
+
+        // Ocultar botón Nuevo Usuario
+        const btnNuevo = document.getElementById('btn-nuevo-usuario');
+        if (btnNuevo) btnNuevo.style.display = 'none';
+    }
 
     // ── ACCORDION ──
     document.querySelectorAll('.config-card-header').forEach(header => {
@@ -168,7 +192,9 @@ function renderTabla() {
                 <td>${estadoBadge}</td>
                 <td>
                     <div class="table-actions">
-                        <button class="btn-edit-user" data-uid="${u.uid}">✏️ Editar</button>
+                        ${sessionStorage.getItem('rol') !== 'auxiliar' ? `
+                            <button class="btn-edit-user" data-uid="${u.uid}">✏️ Editar</button>
+                         ` : ''}                   
                     </div>
                 </td>
             </tr>

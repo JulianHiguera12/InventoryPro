@@ -124,6 +124,10 @@
                 <button class="product-btn product-btn-create" id="prod-btn-create" aria-label="Crear producto">
                     ➕ Crear Producto
                 </button>
+                <button id="btnCargarCSV" class="btn btn-success">
+                 📂 Carga Masiva CSV
+                 </button>
+                <input type="file" id="inputCSV" accept=".csv" style="display: none;">
                 <button class="product-btn product-btn-search" id="prod-btn-search" aria-label="Buscar producto">
                     🔍 Buscar Producto
                 </button>
@@ -296,6 +300,7 @@
             </div>
         </div>
 
+<input type="file" id="inputCSV" accept=".csv" style="display: none;">
         <!-- Modal Editar Producto -->
         <div id="prod-modal-edit" class="product-modal" aria-hidden="true">
             <div class="product-modal-content" role="dialog" aria-modal="true" aria-labelledby="prod-modal-edit-title">

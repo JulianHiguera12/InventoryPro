@@ -359,3 +359,61 @@ body {
                 inset -1px -1px 3px #c8d0d8;
     transition: 0.3s all;
 }
+
+/* ANIMACIÓN DE BIENVENIDA CON CONFETI */
+/* ANIMACIÓN DE BIENVENIDA */
+.animacion-bienvenida {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+    z-index: 9999;
+}
+
+.animacion-bienvenida.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.bienvenida-content {
+    position: relative;
+    text-align: center;
+    color: #fff;
+    z-index: 2;
+    animation: aparecer 1s ease forwards;
+}
+
+.bienvenida-content h1 {
+    font-size: 2.5rem;
+    margin-top: 12px;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+/* Animación de zoom */
+@keyframes aparecer {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Canvas confeti */
+#confettiCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}

@@ -6,12 +6,11 @@
         <title>InventoryPro</title>
 
         <!-- Favicon -->
-        <link rel="icon" type="image/jpeg" href="/IMG/Logo_InventoryProCopy.png">
+        <link rel="icon" type="image/jpeg" href="../IMG/Logo_InventoryProCopy.png">
 
         <!-- CSS modular -->
-        <link rel="stylesheet" href="/CSS/mainContainer.css">
-        <link rel="stylesheet" href="/CSS/layout.css">
-
+        <link rel="stylesheet" href="../CSS/mainContainer.css">
+        <link rel="stylesheet" href="../CSS/layout.css">     
 
         <!-- Librerías externas con defer -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
@@ -19,6 +18,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" defer></script>
     </head>
     <body>
+        
         <!-- Sistema principal -->
         <div class="app-layout">
 
@@ -37,14 +37,15 @@
                     </button>
                     <nav class="user-menu" aria-label="Menú de usuario">
                         <button class="user-info" id="userInfo" aria-haspopup="true" aria-expanded="false">
-                            <img src="/IMG/man.png" alt="Avatar del usuario" class="user-icon">
+                            <img src="../IMG/man.png" alt="Avatar del usuario" class="user-icon">
                             <span id="nombreUsuario">Cargando...</span>
                         </button>
-                        <div class="user-dropdown" id="userDropdown">
-                            <a href="/HTML/gestionUsuarios.html" class="dropdown-item">👤 Mi Perfil</a>
-                            <a href="/HTML/configuraciones.html" class="dropdown-item">⚙ Configuraciones</a>
-                            <button id="btnCerrarSesion" class="logout-btn">🚪 Cerrar Sesión</button>
-                        </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="../HTML/gestionUsuarios.html" class="dropdown-item">👤 Mi Perfil</a>
+                        <a href="../HTML/configuraciones.html" class="dropdown-item">⚙ Configuraciones</a>
+                        <button id="btnCerrarSesion" class="logout-btn">🚪 Cerrar Sesión</button>
+                    </div>
+
                     </nav>
                 </div>
             </header>
@@ -55,13 +56,13 @@
                 <aside class="sidebar">
                     <nav class="sidebar-nav">
                         <ul>
-                            <li id="navInicio" class="active"><a href="#">Inicio</a></li>
-                            <li id="navRegistro"><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
-                            <li id="navEstadisticas"><a href="/HTML/estadisticas.html">Estadísticas</a></li>
-                            <li id="navReportes"><a href="/HTML/reportes.html">Reportes</a></li>
-                            <li id="navNotificaciones"><a href="/HTML/notificaciones.html">Notificaciones</a></li>
-                            <!--<li id="navMapa"><a href="/HTML/mapa.html">Mapa</a></li> -->
-                            <li id="navConfiguraciones"><a href="/HTML/configuraciones.html">Configuraciones</a></li>
+                            <li id="navInicio" class="active"><a href="../HTML/home.html">Inicio</a></li>
+                            <li id="navRegistro"><a href="../HTML/registroProductos.html">Registro de Productos</a></li>
+                            <li id="navEstadisticas"><a href="../HTML/estadisticas.html">Estadísticas</a></li>
+                            <li id="navReportes"><a href="../HTML/reportes.html">Reportes</a></li>
+                            <li id="navNotificaciones"><a href="../HTML/notificaciones.html">Notificaciones</a></li>
+                            <!--<li id="navMapa"><a href="../HTML/mapa.html">Mapa</a></li> -->
+                            <li id="navConfiguraciones"><a href="../HTML/configuraciones.html">Configuraciones</a></li>
                         </ul>
                     </nav>
 
@@ -145,13 +146,9 @@
         </div>
 
         <!-- Scripts propios -->
-        <script src="/JS/usuarios.js" defer></script>
-        <script src="/JS/gestionUsuarios.js" defer></script>        
-        <script src="/JS/carrusel.js" defer></script>
-        <script src="/JS/login.js" defer></script>
-        <script src="/JS/logo.js" defer></script>
-        <script src="/JS/productos.js" defer></script>
-        <script src="/JS/configuraciones.js" defer></script>
+        <script type="module" src="../JS/usuarios.js" defer></script>
+        <script type="module" src="../JS/gestionUsuarios.js" defer></script>
+        <script type="module" src="../JS/firebase.js" defer></script>
 
         <!-- Script Carrusel inline inicial -->
         <script defer>
@@ -203,6 +200,17 @@
             }
 
             loginTitle.textContent = saludo;
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const elemNombre = document.getElementById('nombreUsuario');
+                
+                if (elemNombre) {
+                    const nombre = sessionStorage?.getItem('usuario') || 'Usuario';
+                    elemNombre.textContent = nombre;
+                }
+            });
         </script>
 
     </body>

@@ -1,61 +1,69 @@
+// usuarios.js
 import { obtenerUsuarioActual } from './firebase.js';
 
-// Rutas de los avatares
-const AVATAR_HOMBRE = "../assets/img/man.png";
-const AVATAR_MUJER = "../assets/img/woman.png";
+const AVATARES = {
+    man: "../IMG/man.png",
+    woman: "../IMG/woman.png",
+    default: "../IMG/avatar-default.png"
+};
 
-async function actualizarHeaderUsuario() {
+async function actualizarPerfilUsuario() {
     const nombreSpan = document.getElementById('nombreUsuario');
-    const userInfoBtn = document.getElementById('userInfo');
+    const userBtn = document.getElementById('userInfo');
     const dropdown = document.getElementById('userDropdown');
+    const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 
-    if (!nombreSpan || !userInfoBtn || !dropdown) return;
+    if (!nombreSpan || !userBtn || !dropdown) return;
 
-    // 🔥 Esperar datos de Firebase
-    const usuarioActual = await obtenerUsuarioActual();
+    // Obtener usuario actual
+    const usuario = await obtenerUsuarioActual();
 
-    // 🔴 Validación clave
-    if (!usuarioActual) {
-        console.warn("No se pudo obtener el usuario");
-        window.location.href = "../HTML/index.html";
+    if (!usuario) {
+        window.location.href = "../HTML/index.html"; // redirige si no hay sesión
         return;
     }
 
-    // ✅ Nombre
-    nombreSpan.textContent = usuarioActual.nombre || "Usuario";
+    // Actualizar nombre
+    nombreSpan.textContent = usuario.nombre || "Usuario";
 
-    // ✅ Avatar
-    const avatar = userInfoBtn.querySelector('.user-icon');
-
+    // Actualizar avatar con fallback
+    const avatar = userBtn.querySelector('.user-icon');
     if (avatar) {
-        if (usuarioActual.genero === "man") {
-            avatar.src = AVATAR_HOMBRE;
-        } else if (usuarioActual.genero === "woman") {
-            avatar.src = AVATAR_MUJER;
-        } else {
-            avatar.src = "../assets/img/avatar-default.png";
-        }
+        avatar.src = AVATARES[usuario.genero] || AVATARES.default;
+        avatar.alt = usuario.nombre ? `Avatar de ${usuario.nombre}` : "Avatar de usuario";
     }
 
-    // --- Dropdown (igual que tenías) ---
-    userInfoBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); 
+    // Manejo del dropdown
+    const toggleDropdown = (e) => {
+        e.stopPropagation();
         dropdown.classList.toggle('active');
-        const isActive = dropdown.classList.contains('active');
-        userInfoBtn.setAttribute('aria-expanded', String(isActive));
-    });
+        userBtn.setAttribute('aria-expanded', dropdown.classList.contains('active'));
+    };
 
-    document.addEventListener('click', (e) => {
-        if (!userInfoBtn.contains(e.target) && !dropdown.contains(e.target)) {
+    // Evitar duplicar listeners
+    userBtn.removeEventListener('click', toggleDropdown);
+    userBtn.addEventListener('click', toggleDropdown);
+
+    // Cerrar dropdown al hacer click fuera
+    const handleClickOutside = (e) => {
+        if (!userBtn.contains(e.target) && !dropdown.contains(e.target)) {
             dropdown.classList.remove('active');
-            userInfoBtn.setAttribute('aria-expanded', 'false');
+            userBtn.setAttribute('aria-expanded', 'false');
         }
-    });
+    };
+    document.removeEventListener('click', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
 
-    const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+    // Cerrar sesión
     if (btnCerrarSesion) {
-        btnCerrarSesion.addEventListener('click', () => {
-            window.location.href = "../HTML/index.html"; 
-        });
+        const handleCerrarSesion = () => {
+            sessionStorage.clear();
+            window.location.href = "../HTML/index.html";
+        };
+        btnCerrarSesion.removeEventListener('click', handleCerrarSesion);
+        btnCerrarSesion.addEventListener('click', handleCerrarSesion);
     }
 }
+
+// Ejecutar al cargar DOM
+document.addEventListener('DOMContentLoaded', actualizarPerfilUsuario);

@@ -19,9 +19,9 @@
     </head>
     <body>
 
-        <!-- ANIMACIÓN DE BIENVENIDA CON CONFETI -->
+        <!-- ANIMACIÓN DE BIENVENIDA -->
         <div id="animacionBienvenida" class="animacion-bienvenida">
-            <canvas id="confettiCanvas"></canvas>
+            <canvas id="particulasCanvas"></canvas>
             <div class="bienvenida-content">
                 <img id="avatarUsuario" src="../IMG/man.png" alt="Avatar" class="avatar">
                 <h1>¡Bienvenido, <span id="nombreUsuarioAnim"></span>!</h1>
@@ -191,95 +191,84 @@
         </script>
 
         <!-- Script Animación de bienvenida con confeti inline -->
-<script defer>
-document.addEventListener('DOMContentLoaded', () => {
-    const nombre = sessionStorage.getItem('usuario') || 'Usuario';
-    const rol = sessionStorage.getItem('rol') || 'auxiliar';
-    const animacion = document.getElementById('animacionBienvenida');
-    const nombreSpanAnim = document.getElementById('nombreUsuarioAnim');
-    const nombreSpanBarra = document.getElementById('nombreUsuario');
-    const avatar = document.getElementById('avatarUsuario');
-    const canvas = document.getElementById('confettiCanvas');
-    const ctx = canvas.getContext('2d');
+        <script defer>
+            document.addEventListener('DOMContentLoaded', () => {
+                const nombre = sessionStorage.getItem('usuario') || 'Usuario';
+                const rol = sessionStorage.getItem('rol') || 'auxiliar'; 
+                const animacion = document.getElementById('animacionBienvenida');
+                const nombreSpanAnim = document.getElementById('nombreUsuarioAnim');
+                const nombreSpanBarra = document.getElementById('nombreUsuario');
+                const avatar = document.getElementById('avatarUsuario');
+                const canvas = document.getElementById('particulasCanvas');
+                const ctx = canvas.getContext('2d');
 
-    // Actualiza nombre y avatar
-    if (nombreSpanAnim) nombreSpanAnim.textContent = nombre;
-    if (nombreSpanBarra) nombreSpanBarra.textContent = nombre;
-    if (avatar) avatar.src = rol === 'admin' ? '../IMG/admin.png' : '../IMG/man.png';
+                // Actualiza nombre en barra superior y animación
+                if(nombreSpanBarra) nombreSpanBarra.textContent = nombre;
+                if(nombreSpanAnim) nombreSpanAnim.textContent = "";
+                if(avatar) avatar.src = '../IMG/man.png'; 
 
-    // Ajuste del canvas
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+                // Mostrar animación
+                animacion.classList.add('show');
 
-    // Partículas confeti
-    const confeti = [];
-    const colores = ['#FF0A47','#FFFC00','#00FFC6','#0085FF','#FF00F5','#FF7C00'];
+                // Máquina de escribir
+                const mensaje = `${nombre} - ${rol}`; // ahora sí funciona
+                let i = 0;
+                function escribir(){
+                    if(i < mensaje.length){
+                        nombreSpanAnim.textContent += mensaje[i];
+                        i++;
+                        setTimeout(escribir, 100); 
+                    }
+                }
+                escribir();
 
-    function crearConfeti() {
-        for (let i = 0; i < 150; i++) {
-            confeti.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height - canvas.height,
-                r: Math.random() * 6 + 2,
-                d: Math.random() * 20 + 5,
-                color: colores[Math.floor(Math.random() * colores.length)],
-                tilt: Math.floor(Math.random() * 10) - 10,
-                tiltAngleIncrement: Math.random() * 0.07 + 0.05,
-                tiltAngle: 0
+                // Canvas partículas
+                function resizeCanvas(){
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+                window.addEventListener('resize', resizeCanvas);
+                resizeCanvas();
+
+                const particulas = [];
+                for(let j=0;j<120;j++){
+                    particulas.push({
+                        x: Math.random()*canvas.width,
+                        y: Math.random()*canvas.height,
+                        r: Math.random()*4+1,
+                        speed: Math.random()*0.3+0.1,
+                        alpha: Math.random()*0.5+0.2
+                    });
+                }
+
+                function dibujarParticulas(){
+                    ctx.clearRect(0,0,canvas.width,canvas.height);
+                    particulas.forEach(p=>{
+                        ctx.beginPath();
+                        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+                        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+                        ctx.fill();
+                        p.y -= p.speed;
+                        if(p.y < -10) p.y = canvas.height+10;
+                    });
+                }
+
+                let animId;
+                function animarParticulas(){
+                    animId = requestAnimationFrame(animarParticulas);
+                    dibujarParticulas();
+                }
+                animarParticulas();
+
+                // Ocultar animación después de 7 segundos
+                setTimeout(()=>{
+                    animacion.style.transition = 'opacity 1s ease';
+                    animacion.style.opacity = 0;
+                    animacion.style.pointerEvents = 'none'; // desbloquea home
+                    cancelAnimationFrame(animId);
+                    setTimeout(()=> animacion.remove(), 1000);
+                }, 6000);
             });
-        }
-    }
-
-    function dibujarConfeti() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        confeti.forEach((c, i) => {
-            ctx.beginPath();
-            ctx.lineWidth = c.r;
-            ctx.strokeStyle = c.color;
-            ctx.moveTo(c.x + c.tilt + c.r / 2, c.y);
-            ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 2);
-            ctx.stroke();
-        });
-        actualizarConfeti();
-    }
-
-    function actualizarConfeti() {
-        confeti.forEach(c => {
-            c.tiltAngle += c.tiltAngleIncrement;
-            c.y += (Math.cos(c.d) + 3 + c.r/2)/2;
-            c.x += Math.sin(c.d);
-            c.tilt = Math.sin(c.tiltAngle) * 15;
-
-            if (c.y > canvas.height) {
-                c.y = -10;
-                c.x = Math.random() * canvas.width;
-            }
-        });
-    }
-
-    let animId;
-    function animarConfeti() {
-        animId = requestAnimationFrame(animarConfeti);
-        dibujarConfeti();
-    }
-
-    // Mostrar animación de bienvenida
-    if (animacion) {
-        animacion.classList.add('show');
-        crearConfeti();
-        animarConfeti();
-
-        setTimeout(() => {
-            animacion.classList.remove('show');
-            cancelAnimationFrame(animId); // Detiene confeti
-        }, 3500);
-    }
-});
-</script>
-
+        </script>
     </body>
 </html>

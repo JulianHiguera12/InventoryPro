@@ -22,138 +22,136 @@
         <!-- Sistema principal -->
         <div class="app-layout">
 
-        <!-- HEADER SUPERIOR -->
-        <header class="topbar">
-            <div class="topbar-left">
-                <div class="logo">InventoryPro</div>
-            </div>
-            <div class="topbar-center">
-                <input type="search" placeholder="Buscar productos..." class="search-input">
-            </div>
-            <div class="topbar-right">
-                <button class="notification-btn" title="Notificaciones">
-                    <span class="icon-bell">🔔</span>
-                    <span class="badge">3</span>
-                </button>
-                <nav class="user-menu" aria-label="Menú de usuario">
-                    <button class="user-info" id="userInfo" aria-haspopup="true" aria-expanded="false">
-                        <img src="/IMG/man.png" alt="Avatar del usuario" class="user-icon">
-                        <span id="nombreUsuario">Cargando...</span>
+            <!-- HEADER SUPERIOR -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="logo">InventoryPro</div>
+                </div>
+                <div class="topbar-center">
+                    <input type="search" placeholder="Buscar productos..." class="search-input">
+                </div>
+                <div class="topbar-right">
+                    <button class="notification-btn" title="Notificaciones">
+                        <span class="icon-bell">🔔</span>
+                        <span class="badge">3</span>
                     </button>
-                    <div class="user-dropdown" id="userDropdown">
-                        <a href="/HTML/gestionUsuarios.html" class="dropdown-item">👤 Mi Perfil</a>
-                        <a href="/HTML/configuraciones.html" class="dropdown-item">⚙ Configuraciones</a>
-                        <button id="btnCerrarSesion" class="logout-btn">🚪 Cerrar Sesión</button>
-                    </div>
-                </nav>
-            </div>
-        </header>
-
-        <!-- CONTENEDOR PRINCIPAL -->
-        <div class="main-container">
-            <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <nav class="sidebar-nav">
-                <ul>
-                    <li id="navInicio" class="active"><a href="#">Inicio</a></li>
-                    <li id="navRegistro"><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
-                    <li id="navEstadisticas"><a href="/HTML/estadisticas.html">Estadísticas</a></li>
-                    <li id="navReportes"><a href="/HTML/reportes.html">Reportes</a></li>
-                    <li id="navNotificaciones"><a href="/HTML/notificaciones.html">Notificaciones</a></li>
-                    <!--<li id="navMapa"><a href="/HTML/mapa.html">Mapa</a></li> -->
-                    <li id="navConfiguraciones"><a href="/HTML/configuraciones.html">Configuraciones</a></li>
-                </ul>
-            </nav>
-
-            <!-- Logo agregado debajo del menú -->
-            <div class="sidebar-logo">
-                <img src="/IMG/Logo_InventoryProCopy.png" alt="InventoryPro Logo" class="logo-img">
-            </div>
-        </aside>
-            <!-- DASHBOARD -->
-            <section class="inventory-summary">
-                <h2>Resumen del Inventario</h2>
-
-                <div class="cards">
-                    <div class="card">Stock Total <p id="stockTotal">0</p></div>
-                    <div class="card">Inventario $ <p id="valorInventario">$0</p></div>
-                    <div class="card">Movimientos <p>0</p></div>
-                    <div class="card alertas-card">
-                        <h3>Alertas Hoy</h3>
-                        <div id="alertasHoy" class="alertas-detalle">
-                            <p>Bajas: <span id="alertasBajas">0</span></p>
-                            <p>Críticas: <span id="alertasCriticas">0</span></p>
+                    <nav class="user-menu" aria-label="Menú de usuario">
+                        <button class="user-info" id="userInfo" aria-haspopup="true" aria-expanded="false">
+                            <img src="/IMG/man.png" alt="Avatar del usuario" class="user-icon">
+                            <span id="nombreUsuario">Cargando...</span>
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="/HTML/gestionUsuarios.html" class="dropdown-item">👤 Mi Perfil</a>
+                            <a href="/HTML/configuraciones.html" class="dropdown-item">⚙ Configuraciones</a>
+                            <button id="btnCerrarSesion" class="logout-btn">🚪 Cerrar Sesión</button>
                         </div>
-                    </div>
-                    <div class="card">Stock Bajo <p id="stockBajo">0</p></div>
+                    </nav>
                 </div>
+            </header>
 
-                <div class="tabla-criticos">
-                    <h3>Productos con Stock Crítico</h3>
-                    <table class="tabla-criticos">
-                        <thead>
-                            <tr>
-                                <th>Referencia</th>
-                                <th>Nombre del producto</th>
-                                <th>Cantidad</th>
-                                <th>Comprar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tablaCriticos">
-                            <!-- Filas vacías para diseño -->
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                                                <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                                                <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+            <!-- CONTENEDOR PRINCIPAL -->
+            <div class="main-container">
+                    <!-- SIDEBAR -->
+                <aside class="sidebar">
+                    <nav class="sidebar-nav">
+                        <ul>
+                            <li id="navInicio" class="active"><a href="#">Inicio</a></li>
+                            <li id="navRegistro"><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
+                            <li id="navEstadisticas"><a href="/HTML/estadisticas.html">Estadísticas</a></li>
+                            <li id="navReportes"><a href="/HTML/reportes.html">Reportes</a></li>
+                            <li id="navNotificaciones"><a href="/HTML/notificaciones.html">Notificaciones</a></li>
+                            <!--<li id="navMapa"><a href="/HTML/mapa.html">Mapa</a></li> -->
+                            <li id="navConfiguraciones"><a href="/HTML/configuraciones.html">Configuraciones</a></li>
+                        </ul>
+                    </nav>
+
+                    <!-- Logo agregado debajo del menú -->
+                    <div class="sidebar-logo">
+                        <img src="/IMG/Logo_InventoryProCopy.png" alt="InventoryPro Logo" class="logo-img">
+                    </div>
+                </aside>
+                <!-- DASHBOARD -->
+                <section class="inventory-summary">
+                    <h2>Resumen del Inventario</h2>
+
+                    <div class="cards">
+                        <div class="card">Stock Total <p id="stockTotal">0</p></div>
+                        <div class="card">Inventario $ <p id="valorInventario">$0</p></div>
+                        <div class="card">Movimientos <p>0</p></div>
+                        <div class="card alertas-card">
+                            <h3>Alertas Hoy</h3>
+                            <div id="alertasHoy" class="alertas-detalle">
+                                <p>Bajas: <span id="alertasBajas">0</span></p>
+                                <p>Críticas: <span id="alertasCriticas">0</span></p>
+                            </div>
+                        </div>
+                        <div class="card">Stock Bajo <p id="stockBajo">0</p></div>
+                    </div>
+
+                    <div class="tabla-criticos">
+                        <h3>Productos con Stock Crítico</h3>
+                        <table class="tabla-criticos">
+                            <thead>
+                                <tr>
+                                    <th>Referencia</th>
+                                    <th>Nombre del producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Comprar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaCriticos">
+                                <!-- Filas vacías para diseño -->
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                                    <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                                    <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
         </div>
 
         <!-- Scripts propios -->
         <script src="/JS/usuarios.js" defer></script>
+        <script src="/JS/gestionUsuarios.js" defer></script>        
         <script src="/JS/carrusel.js" defer></script>
         <script src="/JS/login.js" defer></script>
         <script src="/JS/logo.js" defer></script>
         <script src="/JS/productos.js" defer></script>
         <script src="/JS/configuraciones.js" defer></script>
-
-
-
-
 
         <!-- Script Carrusel inline inicial -->
         <script defer>

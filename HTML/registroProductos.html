@@ -121,17 +121,19 @@
 
             <!-- ACCIONES PRINCIPALES -->
             <div class="product-actions" id="prod-actions">
-                <button class="product-btn product-btn-create" id="prod-btn-create" aria-label="Crear producto">
-                    ➕ Crear Producto
-                </button>
-                <!-- Carga Masiva -->
-                <button id="btnCargarCSV" class="btn btn-success">
-                 📂 Carga Masiva CSV
-                 </button>
-                <input type="file" id="inputCSV" accept=".csv" style="display: none;">
-                <button class="product-btn product-btn-search" id="prod-btn-search" aria-label="Buscar producto">
-                    🔍 Buscar Producto
-                </button>
+
+            <button class="product-btn product-btn-create" id="prod-btn-create">
+             ➕ Crear Producto
+            </button>
+
+            <button id="btnCargarCSV" class="product-btn product-btn-csv">
+             📁 Carga Masiva CSV
+            </button>
+
+            <button class="product-btn product-btn-search" id="prod-btn-search">
+             🔍 Buscar Producto
+            </button>
+
             </div>
 
             <!-- MÉTRICAS SEMÁFORO -->
@@ -516,6 +518,43 @@
         </div>
 
     </div>
+
+<!-- ── MODAL CONFIRMACIÓN CSV ───────────────────────────── -->
+<div id="modalConfirmCSV" class="modal-pro">
+  <div class="modal-content-pro">
+    <h3>📁 Carga Masiva CSV</h3>
+    <p id="csvResumen">Se cargarán X productos</p>
+
+    <div class="modal-actions">
+      <button id="confirmarCarga" class="btn-confirm">
+        ✔ Confirmar
+      </button>
+
+      <button id="cancelarCarga" class="btn-cancel">
+        ✖ Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── MODAL PROGRESO ───────────────────────────── -->
+<div id="modalProgresoCSV" class="modal-pro">
+  <div class="modal-content-pro">
+    <h3>⏳ Cargando productos...</h3>
+    <p id="progresoTexto">0 productos cargados...</p>
+  </div>
+</div>
+
+
+<!-- ── MODAL ÉXITO ───────────────────────────── -->
+<div id="modalExitoCSV" class="modal-pro">
+  <div class="modal-content-pro success">
+    <div class="check">✔</div>
+    <h3>Carga exitosa</h3>
+    <p id="resultadoCarga">Productos cargados correctamente</p>
+  </div>
+</div>
 
     <!-- SCRIPTS -->
     <script type="module" src="/JS/firebase.js"></script>

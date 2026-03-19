@@ -22,6 +22,7 @@ let ordenColumna = null;
 let ordenAsc = true;
 let paginaActual = 1;
 const ITEMS_POR_PAGI = 10;
+let datosCSVGlobal = [];
 
 // ── REFERENCIAS DOM ──────────────────────────────────────────────────────────
 const tableBody = document.getElementById('prod-table-body');
@@ -36,26 +37,18 @@ const formEdit = document.getElementById('prod-form-edit');
 const inputSearch = document.getElementById('prod-search');
 
 // ── TOAST ────────────────────────────────────────────────────────────────────
-function showToast(msg, tipo = 'success') {
-    let toast = document.getElementById('toast-prod');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'toast-prod';
-        toast.style.cssText = `
-            position:fixed; bottom:28px; right:28px; padding:14px 24px;
-            border-radius:10px; font-size:.95rem; font-weight:600; color:white;
-            opacity:0; transform:translateY(20px); transition:all .3s ease;
-            z-index:9999; pointer-events:none;
-        `;
-        document.body.appendChild(toast);
-    }
-    toast.textContent = msg;
-    toast.style.background = tipo === 'success' ? '#28a745' : '#dc3545';
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateY(0)';
+function showToast(mensaje, tipo = "success") {
+    const toast = document.createElement("div");
+    toast.className = `toast ${tipo}`;
+    toast.textContent = mensaje;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => toast.classList.add("show"), 100);
+
     setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(20px)';
+        toast.classList.remove("show");
+        setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
 
@@ -569,14 +562,27 @@ if (userInfoBtn && dropdown) {
 document.addEventListener('DOMContentLoaded', async () => {
     const uid = sessionStorage.getItem('uid');
     if (!uid) { window.location.href = '/HTML/login.html'; return; }
+
     try {
         const snap = await getDoc(doc(db, 'usuarios', uid));
+
         if (snap.exists()) {
             const d = snap.data();
+
+            // 🔥 ARMAR NOMBRE COMPLETO
+            const nombreCompleto = `${d.primerNombre} ${d.primerApellido}`;
+
+            // 🔥 MOSTRAR EN PANTALLA
             const nombreSpan = document.getElementById('nombreUsuario');
-            if (nombreSpan) nombreSpan.textContent = `${d.primerNombre} ${d.primerApellido}`;
+            if (nombreSpan) nombreSpan.textContent = nombreCompleto;
+
+            // 🔥 GUARDAR EN SESSION (CLAVE PARA CSV)
+            sessionStorage.setItem('usuario', nombreCompleto);
         }
-    } catch (e) { console.error(e); }
+
+    } catch (e) { 
+        console.error(e); 
+    }
 
     aplicarRestriccionesPorRol();
     inicializarFiltros();
@@ -622,12 +628,12 @@ if (btnCSV && inputCSV) {
 }
 
 
-// ⚙️ FUNCIÓN PRINCIPAL
+// ⚙️ FUNCIÓN PRINCIPAL (VERSIÓN PRO)
 async function procesarCSV(texto) {
   const filas = texto.split("\n");
   const encabezados = filas[0].split(",");
 
-  let exitos = 0;
+  let datos = [];
 
   for (let i = 1; i < filas.length; i++) {
     const fila = filas[i].trim();
@@ -646,16 +652,73 @@ async function procesarCSV(texto) {
     producto.estado = "disponible";
     producto.fechaRegistro = new Date().toISOString();
     producto.fechaModificacion = new Date().toISOString();
-    producto.usuarioRegistra = "admin";
+    producto.usuarioRegistra = sessionStorage.getItem('usuario') || 'admin';
 
+    // 🔥 NO guardamos aún → solo acumulamos
+    datos.push(producto);
+  }
+
+  // 🔥 guardamos global
+  datosCSVGlobal = datos;
+
+  // 🔥 mostramos resumen
+  const resumen = document.getElementById("csvResumen");
+  if (resumen) {
+    resumen.textContent = `Se cargarán ${datos.length} productos. ¿Deseas continuar?`;
+  }
+
+  // 🔥 abrimos modal confirmación
+  document.getElementById("modalConfirmCSV")?.classList.add("active");
+}
+
+// EVENTOS MODAL CSV 
+
+// CANCELAR
+document.getElementById("cancelarCarga")?.addEventListener("click", () => {
+  document.getElementById("modalConfirmCSV").classList.remove("active");
+});
+
+// CONFIRMAR CARGA
+document.getElementById("confirmarCarga")?.addEventListener("click", async () => {
+
+  // cerrar confirmación
+  document.getElementById("modalConfirmCSV").classList.remove("active");
+
+  // abrir progreso
+  document.getElementById("modalProgresoCSV")?.classList.add("active");
+
+  let count = 0;
+
+  for (const producto of datosCSVGlobal) {
     try {
       await addDoc(collection(db, "productos"), producto);
-      exitos++;
+      count++;
+
+      // 🔥 actualizar progreso en pantalla
+      const progreso = document.getElementById("progresoTexto");
+      if (progreso) {
+        progreso.textContent = `${count} productos cargados...`;
+      }
+
     } catch (error) {
       console.error("Error:", error);
     }
   }
 
-  alert("✅ Se cargaron " + exitos + " productos");
-  location.reload();
-}
+  // cerrar progreso
+  document.getElementById("modalProgresoCSV")?.classList.remove("active");
+
+  // mostrar éxito
+  const resultado = document.getElementById("resultadoCarga");
+  if (resultado) {
+    resultado.textContent = `${count} productos cargados correctamente`;
+  }
+
+  document.getElementById("modalExitoCSV")?.classList.add("active");
+
+  // cerrar automático
+  setTimeout(() => {
+    document.getElementById("modalExitoCSV")?.classList.remove("active");
+    location.reload();
+  }, 2500);
+});

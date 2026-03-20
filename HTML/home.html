@@ -4,287 +4,301 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InventoryPro</title>
-
-    <!-- Favicon -->
+ 
     <link rel="icon" type="image/jpeg" href="/IMG/Logo_InventoryProCopy.png">
-
+ 
     <!-- CSS modular -->
     <link rel="stylesheet" href="../CSS/login.css">
     <link rel="stylesheet" href="../CSS/carousel.css">
     <link rel="stylesheet" href="../CSS/mainContainer.css">
     <link rel="stylesheet" href="../CSS/modals.css">
     <link rel="stylesheet" href="../CSS/errorLogin.css">
-
     <link rel="stylesheet" href="../CSS/header.css">
-    <link rel="stylesheet" href="../CSS/gestionUsuarios.css">
-    <link rel="stylesheet" href="../CSS/modalCreateUsers.css">
-    <link rel="stylesheet" href="../CSS/modalUpdateUsers.css">
-    <link rel="stylesheet" href="../CSS/modalDeleteUsers.css">
     <link rel="stylesheet" href="../CSS/inventario.css">
-
+ 
     <!-- Librerías externas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" defer></script>
-
-    <!-- ESTILOS EXTRA PARA INVENTARIO -->
-    <style>
-        .cards {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .card {
-            flex: 1;
-            background: #f4f6fb;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .card p {
-            font-size: 1.6rem;
-            margin-top: 10px;
-        }
-
-        .alertas-card {
-            background: #ffe9c7;
-        }
-
-        .tabla-inventario {
-            margin-top: 20px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 12px;
-        }
-
-        .inventory-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .inventory-table th {
-            background: #e9edf7;
-            padding: 10px;
-            font-size: 0.9rem;
-        }
-
-        .inventory-table td {
-            padding: 10px;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
-
-        .inventory-table tr:hover {
-            background: #f5f7ff;
-        }
-    </style>
+ 
 </head>
-
+ 
 <body>
-        <!-- ANIMACIÓN DE BIENVENIDA -->
-        <div id="animacionBienvenida" class="animacion-bienvenida">
-            <canvas id="particulasCanvas"></canvas>
-            <div class="bienvenida-content">
-                <img id="avatarUsuario" src="../IMG/man.png" alt="Avatar" class="avatar">
-                <h1>¡Bienvenido, <span id="nombreUsuarioAnim"></span>!</h1>
-            </div>
+ 
+    <!-- ANIMACIÓN DE BIENVENIDA -->
+    <div id="animacionBienvenida" class="animacion-bienvenida">
+        <canvas id="particulasCanvas"></canvas>
+        <div class="bienvenida-content">
+            <img id="avatarUsuario" src="../IMG/man.png" alt="Avatar" class="avatar">
+            <h1>¡Bienvenido, <span id="nombreUsuarioAnim"></span>!</h1>
         </div>
-        
-        <div class="app-layout">
-
-            <!-- HEADER -->
-            <header class="topbar">
-                <div class="topbar-left">
-                    <div class="logo">InventoryPro</div>
-                </div>
-
-                <div class="topbar-right">
-                    <button class="notification-btn"></button>
-
-                    <nav class="user-menu">
-                        <button class="user-info" id="userInfo">
-                            <img src="../IMG/man.png" class="user-icon">
-                            <span id="nombreUsuario">Cargando...</span>
-                        </button>
-
-                        <div class="user-dropdown" id="userDropdown">
-                            <a href="../HTML/gestionUsuarios.html">👤 Mi Perfil</a>
-                            <button id="btnCerrarSesion">🚪 Cerrar Sesión</button>
-                        </div>
-                    </nav>
-                </div>
-            </header>
-
-            <!-- CONTENEDOR -->
-            <div class="main-container">
-
-                <!-- SIDEBAR -->
-                <aside class="sidebar">
-                    <nav class="sidebar-nav">
-                        <ul>
-                            <li class="active"><a href="#">Inventario</a></li>
-                            <li><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
-                            <li><a href="/HTML/reportes.html">Reportes</a></li>
-                            <li><a href="/HTML/configuraciones.html">Gestión de usuarios</a></li>
-                        </ul>
-                    </nav>
-
-                    <div class="sidebar-logo">
-                        <img src="/IMG/Logo_InventoryProCopy.png" class="logo-img">
+    </div>
+ 
+    <div class="app-layout">
+ 
+        <!-- HEADER -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <div class="logo">InventoryPro</div>
+            </div>
+            <div class="topbar-right">
+                <button class="notification-btn"></button>
+                <nav class="user-menu">
+                    <button class="user-info" id="userInfo">
+                        <img src="../IMG/man.png" class="user-icon">
+                        <span id="nombreUsuario">Cargando...</span>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="../HTML/gestionUsuarios.html">👤 Mi Perfil</a>
+                        <button id="btnCerrarSesion">🚪 Cerrar Sesión</button>
                     </div>
-                </aside>
-
-                <!-- DASHBOARD -->
-                <section class="inventory-summary">
-
-                    <h2>Resumen del Inventario</h2>
-
-                    <!-- TARJETAS -->
-                    <div class="cards">
-                        <div class="card">
-                            Total Productos
-                            <p id="stockTotal">0</p>
-                        </div>
-
-                        <div class="card alertas-card">
-                            <h3>Alertas Hoy</h3>
-                            <p>Bajas: <span id="alertasBajas">0</span></p>
-                            <p>Críticas: <span id="alertasCriticas">0</span></p>
-                        </div>
-
-                        <div class="card">
-                            Stock Bajo
-                            <p id="stockBajo">0</p>
-                        </div>
+                </nav>
+            </div>
+        </header>
+ 
+        <!-- CONTENEDOR -->
+        <div class="main-container">
+ 
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li class="active"><a href="#">Inventario</a></li>
+                        <li><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
+                        <li><a href="/HTML/reportes.html">Reportes</a></li>
+                        <li><a href="/HTML/configuraciones.html">Gestión de usuarios</a></li>
+                    </ul>
+                </nav>
+                <div class="sidebar-logo">
+                    <img src="/IMG/Logo_InventoryProCopy.png" class="logo-img">
+                </div>
+            </aside>
+ 
+            <!-- DASHBOARD -->
+            <section class="inventory-summary">
+ 
+                <h2>Resumen del Inventario</h2>
+ 
+                <!-- TARJETAS -->
+                <div class="cards">
+                    <div class="card">
+                        Total Productos
+                        <p id="totalProductos">0</p>
                     </div>
-
-                    <!-- TABLA INVENTARIO -->
-                    <div class="tabla-inventario">
-                        <h3>Inventario General</h3>
-
-                        <div class="tabla-scroll">
+                    <div class="card alertas-card">
+                        <h3>Alertas Hoy</h3>
+                        <p>Bajas: <span id="alertasBajas">0</span></p>
+                        <p>Críticas: <span id="alertasCriticas">0</span></p>
+                    </div>
+                    <div class="card">
+                        Stock Bajo
+                        <p id="stockBajo">0</p>
+                    </div>
+                </div>
+ 
+                <!-- TABLA INVENTARIO -->
+                <div class="tabla-inventario">
+                    <h3>Inventario General</h3>
+ 
+                    <div class="tabla-scroll">
                         <table class="inventory-table">
                             <thead>
                                 <tr>
                                     <th>Código</th>
-                                    <th>Nombre</th>
+                                    <th>Nombre del producto</th>
+                                    <th>Fecha de elaboración</th>
+                                    <th>Fecha de vencimiento</th>
                                     <th>Tipo</th>
-                                    <th>Proveedor</th>
+                                    <th>Fecha de compra</th>
+                                    <th>Nombre del proveedor</th>
+                                    <th>Fecha de venta</th>
                                     <th>Cantidad</th>
-                                    <th>Vencimiento</th>
-                                    <th>Estado</th>
+                                    <th>Acción</th>
                                 </tr>
                             </thead>
                             <tbody id="tablaInventario">
-                                <tr>
-                                    <td colspan="7">Cargando inventario...</td>
-                                </tr>
+                                <tr><td colspan="10">Cargando inventario...</td></tr>
                             </tbody>
                         </table>
-                        <div id="paginacion" class="paginacion"></div>
-                        </div>
                     </div>
-
-                </section>
-
+ 
+                    <div style="display:flex; align-items:center; margin-top:10px;">
+                        <div id="paginacion" class="paginacion"></div>
+                        <span id="pagInfo" class="pag-info"></span>
+                    </div>
+                </div>
+ 
+            </section>
+        </div>
+    </div>
+ 
+    <!-- MODAL VER PRODUCTO -->
+    <div id="modalVerHome" class="home-modal-overlay">
+        <div class="home-modal">
+            <button class="home-modal-close" id="cerrarModalVer">&times;</button>
+            <h3>Ver Producto</h3>
+ 
+            <div class="modal-section">
+                <legend>Identificación</legend>
+                <div class="modal-grid">
+                    <div class="modal-field">
+                        <label>Código / ID único</label>
+                        <input type="text" id="hview-codigo" readonly>
+                    </div>
+                    <div class="modal-field">
+                        <label>Número de lote / serie</label>
+                        <input type="text" id="hview-lote" readonly>
+                    </div>
+                    <div class="modal-field">
+                        <label>Nombre del producto</label>
+                        <input type="text" id="hview-nombre" readonly>
+                    </div>
+                    <div class="modal-field">
+                        <label>Tipo de producto</label>
+                        <input type="text" id="hview-tipo" readonly>
+                    </div>
+                    <div class="modal-field">
+                        <label>Cantidad en inventario</label>
+                        <input type="text" id="hview-cantidad" readonly>
+                    </div>
+                    <div class="modal-field">
+                        <label>Estado</label>
+                        <input type="text" id="hview-estado" readonly>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="modal-section">
+                <legend>Fechas importantes</legend>
+                <div class="modal-grid">
+                    <div class="modal-field">
+                        <label>Fecha de elaboración</label>
+                        <input type="text" id="hview-fecha-elab" readonly>
+                    </div>
+                    <div class="modal-field">
+                        <label>Fecha de vencimiento</label>
+                        <input type="text" id="hview-fecha-vence" readonly>
+                    </div>
+                    <div class="modal-field">
+                        <label>Fecha de compra</label>
+                        <input type="text" id="hview-fecha-compra" readonly>
+                    </div>
+                    <div class="modal-field">
+                        <label>Fecha de venta</label>
+                        <input type="text" id="hview-fecha-venta" readonly>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="modal-section">
+                <legend>Proveedor y Ubicación</legend>
+                <div class="modal-grid">
+                    <div class="modal-field">
+                        <label>Nombre del proveedor</label>
+                        <input type="text" id="hview-proveedor" readonly>
+                    </div>
+                    <div class="modal-field">
+                        <label>Ubicación / almacén</label>
+                        <input type="text" id="hview-ubicacion" readonly>
+                    </div>
+                    <div class="modal-field">
+                        <label>Tipo de almacenamiento</label>
+                        <input type="text" id="hview-tipo-almacenamiento" readonly>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="modal-section">
+                <legend>Observaciones</legend>
+                <div class="modal-grid full">
+                    <div class="modal-field">
+                        <textarea id="hview-observaciones" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="modal-footer">
+                <button class="btn-cerrar-modal" id="cerrarModalVer2">Cerrar</button>
             </div>
         </div>
-
-        <!-- SCRIPTS -->
-        <script src="../JS/carrusel.js" defer></script>
-        <script src="../JS/login.js" defer></script>
-        <script src="../JS/logo.js" defer></script>
-        <script src="../JS/usuarios.js" defer></script>
-
-        <!-- FIREBASE -->
-        <script type="module" src="/JS/firebase.js"></script>
-
-        <!-- JS INVENTARIO -->
-        <script type="module" src="../JS/home.js"></script>
-
-        <!-- Script Animación de bienvenida con confeti inline -->
-        <script defer>
-            document.addEventListener('DOMContentLoaded', () => {
-                const nombre = sessionStorage.getItem('usuario') || 'Usuario';
-                const rol = sessionStorage.getItem('rol') || 'auxiliar'; 
-                const animacion = document.getElementById('animacionBienvenida');
-                const nombreSpanAnim = document.getElementById('nombreUsuarioAnim');
-                const nombreSpanBarra = document.getElementById('nombreUsuario');
-                const avatar = document.getElementById('avatarUsuario');
-                const canvas = document.getElementById('particulasCanvas');
-                const ctx = canvas.getContext('2d');
-
-                // Actualiza nombre en barra superior y animación
-                if(nombreSpanBarra) nombreSpanBarra.textContent = nombre;
-                if(nombreSpanAnim) nombreSpanAnim.textContent = "";
-                if(avatar) avatar.src = '../IMG/man.png'; 
-
-                // Mostrar animación
-                animacion.classList.add('show');
-
-                // Máquina de escribir
-                const mensaje = `${nombre} - ${rol}`; // ahora sí funciona
-                let i = 0;
-                function escribir(){
-                    if(i < mensaje.length){
-                        nombreSpanAnim.textContent += mensaje[i];
-                        i++;
-                        setTimeout(escribir, 100); 
-                    }
+    </div>
+ 
+    <!-- SCRIPTS -->
+    <script src="../JS/carrusel.js" defer></script>
+    <script src="../JS/logo.js" defer></script>
+ 
+    <!-- FIREBASE -->
+    <script type="module" src="/JS/firebase.js"></script>
+ 
+    <!-- JS INVENTARIO -->
+    <script type="module" src="../JS/home.js"></script>
+ 
+    <!-- Animación de bienvenida -->
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nombre = sessionStorage.getItem('usuario') || 'Usuario';
+            const rol = sessionStorage.getItem('rol') || 'auxiliar';
+            const animacion = document.getElementById('animacionBienvenida');
+            const nombreSpanAnim = document.getElementById('nombreUsuarioAnim');
+            const nombreSpanBarra = document.getElementById('nombreUsuario');
+            const avatar = document.getElementById('avatarUsuario');
+            const canvas = document.getElementById('particulasCanvas');
+            const ctx = canvas.getContext('2d');
+ 
+            if(nombreSpanBarra) nombreSpanBarra.textContent = nombre;
+            if(nombreSpanAnim) nombreSpanAnim.textContent = '';
+            if(avatar) avatar.src = '../IMG/man.png';
+ 
+            // Mostrar animación solo la primera vez por sesión
+            const yaMostrado = sessionStorage.getItem('bienvenidaMostrada');
+            if (yaMostrado) {
+                animacion.remove();
+                return;
+            }
+            sessionStorage.setItem('bienvenidaMostrada', 'true');
+            animacion.classList.add('show');
+ 
+            const mensaje = `${nombre} - ${rol}`;
+            let i = 0;
+            function escribir(){
+                if(i < mensaje.length){
+                    nombreSpanAnim.textContent += mensaje[i];
+                    i++;
+                    setTimeout(escribir, 100);
                 }
-                escribir();
-
-                // Canvas partículas
-                function resizeCanvas(){
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
-                }
-                window.addEventListener('resize', resizeCanvas);
-                resizeCanvas();
-
-                const particulas = [];
-                for(let j=0;j<120;j++){
-                    particulas.push({
-                        x: Math.random()*canvas.width,
-                        y: Math.random()*canvas.height,
-                        r: Math.random()*4+1,
-                        speed: Math.random()*0.3+0.1,
-                        alpha: Math.random()*0.5+0.2
-                    });
-                }
-
-                function dibujarParticulas(){
-                    ctx.clearRect(0,0,canvas.width,canvas.height);
-                    particulas.forEach(p=>{
-                        ctx.beginPath();
-                        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-                        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-                        ctx.fill();
-                        p.y -= p.speed;
-                        if(p.y < -10) p.y = canvas.height+10;
-                    });
-                }
-
-                let animId;
-                function animarParticulas(){
-                    animId = requestAnimationFrame(animarParticulas);
-                    dibujarParticulas();
-                }
-                animarParticulas();
-
-                // Ocultar animación después de 7 segundos
-                setTimeout(()=>{
-                    animacion.style.transition = 'opacity 1s ease';
-                    animacion.style.opacity = 0;
-                    animacion.style.pointerEvents = 'none'; // desbloquea home
-                    cancelAnimationFrame(animId);
-                    setTimeout(()=> animacion.remove(), 1000);
-                }, 5000);
-            });
-        </script>
-
+            }
+            escribir();
+ 
+            function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+ 
+            const particulas = [];
+            for(let j=0;j<120;j++){
+                particulas.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+                    r: Math.random()*4+1, speed: Math.random()*0.3+0.1, alpha: Math.random()*0.5+0.2 });
+            }
+            function dibujarParticulas(){
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                particulas.forEach(p=>{
+                    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+                    ctx.fillStyle=`rgba(255,255,255,${p.alpha})`; ctx.fill();
+                    p.y -= p.speed; if(p.y < -10) p.y = canvas.height+10;
+                });
+            }
+            let animId;
+            function animarParticulas(){ animId = requestAnimationFrame(animarParticulas); dibujarParticulas(); }
+            animarParticulas();
+ 
+            setTimeout(()=>{
+                animacion.style.transition = 'opacity 1s ease';
+                animacion.style.opacity = 0;
+                animacion.style.pointerEvents = 'none';
+                cancelAnimationFrame(animId);
+                setTimeout(()=> animacion.remove(), 1000);
+            }, 5000);
+        });
+    </script>
+ 
 </body>
 </html>

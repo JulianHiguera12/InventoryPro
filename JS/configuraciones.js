@@ -46,13 +46,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    // Cargar nombre en header
+    // Cargar nombre e imagen en header
     try {
         const snap = await getDoc(doc(db, 'usuarios', uid));
         if (snap.exists()) {
             const d = snap.data();
             const nombreSpan = document.getElementById('nombreUsuario');
+            const fotoHeader = document.querySelector('.user-info .user-icon'); // Referencia a la imagen
+
             if (nombreSpan) nombreSpan.textContent = `${d.primerNombre} ${d.primerApellido}`;
+            
+            // Cargar imagen dinámica (si no tiene, usa mujer.png como el HTML original)
+            if (fotoHeader) {
+                fotoHeader.src = d.fotoUrl || (d.genero === "femenino" ? "../IMG/woman.png" : "../IMG/man.png");
+            }
         }
     } catch (e) { console.error(e); }
 
@@ -134,20 +141,31 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // ── DROPDOWN USUARIO ──
-    const userInfoBtn = document.getElementById('userInfo');
-    const dropdown    = document.getElementById('userDropdown');
-    if (userInfoBtn && dropdown) {
-        userInfoBtn.addEventListener('click', e => {
+    // ── DROPDOWN USUARIO (Optimizado) ─────────────────────────────────────────────
+    const gestionarDropdown = () => {
+        const userInfoBtn = document.getElementById('userInfo');
+        const dropdown = document.getElementById('userDropdown');
+
+        if (!userInfoBtn || !dropdown) return;
+
+        userInfoBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             dropdown.classList.toggle('active');
         });
-        document.addEventListener('click', e => {
+
+        document.addEventListener('click', (e) => {
+            // Si el clic no es dentro del botón ni dentro del menú, se cierra
             if (!userInfoBtn.contains(e.target) && !dropdown.contains(e.target)) {
                 dropdown.classList.remove('active');
             }
         });
-    }
+    };
+
+// Llama a la función dentro de tu DOMContentLoaded
+gestionarDropdown();
+
+// Llama a la función dentro de tu DOMContentLoaded
+gestionarDropdown();
 });
 
 // ── CARGAR USUARIOS DESDE FIRESTORE ──────────────────────────────────────────

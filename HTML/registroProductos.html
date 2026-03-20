@@ -82,7 +82,6 @@
                 </button>
                 <div class="user-dropdown" id="userDropdown">
                     <a href="/HTML/gestionUsuarios.html" class="dropdown-item">👤 Mi Perfil</a>
-                    <a href="/HTML/configuraciones.html" class="dropdown-item">⚙ Configuraciones</a>
                     <button id="btnCerrarSesion" class="logout-btn">🚪 Cerrar Sesión</button>
                 </div>
             </nav>
@@ -512,43 +511,6 @@
         </div>
 
     </div>
-
-<!-- ── MODAL CONFIRMACIÓN CSV ───────────────────────────── -->
-<div id="modalConfirmCSV" class="modal-pro">
-  <div class="modal-content-pro">
-    <h3>📁 Carga Masiva CSV</h3>
-    <p id="csvResumen">Se cargarán X productos</p>
-
-    <div class="modal-actions">
-      <button id="confirmarCarga" class="btn-confirm">
-        ✔ Confirmar
-      </button>
-
-      <button id="cancelarCarga" class="btn-cancel">
-        ✖ Cancelar
-      </button>
-    </div>
-  </div>
-</div>
-
-
-<!-- ── MODAL PROGRESO ───────────────────────────── -->
-<div id="modalProgresoCSV" class="modal-pro">
-  <div class="modal-content-pro">
-    <h3>⏳ Cargando productos...</h3>
-    <p id="progresoTexto">0 productos cargados...</p>
-  </div>
-</div>
-
-
-<!-- ── MODAL ÉXITO ───────────────────────────── -->
-<div id="modalExitoCSV" class="modal-pro">
-  <div class="modal-content-pro success">
-    <div class="check">✔</div>
-    <h3>Carga exitosa</h3>
-    <p id="resultadoCarga">Productos cargados correctamente</p>
-  </div>
-</div>
 
     <!-- SCRIPTS -->
     <script type="module" src="/JS/firebase.js"></script>

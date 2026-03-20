@@ -1,231 +1,202 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>InventoryPro</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InventoryPro</title>
 
-        <!-- Favicon -->
-        <link rel="icon" type="image/jpeg" href="/IMG/Logo_InventoryProCopy.png">
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="/IMG/Logo_InventoryProCopy.png">
 
-        <!-- CSS modular -->
-        <link rel="stylesheet" href="../CSS/login.css">
-        <link rel="stylesheet" href="../CSS/carousel.css">
-        <link rel="stylesheet" href="../CSS/mainContainer.css">
-        <link rel="stylesheet" href="../CSS/modals.css">
-        <link rel="stylesheet" href="../CSS/errorLogin.css">
+    <!-- CSS modular -->
+    <link rel="stylesheet" href="../CSS/login.css">
+    <link rel="stylesheet" href="../CSS/carousel.css">
+    <link rel="stylesheet" href="../CSS/mainContainer.css">
+    <link rel="stylesheet" href="../CSS/modals.css">
+    <link rel="stylesheet" href="../CSS/errorLogin.css">
 
-        <link rel="stylesheet" href="../CSS/header.css">
-        <link rel="stylesheet" href="../CSS/gestionUsuarios.css">
-        <link rel="stylesheet" href="../CSS/modalCreateUsers.css">
-        <link rel="stylesheet" href="../CSS/modalUpdateUsers.css">
-        <link rel="stylesheet" href="../CSS/modalDeleteUsers.css">
+    <link rel="stylesheet" href="../CSS/header.css">
+    <link rel="stylesheet" href="../CSS/gestionUsuarios.css">
+    <link rel="stylesheet" href="../CSS/modalCreateUsers.css">
+    <link rel="stylesheet" href="../CSS/modalUpdateUsers.css">
+    <link rel="stylesheet" href="../CSS/modalDeleteUsers.css">
+    <link rel="stylesheet" href="../CSS/inventario.css">
 
-        <!-- Librerías externas con defer -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" defer></script>
-    </head>
-    <body>
-        <!-- Sistema principal -->
-        <div class="app-layout">
+    <!-- Librerías externas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" defer></script>
 
-        <!-- HEADER SUPERIOR -->
-        <header class="topbar">
-            <!-- Logo -->
-            <div class="topbar-left">
-                <div class="logo">InventoryPro</div>
-            </div>
+    <!-- ESTILOS EXTRA PARA INVENTARIO -->
+    <style>
+        .cards {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
 
-            <!-- Notificaciones y usuario -->
-            <div class="topbar-right">
-                <!-- Icono de notificaciones -->
-                <button class="notification-btn" title="Notificaciones">
-                </button>
+        .card {
+            flex: 1;
+            background: #f4f6fb;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+        }
 
-              <!-- Usuario en el header -->
-            <nav class="user-menu" aria-label="Menú de usuario">
-                <button class="user-info" id="userInfo" aria-haspopup="true" aria-expanded="false">
-                    <img src="../IMG/woman.png" alt="Avatar del usuario" class="user-icon">
+        .card p {
+            font-size: 1.6rem;
+            margin-top: 10px;
+        }
+
+        .alertas-card {
+            background: #ffe9c7;
+        }
+
+        .tabla-inventario {
+            margin-top: 20px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .inventory-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .inventory-table th {
+            background: #e9edf7;
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+
+        .inventory-table td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .inventory-table tr:hover {
+            background: #f5f7ff;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- HEADER -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <div class="logo">InventoryPro</div>
+        </div>
+
+        <div class="topbar-right">
+            <button class="notification-btn"></button>
+
+            <nav class="user-menu">
+                <button class="user-info" id="userInfo">
+                    <img src="../IMG/woman.png" class="user-icon">
                     <span id="nombreUsuario">Cargando...</span>
                 </button>
 
-                <!-- Dropdown -->
                 <div class="user-dropdown" id="userDropdown">
-                    <a href="../HTML/gestionUsuarios.html" class="dropdown-item">
-                        <span class="icon">👤</span>
-                        <span class="label">Mi Perfil</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <span class="icon">⚙</span>
-                        <span class="label">Configuraciones</span>
-                    </a>
-                    <button id="btnCerrarSesion" class="logout-btn">
-                        <span class="icon">🚪</span>
-                        <span class="label">Cerrar Sesión</span>
-                    </button>
+                    <a href="../HTML/gestionUsuarios.html">👤 Mi Perfil</a>
+                    <a href="#">⚙ Configuraciones</a>
+                    <button id="btnCerrarSesion">🚪 Cerrar Sesión</button>
                 </div>
             </nav>
-        </header>
+        </div>
+    </header>
 
-        <!-- CONTENEDOR PRINCIPAL -->
-        <div class="main-container">
-            <!-- SIDEBAR -->
+    <!-- CONTENEDOR -->
+    <div class="main-container">
+
+        <!-- SIDEBAR -->
         <aside class="sidebar">
             <nav class="sidebar-nav">
                 <ul>
-                    <li id="navInicio" class="active"><a href="#">Inventario</a></li>
-                    <li id="navRegistro"><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
-                    <li id="navReportes"><a href="/HTML/reportes.html">Reportes</a></li>
-                    <li id="navConfiguraciones"><a href="/HTML/configuraciones.html">Gestión de usuarios</a></li>
+                    <li class="active"><a href="#">Inventario</a></li>
+                    <li><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
+                    <li><a href="/HTML/reportes.html">Reportes</a></li>
+                    <li><a href="/HTML/configuraciones.html">Gestión de usuarios</a></li>
                 </ul>
             </nav>
 
-            <!-- Logo agregado debajo del menú -->
             <div class="sidebar-logo">
-                <img src="/IMG/Logo_InventoryProCopy.png" alt="InventoryPro Logo" class="logo-img">
+                <img src="/IMG/Logo_InventoryProCopy.png" class="logo-img">
             </div>
         </aside>
-            <!-- DASHBOARD -->
-            <section class="inventory-summary">
-                <h2>Resumen del Inventario</h2>
 
-                <div class="cards">
-                    <div class="card">Stock Total <p id="stockTotal">0</p></div>
-                    <div class="card">Inventario $ <p id="valorInventario">$0</p></div>
-                    <div class="card">Movimientos <p>0</p></div>
-                    <div class="card alertas-card">
-                        <h3>Alertas Hoy</h3>
-                        <div id="alertasHoy" class="alertas-detalle">
-                            <p>Bajas: <span id="alertasBajas">0</span></p>
-                            <p>Críticas: <span id="alertasCriticas">0</span></p>
-                        </div>
-                    </div>
-                    <div class="card">Stock Bajo <p id="stockBajo">0</p></div>
+        <!-- DASHBOARD -->
+        <section class="inventory-summary">
+
+            <h2>Resumen del Inventario</h2>
+
+            <!-- TARJETAS -->
+            <div class="cards">
+                <div class="card">
+                    Total Productos
+                    <p id="stockTotal">0</p>
                 </div>
 
-                <div class="tabla-criticos">
-                    <h3>Productos con Stock Crítico</h3>
-                    <table class="tabla-criticos">
-                        <thead>
-                            <tr>
-                                <th>Referencia</th>
-                                <th>Nombre del producto</th>
-                                <th>Cantidad</th>
-                                <th>Comprar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tablaCriticos">
-                            <!-- Filas vacías para diseño -->
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                                                <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                                                <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="card alertas-card">
+                    <h3>Alertas Hoy</h3>
+                    <p>Bajas: <span id="alertasBajas">0</span></p>
+                    <p>Críticas: <span id="alertasCriticas">0</span></p>
                 </div>
-            </section>
-        </div>
 
-        <!-- Modals -->
-        <div id="modalEditar" class="modal"></div>
-        <div id="modalExportar" class="modal"></div>
-        <div id="modalUsuario" class="modal"></div>
+                <div class="card">
+                    Stock Bajo
+                    <p id="stockBajo">0</p>
+                </div>
+            </div>
 
-        <!-- Notificaciones -->
-        <div id="notificacion" class="notificacion"></div>
+            <!-- TABLA INVENTARIO -->
+            <div class="tabla-inventario">
+                <h3>Inventario General</h3>
 
-        <!-- Scripts propios -->
-        <script src="../JS/carrusel.js" defer></script>
-        <script src="../JS/login.js" defer></script>
-        <script src="../JS/logo.js" defer></script>
-        <script src="../JS/productos.js" defer></script>
-        <script src="../JS/usuarios.js" defer></script>
+                <div class="tabla-scroll">
+                <table class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Proveedor</th>
+                            <th>Cantidad</th>
+                            <th>Vencimiento</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaInventario">
+                        <tr>
+                            <td colspan="7">Cargando inventario...</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="paginacion" class="paginacion"></div>
+                </div>
+            </div>
 
+        </section>
 
-        <!-- Script Carrusel inline inicial -->
-        <script defer>
-            let slideActual = 0;
-            const slides = document.querySelectorAll('.carousel-slide');
-            const dots = document.querySelectorAll('.dot');
-            let intervalo = setInterval(() => mostrarSlide(slideActual + 1), 4000);
+    </div>
+</div>
 
-            function mostrarSlide(index) {
-                slides.forEach(s => s.classList.remove('active'));
-                dots.forEach(d => d.classList.remove('active'));
-                slideActual = (index + slides.length) % slides.length;
-                slides[slideActual].classList.add('active');
-                dots[slideActual].classList.add('active');
-            }
+<!-- SCRIPTS -->
+<script src="../JS/carrusel.js" defer></script>
+<script src="../JS/login.js" defer></script>
+<script src="../JS/logo.js" defer></script>
+<script src="../JS/usuarios.js" defer></script>
 
-            function moverCarrusel(direccion) {
-                mostrarSlide(slideActual + direccion);
-                reiniciarIntervalo();
-            }
+<!-- FIREBASE -->
+<script type="module" src="/JS/firebase.js"></script>
 
-            function irASlide(index) {
-                mostrarSlide(index);
-                reiniciarIntervalo();
-            }
+<!-- JS INVENTARIO -->
+<script type="module" src="../JS/home.js"></script>
 
-            function reiniciarIntervalo() {
-                clearInterval(intervalo);
-                intervalo = setInterval(() => mostrarSlide(slideActual + 1), 4000);
-            }
-        </script>
-
-        <!-- Saludo de Bienvenida -->
-        <script>
-            const loginTitle = document.getElementById('login-title');
-            const ahora = new Date();
-            const hora = ahora.getHours();
-            let saludo = "¡Bienvenido de nuevo!";
-
-            if (hora >= 0 && hora < 12) {
-                // De 00:00 a 11:59 → Buenos días
-                saludo = "¡Buenos días!";
-            } else if (hora >= 12 && hora < 18) {
-                // De 12:00 a 17:59 → Buenas tardes
-                saludo = "¡Buenas tardes!";
-            } else {
-                // De 18:00 a 23:59 → Buenas noches
-                saludo = "¡Buenas noches!";
-            }
-
-            loginTitle.textContent = saludo;
-        </script>
-
-    </body>
+</body>
 </html>

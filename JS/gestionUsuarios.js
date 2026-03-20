@@ -8,6 +8,42 @@ import {
     doc, setDoc, updateDoc, deleteDoc,
     collection, getDocs, getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+// ... (Aquí puedes tener tus otras funciones de Crear/Eliminar usuarios) ...
+
+// --- LÓGICA DE SESIÓN Y HEADER ---
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        const userRef = doc(db, "usuarios", user.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+            const datos = userSnap.data();
+            // Actualiza los textos e imágenes...
+            const nombreHeader = document.getElementById('nombreUsuario');
+            if (nombreHeader) nombreHeader.textContent = `${datos.primerNombre} ${datos.primerApellido}`;
+            
+            // Actualiza fotos de avatar
+            document.querySelectorAll('.user-icon').forEach(img => {
+                img.src = datos.fotoUrl || (datos.genero === "femenino" ? "../IMG/woman.png" : "../IMG/man.png");
+            });
+        }
+    } else {
+        window.location.href = "../index.html";
+    }
+});
+
+// --- LÓGICA DEL DROPDOWN ---
+document.getElementById('userInfo')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('userDropdown')?.classList.toggle('active');
+});
+
+document.addEventListener('click', () => {
+    document.getElementById('userDropdown')?.classList.remove('active');
+});
+
 
 // ─── MOSTRAR INFO DEL ADMIN EN PANTALLA ───────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
@@ -202,4 +238,36 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
+
+    // --- LÓGICA DE SESIÓN Y HEADER ---
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            const userRef = doc(db, "usuarios", user.uid);
+            const userSnap = await getDoc(userRef);
+
+            if (userSnap.exists()) {
+                const datos = userSnap.data();
+                // Actualiza los textos e imágenes...
+                const nombreHeader = document.getElementById('nombreUsuario');
+                if (nombreHeader) nombreHeader.textContent = `${datos.primerNombre} ${datos.primerApellido}`;
+                
+                // Actualiza fotos de avatar
+                document.querySelectorAll('.user-icon').forEach(img => {
+                    img.src = datos.fotoUrl || (datos.genero === "femenino" ? "../IMG/woman.png" : "../IMG/man.png");
+                });
+            }
+        } else {
+            window.location.href = "../index.html";
+        }
+    });
+
+    // --- LÓGICA DEL DROPDOWN ---
+    document.getElementById('userInfo')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.getElementById('userDropdown')?.classList.toggle('active');
+    });
+
+    document.addEventListener('click', () => {
+        document.getElementById('userDropdown')?.classList.remove('active');
+    });
 });

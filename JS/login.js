@@ -41,6 +41,7 @@ if (formLogin) {
             sessionStorage.setItem('rol', snap.exists() ? snap.data().rol : 'auxiliar');
 
             window.location.href = "home.html";
+            sessionStorage.removeItem('bienvenidaMostrada');
 
         } catch (error) {
             if (errorMsg) {

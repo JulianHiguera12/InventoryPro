@@ -6,10 +6,23 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    // 🔐 CONTROL DE ANIMACIÓN (solo 1 vez por sesión)
+    const yaMostrada = sessionStorage.getItem("bienvenidaMostrada");
+
+    if (yaMostrada === "true") {
+        const anim = document.getElementById("animacionBienvenida");
+        if (anim) anim.style.display = "none";
+    } else {
+        sessionStorage.setItem("bienvenidaMostrada", "true");
+        const anim = document.getElementById("animacionBienvenida");
+        if (anim) anim.classList.add('show');
+    }
+
+    // 🔥 CARGAR INVENTARIO (ESTO NO SE TOCA)
     console.log("🔥 Cargando inventario...");
     cargarInventario();
 });
-
 async function cargarInventario() {
     const tabla = document.getElementById("tablaInventario");
 

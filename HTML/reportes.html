@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InventoryPro - Reportes</title>
+ 
+    <link rel="icon" type="image/png" href="/IMG/Logo_InventoryProCopy.png">
+    <link rel="stylesheet" href="../CSS/header.css">
+    <link rel="stylesheet" href="../CSS/mainContainer.css">
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" defer></script>
+ 
+    <link rel="stylesheet" href="../CSS/reportes.css">
+</head>
+<body>
+ 
+<div class="app-layout">
+ 
+    <!-- HEADER -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="logo">InventoryPro</div>
+                </div>
+
+                <div class="topbar-right">
+                    <button class="notification-btn"></button>
+
+                    <nav class="user-menu">
+                        <button class="user-info" id="userInfo">
+                            <img src="../IMG/man.png" class="user-icon">
+                            <span id="nombreUsuario">Cargando...</span>
+                        </button>
+
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="../HTML/gestionUsuarios.html">👤 Mi Perfil</a>
+                            <button id="btnCerrarSesion">🚪 Cerrar Sesión</button>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+    <!-- CONTENEDOR -->
+    <div class="main-container">
+ 
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/HTML/home.html">Inventario</a></li>
+                    <li><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
+                    <li class="active"><a href="#">Reportes</a></li>
+                    <li><a href="/HTML/configuraciones.html">Gestión de usuarios</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-logo">
+                <img src="/IMG/Logo_InventoryProCopy.png" class="logo-img" alt="logo">
+            </div>
+        </aside>
+ 
+        <!-- CONTENIDO REPORTES -->
+        <section class="rep-content">
+            <h2>📊 Generador de Reportes</h2>
+ 
+            <!-- FILTROS -->
+            <div class="filtros-panel">
+ 
+                <!-- Tipo de reporte -->
+                <div class="filtro-grupo">
+                    <label>Tipo de reporte</label>
+                    <select id="filtroTipo">
+                        <option value="">-- Selecciona --</option>
+                        <option value="inventario">📦 Inventario</option>
+                        <option value="usuarios">👥 Usuarios</option>
+                    </select>
+                </div>
+ 
+                <!-- Filtro estado INVENTARIO -->
+                <div class="filtro-grupo filtro-condicional oculto" id="grupoEstadoProducto">
+                    <label>Estado del producto</label>
+                    <select id="filtroEstadoProducto">
+                        <option value="">Todos</option>
+                        <option value="disponible">Disponible</option>
+                        <option value="agotado">Agotado</option>
+                        <option value="vencido">Vencido</option>
+                    </select>
+                </div>
+ 
+                <!-- Filtro tipo INVENTARIO -->
+                <div class="filtro-grupo filtro-condicional oculto" id="grupoTipoProducto">
+                    <label>Categoría</label>
+                    <select id="filtroTipoProducto">
+                        <option value="">Todas</option>
+                        <option value="Bebida">Bebida</option>
+                        <option value="Lacteo">Lácteo</option>
+                        <option value="Embutido">Embutido</option>
+                        <option value="Aceite">Aceite</option>
+                        <option value="Panadería">Panadería</option>
+                        <option value="Fruta">Fruta</option>
+                        <option value="Verdura">Verdura</option>
+                        <option value="Grano">Grano</option>
+                    </select>
+                </div>
+ 
+                <!-- Filtro vencimiento INVENTARIO -->
+                <div class="filtro-grupo filtro-condicional oculto" id="grupoVencimiento">
+                    <label>Vencimiento</label>
+                    <select id="filtroVencimiento">
+                        <option value="">Todos</option>
+                        <option value="seguro">🟢 Vigente</option>
+                        <option value="cercano">🟡 Próximo a vencer</option>
+                        <option value="vencido">🔴 Vencido</option>
+                    </select>
+                </div>
+ 
+                <!-- Filtro activo USUARIOS -->
+                <div class="filtro-grupo filtro-condicional oculto" id="grupoActivoUsuario">
+                    <label>Estado del usuario</label>
+                    <select id="filtroActivoUsuario">
+                        <option value="">Todos</option>
+                        <option value="activo">Activos</option>
+                        <option value="inactivo">Inactivos</option>
+                    </select>
+                </div>
+ 
+                <!-- Filtro rol USUARIOS -->
+                <div class="filtro-grupo filtro-condicional oculto" id="grupoRolUsuario">
+                    <label>Rol</label>
+                    <select id="filtroRolUsuario">
+                        <option value="">Todos</option>
+                        <option value="administrador">Administrador</option>
+                        <option value="auxiliar">Auxiliar</option>
+                    </select>
+                </div>
+ 
+                <button class="btn-generar" id="btnGenerar">
+                    🔍 Generar Vista Previa
+                </button>
+            </div>
+ 
+            <!-- RESULTADO -->
+            <div class="resultado-panel">
+                <div class="resultado-header">
+                    <div>
+                        <span class="resultado-titulo" id="resultadoTitulo">Vista previa del reporte</span>
+                        <span class="resultado-info" id="resultadoInfo"></span>
+                    </div>
+                    <div class="botones-exportar">
+                        <button class="btn-export btn-pdf" id="btnPDF" disabled>
+                            📄 Exportar PDF
+                        </button>
+                        <button class="btn-export btn-excel" id="btnExcel" disabled>
+                            📊 Exportar Excel
+                        </button>
+                    </div>
+                </div>
+ 
+                <div class="tabla-scroll" id="tablaContenedor">
+                    <div class="tabla-vacia">
+                        <span class="ico">📋</span>
+                        Selecciona un tipo de reporte y aplica los filtros para ver la vista previa.
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+    </div>
+</div>
+ 
+<div class="toast-rep" id="toastRep"></div>
+ 
+<!-- SCRIPTS -->
+<script src="../JS/usuarios.js" defer></script>
+<script type="module" src="../JS/reportes.js"></script>
+ 
+</body>
+</html>

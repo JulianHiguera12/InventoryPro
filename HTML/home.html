@@ -84,119 +84,208 @@
 </head>
 
 <body>
+        <!-- ANIMACIÓN DE BIENVENIDA -->
+        <div id="animacionBienvenida" class="animacion-bienvenida">
+            <canvas id="particulasCanvas"></canvas>
+            <div class="bienvenida-content">
+                <img id="avatarUsuario" src="../IMG/man.png" alt="Avatar" class="avatar">
+                <h1>¡Bienvenido, <span id="nombreUsuarioAnim"></span>!</h1>
+            </div>
+        </div>
+        
+        <div class="app-layout">
 
-<div class="app-layout">
+            <!-- HEADER -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="logo">InventoryPro</div>
+                </div>
 
-    <!-- HEADER -->
-    <header class="topbar">
-        <div class="topbar-left">
-            <div class="logo">InventoryPro</div>
+                <div class="topbar-right">
+                    <button class="notification-btn"></button>
+
+                    <nav class="user-menu">
+                        <button class="user-info" id="userInfo">
+                            <img src="../IMG/man.png" class="user-icon">
+                            <span id="nombreUsuario">Cargando...</span>
+                        </button>
+
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="../HTML/gestionUsuarios.html">👤 Mi Perfil</a>
+                            <a href="#">⚙ Configuraciones</a>
+                            <button id="btnCerrarSesion">🚪 Cerrar Sesión</button>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <!-- CONTENEDOR -->
+            <div class="main-container">
+
+                <!-- SIDEBAR -->
+                <aside class="sidebar">
+                    <nav class="sidebar-nav">
+                        <ul>
+                            <li class="active"><a href="#">Inventario</a></li>
+                            <li><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
+                            <li><a href="/HTML/reportes.html">Reportes</a></li>
+                            <li><a href="/HTML/configuraciones.html">Gestión de usuarios</a></li>
+                        </ul>
+                    </nav>
+
+                    <div class="sidebar-logo">
+                        <img src="/IMG/Logo_InventoryProCopy.png" class="logo-img">
+                    </div>
+                </aside>
+
+                <!-- DASHBOARD -->
+                <section class="inventory-summary">
+
+                    <h2>Resumen del Inventario</h2>
+
+                    <!-- TARJETAS -->
+                    <div class="cards">
+                        <div class="card">
+                            Total Productos
+                            <p id="stockTotal">0</p>
+                        </div>
+
+                        <div class="card alertas-card">
+                            <h3>Alertas Hoy</h3>
+                            <p>Bajas: <span id="alertasBajas">0</span></p>
+                            <p>Críticas: <span id="alertasCriticas">0</span></p>
+                        </div>
+
+                        <div class="card">
+                            Stock Bajo
+                            <p id="stockBajo">0</p>
+                        </div>
+                    </div>
+
+                    <!-- TABLA INVENTARIO -->
+                    <div class="tabla-inventario">
+                        <h3>Inventario General</h3>
+
+                        <div class="tabla-scroll">
+                        <table class="inventory-table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Tipo</th>
+                                    <th>Proveedor</th>
+                                    <th>Cantidad</th>
+                                    <th>Vencimiento</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaInventario">
+                                <tr>
+                                    <td colspan="7">Cargando inventario...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div id="paginacion" class="paginacion"></div>
+                        </div>
+                    </div>
+
+                </section>
+
+            </div>
         </div>
 
-        <div class="topbar-right">
-            <button class="notification-btn"></button>
+        <!-- SCRIPTS -->
+        <script src="../JS/carrusel.js" defer></script>
+        <script src="../JS/login.js" defer></script>
+        <script src="../JS/logo.js" defer></script>
+        <script src="../JS/usuarios.js" defer></script>
 
-            <nav class="user-menu">
-                <button class="user-info" id="userInfo">
-                    <img src="../IMG/man.png" class="user-icon">
-                    <span id="nombreUsuario">Cargando...</span>
-                </button>
+        <!-- FIREBASE -->
+        <script type="module" src="/JS/firebase.js"></script>
 
-                <div class="user-dropdown" id="userDropdown">
-                    <a href="../HTML/gestionUsuarios.html">👤 Mi Perfil</a>
-                    <a href="#">⚙ Configuraciones</a>
-                    <button id="btnCerrarSesion">🚪 Cerrar Sesión</button>
-                </div>
-            </nav>
-        </div>
-    </header>
+        <!-- JS INVENTARIO -->
+        <script type="module" src="../JS/home.js"></script>
 
-    <!-- CONTENEDOR -->
-    <div class="main-container">
+        <!-- Script Animación de bienvenida con confeti inline -->
+        <script defer>
+            document.addEventListener('DOMContentLoaded', () => {
+                const nombre = sessionStorage.getItem('usuario') || 'Usuario';
+                const rol = sessionStorage.getItem('rol') || 'auxiliar'; 
+                const animacion = document.getElementById('animacionBienvenida');
+                const nombreSpanAnim = document.getElementById('nombreUsuarioAnim');
+                const nombreSpanBarra = document.getElementById('nombreUsuario');
+                const avatar = document.getElementById('avatarUsuario');
+                const canvas = document.getElementById('particulasCanvas');
+                const ctx = canvas.getContext('2d');
 
-        <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <nav class="sidebar-nav">
-                <ul>
-                    <li class="active"><a href="#">Inventario</a></li>
-                    <li><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
-                    <li><a href="/HTML/reportes.html">Reportes</a></li>
-                    <li><a href="/HTML/configuraciones.html">Gestión de usuarios</a></li>
-                </ul>
-            </nav>
+                // Actualiza nombre en barra superior y animación
+                if(nombreSpanBarra) nombreSpanBarra.textContent = nombre;
+                if(nombreSpanAnim) nombreSpanAnim.textContent = "";
+                if(avatar) avatar.src = '../IMG/man.png'; 
 
-            <div class="sidebar-logo">
-                <img src="/IMG/Logo_InventoryProCopy.png" class="logo-img">
-            </div>
-        </aside>
+                // Mostrar animación
+                animacion.classList.add('show');
 
-        <!-- DASHBOARD -->
-        <section class="inventory-summary">
+                // Máquina de escribir
+                const mensaje = `${nombre} - ${rol}`; // ahora sí funciona
+                let i = 0;
+                function escribir(){
+                    if(i < mensaje.length){
+                        nombreSpanAnim.textContent += mensaje[i];
+                        i++;
+                        setTimeout(escribir, 100); 
+                    }
+                }
+                escribir();
 
-            <h2>Resumen del Inventario</h2>
+                // Canvas partículas
+                function resizeCanvas(){
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+                window.addEventListener('resize', resizeCanvas);
+                resizeCanvas();
 
-            <!-- TARJETAS -->
-            <div class="cards">
-                <div class="card">
-                    Total Productos
-                    <p id="stockTotal">0</p>
-                </div>
+                const particulas = [];
+                for(let j=0;j<120;j++){
+                    particulas.push({
+                        x: Math.random()*canvas.width,
+                        y: Math.random()*canvas.height,
+                        r: Math.random()*4+1,
+                        speed: Math.random()*0.3+0.1,
+                        alpha: Math.random()*0.5+0.2
+                    });
+                }
 
-                <div class="card alertas-card">
-                    <h3>Alertas Hoy</h3>
-                    <p>Bajas: <span id="alertasBajas">0</span></p>
-                    <p>Críticas: <span id="alertasCriticas">0</span></p>
-                </div>
+                function dibujarParticulas(){
+                    ctx.clearRect(0,0,canvas.width,canvas.height);
+                    particulas.forEach(p=>{
+                        ctx.beginPath();
+                        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+                        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+                        ctx.fill();
+                        p.y -= p.speed;
+                        if(p.y < -10) p.y = canvas.height+10;
+                    });
+                }
 
-                <div class="card">
-                    Stock Bajo
-                    <p id="stockBajo">0</p>
-                </div>
-            </div>
+                let animId;
+                function animarParticulas(){
+                    animId = requestAnimationFrame(animarParticulas);
+                    dibujarParticulas();
+                }
+                animarParticulas();
 
-            <!-- TABLA INVENTARIO -->
-            <div class="tabla-inventario">
-                <h3>Inventario General</h3>
-
-                <div class="tabla-scroll">
-                <table class="inventory-table">
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Nombre</th>
-                            <th>Tipo</th>
-                            <th>Proveedor</th>
-                            <th>Cantidad</th>
-                            <th>Vencimiento</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaInventario">
-                        <tr>
-                            <td colspan="7">Cargando inventario...</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div id="paginacion" class="paginacion"></div>
-                </div>
-            </div>
-
-        </section>
-
-    </div>
-</div>
-
-<!-- SCRIPTS -->
-<script src="../JS/carrusel.js" defer></script>
-<script src="../JS/login.js" defer></script>
-<script src="../JS/logo.js" defer></script>
-<script src="../JS/usuarios.js" defer></script>
-
-<!-- FIREBASE -->
-<script type="module" src="/JS/firebase.js"></script>
-
-<!-- JS INVENTARIO -->
-<script type="module" src="../JS/home.js"></script>
+                // Ocultar animación después de 7 segundos
+                setTimeout(()=>{
+                    animacion.style.transition = 'opacity 1s ease';
+                    animacion.style.opacity = 0;
+                    animacion.style.pointerEvents = 'none'; // desbloquea home
+                    cancelAnimationFrame(animId);
+                    setTimeout(()=> animacion.remove(), 1000);
+                }, 5000);
+            });
+        </script>
 
 </body>
 </html>

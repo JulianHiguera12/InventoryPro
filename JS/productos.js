@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputSearch = document.getElementById('prod-search');
     const paginationContainer = document.getElementById('prod-pagination');
 
-    const ITEMS_PER_PAGE = 5;
+    const ITEMS_PER_PAGE = 7;
 
     // CLASE PRODUCTO
     class Producto {
@@ -99,12 +99,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Tipo semáforo basado en fecha de vencimiento
             const hoy = new Date();
+            hoy.setHours(0, 0, 0, 0);
+            // Ajustar fecha de vencimiento a la zona horaria local y limpiar hora para comparación precisa
             const fechaVence = new Date(p.fechaVence);
-            const diffDias = Math.ceil((fechaVence - hoy) / (1000*60*60*24));
+            fechaVence.setMinutes(fechaVence.getMinutes() + fechaVence.getTimezoneOffset());
+            fechaVence.setHours(0, 0, 0, 0);
+            // Calcular diferencia exacta en días
+            const diffTime = fechaVence - hoy;
+            const diffDias = Math.floor(diffTime / (1000 * 60 * 60 * 24));
             let semaforo = '';
-            if(diffDias > 5) semaforo = '🟢';
-            else if(diffDias >= 2) semaforo = '🟡';
-            else semaforo = '🔴';
+            if (diffDias > 15) {
+                semaforo = '🟢'; // Vigente (más de 15 días)
+            } else if (diffDias > 7) {
+                semaforo = '🟡'; // Próximo (entre 8 y 15 días)
+            } else if (diffDias >= 0) {
+                semaforo = '🟠'; // Crítico - naranja (esta semana: 0 a 7 días)
+            } else {
+                semaforo = '🔴'; // Vencido (menor a 0)
+            }
 
             tr.innerHTML = `
                 <td>${p.codigo}</td>

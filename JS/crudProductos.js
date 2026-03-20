@@ -80,20 +80,37 @@ function fechaHoraLocal() {
     return now.toISOString().slice(0, 16);
 }
 
-// ── SEMÁFORO VENCIMIENTO ──────────────────────────────────────────────────────
+// SEMÁFORO VENCIMIENTO
 function getSemaforoVence(fechaVence) {
+    if (!fechaVence) return { icono: '⚪', clase: 'sin-dato' };
     const diff = Math.ceil((new Date(fechaVence) - new Date()) / (1000 * 60 * 60 * 24));
+    
+    // Usamos las variables globales declaradas al inicio
     if (diff > diasVencimientoConfig) return { icono: '🟢', clase: 'seguro' };
     if (diff >= 2 && diff <= diasVencimientoConfig) return { icono: '🟡', clase: 'cercano' };
     return { icono: '🔴', clase: 'vencido' };
 }
 
-// ── SEMÁFORO STOCK ────────────────────────────────────────────────────────────
+// SEMÁFORO STOCK
 function getSemaforoStock(cantidad) {
-    if (cantidad === undefined || cantidad === null || cantidad === '') return { icono: '⚪', clase: 'sin-dato' };
-    return Number(cantidad) <= umbralStockConfig
-        ? { icono: '🔴', clase: 'bajo-stock' }
-        : { icono: '🟢', clase: 'stock-ok' };
+    if (cantidad === undefined || cantidad === null || cantidad === '') {
+        return { icono: '⚪', clase: 'sin-dato' };
+    }
+
+    const cant = Number(cantidad);
+    
+    // 1. Crítico: Igual o menor al umbral (ej. 5)
+    if (cant <= umbralStockConfig) {
+        return { icono: '🔴', clase: 'bajo-stock' };
+    } 
+    
+    // 2. Alerta: Mayor al umbral pero cercano (ej. entre 6 y 10 si el umbral es 5)
+    if (cant <= umbralStockConfig * 2) {
+        return { icono: '🟠', clase: 'stock-medio' };
+    }
+
+    // 3. Seguro: Más del doble del umbral
+    return { icono: '🟢', clase: 'stock-ok' };
 }
 
 // ── MÉTRICAS ──────────────────────────────────────────────────────────────────

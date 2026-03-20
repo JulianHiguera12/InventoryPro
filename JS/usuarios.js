@@ -1,22 +1,30 @@
 // --- usuarios.js ---
-// Usuario actual (ejemplo)
-const usuarioActual = {
-    nombre: "Laura Olmos",
-    avatar: "../IMG/woman.png" 
-};
+function obtenerUsuario() {
+    const nombre = sessionStorage.getItem('usuario');
+    const uid = sessionStorage.getItem('uid');
+
+    if (!nombre) return null;
+
+    return {
+        nombre: nombre,
+        avatar: "../IMG/man.png" // puedes luego hacerlo dinámico desde Firestore
+    };
+}
 
 // Función principal
 function actualizarHeaderUsuario() {
+    const usuarioActual = obtenerUsuario();
+    if (!usuarioActual) return;
+
     const nombreSpan = document.getElementById('nombreUsuario');
     const userInfoBtn = document.getElementById('userInfo');
     const dropdown = document.getElementById('userDropdown');
 
     if (!nombreSpan || !userInfoBtn || !dropdown) return;
 
-    // Actualizar nombre
+    // Aquí ya se pone el nombre real
     nombreSpan.textContent = usuarioActual.nombre;
 
-    // Actualizar avatar
     const avatar = userInfoBtn.querySelector('.user-icon');
     if (avatar) avatar.src = usuarioActual.avatar;
 

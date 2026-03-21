@@ -1,336 +1,290 @@
 /* ══════════════════════════════════════════════════════
-   inventario.css — home.html
-   Layout y estilos idénticos a gestionProductos.css
+   reportes.css
    ══════════════════════════════════════════════════════ */
  
-/* ── PANEL PRINCIPAL (igual que .product-dashboard) ───── */
-.inventory-summary {
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-}
+/* ── LAYOUT ─────────────────────────────────────────── */
+html, body { height: 100%; overflow: hidden; }
  
-/* ── TARJETAS ─────────────────────────────────────────── */
-.cards {
+.rep-content {
+    flex: 1;
+    height: 100%;
+    min-height: 0;
     display: flex;
-    gap: 16px;
-    margin-bottom: 12px;
-    flex-shrink: 0;
-}
- 
-.card {
-    flex: 1 1 180px;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
     background: #f5f9fc;
-    padding: 12px 10px;
-    border-radius: 16px;
-    text-align: center;
-    border: 1px solid #c8d0d8;
-    box-shadow: 5px 5px 10px #c8d0d8, -5px -5px 10px #ffffff;
-    transition: 0.3s all;
-    font-size: 1rem;
-    font-weight: 580;
-    color: #333;
-}
- 
-.card:hover {
-    box-shadow: inset 5px 5px 10px #c8d0d8, inset -5px -5px 10px #ffffff;
-}
- 
-.card p {
-    font-size: 24px;
-    color: #4CAF50;
-    margin: 4px 0 2px 0;
-    font-weight: 700;
-}
- 
-.alertas-card {
-    background: #fff4e5;
-    border-color: #ffd590;
-}
- 
-.alertas-card h3 {
-    font-size: 0.9rem;
-    color: #2c3e50;
-    margin-bottom: 4px;
-    font-weight: 600;
-}
- 
-.alertas-card p {
-    font-size: 1rem;
-    margin: 2px 0;
-}
- 
-.alertas-card span {
-    font-weight: 700;
-    color: #e74c3c;
-}
- 
-@media (max-width: 768px) {
-    .cards { flex-direction: column; }
-}
- 
-/* ── CONTENEDOR TABLA (igual que .product-table-wrapper) ─ */
-.tabla-inventario {
-    background: #f5f9fc;
-    padding: 15px;
-    border-radius: 15px;
-    border: 1.5px solid #c8d0d8;
-    box-shadow: 4px 4px 10px rgba(0,0,0,0.09),
-                -4px -4px 10px rgba(255,255,255,0.65);
-}
- 
-.tabla-inventario h3 {
-    margin-bottom: 12px;
-    color: #34506b;
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: center;
-}
- 
-/* ── SCROLL — mismo cálculo que registroProductos ──────── */
-.tabla-scroll {
-    overflow-x: auto;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 12px 12px 24px rgba(0,0,0,0.11), -12px -12px 24px rgba(200,200,200,0.55);
     overflow-y: auto;
-    max-height: calc(100vh - 390px);
-    border-radius: 10px;
 }
  
-.tabla-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
-.tabla-scroll::-webkit-scrollbar-thumb { background: #3b5bdb; border-radius: 10px; }
+.rep-content h2 {
+    text-align: center;
+    color: #34506b;
+    font-weight: 600;
+    font-size: 1.4rem;
+    padding: 8px 0 0;
+}
+ 
+/* ── PANEL DE FILTROS ───────────────────────────────── */
+.filtros-panel {
+    background: rgba(164,164,181,0.18);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(118,114,114,0.25);
+    border-radius: 18px;
+    padding: 20px 24px;
+    box-shadow: inset 0 4px 30px rgba(0,0,0,0.06), 0 8px 30px rgba(0,0,0,0.10);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+}
+ 
+.filtro-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 170px;
+}
+ 
+.filtro-grupo label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #4a6080;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+ 
+.filtro-grupo select {
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: 1px solid #c8d0d8;
+    background: #f5f9fc;
+    color: #34506b;
+    font-size: 0.95rem;
+    box-shadow: inset 3px 3px 6px rgba(0,0,0,0.07), inset -3px -3px 6px rgba(255,255,255,0.8);
+    cursor: pointer;
+    transition: 0.2s;
+}
+ 
+.filtro-grupo select:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74,144,226,0.15);
+}
+ 
+.btn-generar {
+    padding: 10px 22px;
+    background: linear-gradient(135deg, #4a90e2, #3a7bd5);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 4px 4px 10px rgba(58,123,213,0.35);
+    transition: 0.25s;
+    align-self: flex-end;
+}
+ 
+.btn-generar:hover {
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 16px rgba(58,123,213,0.45);
+}
+ 
+.btn-generar:active {
+    transform: translateY(1px);
+}
+ 
+/* ── ZONA DE RESULTADO ──────────────────────────────── */
+.resultado-panel {
+    flex: 1;
+    min-height: 0;
+    background: rgba(164,164,181,0.18);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(118,114,114,0.25);
+    border-radius: 18px;
+    padding: 16px 20px;
+    box-shadow: inset 0 4px 30px rgba(0,0,0,0.06), 0 8px 30px rgba(0,0,0,0.10);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+ 
+.resultado-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+ 
+.resultado-titulo {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #34506b;
+}
+ 
+.resultado-info {
+    font-size: 0.85rem;
+    color: #7a90a8;
+}
+ 
+.botones-exportar {
+    display: flex;
+    gap: 10px;
+}
+ 
+.btn-export {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+ 
+.btn-export:hover { transform: translateY(-2px); }
+.btn-export:active { transform: translateY(1px); }
+.btn-export:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+ 
+.btn-pdf {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: #fff;
+    box-shadow: 3px 3px 10px rgba(231,76,60,0.35);
+}
+ 
+.btn-excel {
+    background: linear-gradient(135deg, #27ae60, #1e8449);
+    color: #fff;
+    box-shadow: 3px 3px 10px rgba(39,174,96,0.35);
+}
+ 
+/* ── TABLA PREVIA ───────────────────────────────────── */
+.tabla-scroll {
+    flex: 1;
+    overflow: auto;
+    border-radius: 12px;
+}
+ 
+.tabla-scroll::-webkit-scrollbar { width: 7px; height: 7px; }
+.tabla-scroll::-webkit-scrollbar-thumb { background: #4a90e2; border-radius: 8px; }
 .tabla-scroll::-webkit-scrollbar-track { background: #eaeef7; }
  
-/* ── TABLA (idéntica a #prod-table) ───────────────────── */
-.inventory-table {
+.rep-table {
     width: 100%;
-    border-collapse: collapse;
-    font-size: 15px;
+    border-collapse: separate;
+    border-spacing: 0 4px;
+    font-size: 0.88rem;
 }
  
-/* Encabezados */
-.inventory-table th {
+.rep-table thead th {
     background: #e0e6f0;
-    padding: 9px 12px;
+    color: #2c3e50;
     font-weight: 600;
-    font-size: 14px;
-    color: #333;
+    padding: 11px 14px;
     text-align: center;
-    border: 1px solid #c8d0d8;
-    box-shadow: inset 2px 2px 5px #ffffff, inset -2px -2px 5px #c8d0d8;
-    white-space: nowrap;
     position: sticky;
     top: 0;
     z-index: 2;
-    user-select: none;
+    border-bottom: 2px solid #c8d4e8;
 }
  
-/* Celdas */
-.inventory-table td {
-    padding: 8px 10px;
-    text-align: center;
-    font-size: 14px;
-    color: #333;
+.rep-table thead th:first-child { border-radius: 10px 0 0 0; }
+.rep-table thead th:last-child  { border-radius: 0 10px 0 0; }
+ 
+.rep-table tbody tr {
     background: #f5f9fc;
-    border: 1px solid #c8d0d8;
-    box-shadow: inset 1px 1px 3px #ffffff, inset -1px -1px 3px #c8d0d8;
-    transition: 0.3s all;
+    transition: 0.2s;
 }
  
-/* Columna acción */
-.inventory-table td:last-child {
-    padding: 6px 8px !important;
-    white-space: nowrap;
-    min-width: 50px;
+.rep-table tbody tr:nth-child(even) { background: #edf2f9; }
+ 
+.rep-table tbody tr:hover {
+    background: rgba(74,144,226,0.1);
+    transform: translateX(2px);
+}
+ 
+.rep-table td {
+    padding: 10px 14px;
     text-align: center;
+    color: #34495e;
+    border-bottom: 1px solid #dce3ee;
 }
  
-/* Hover fila */
-.inventory-table tbody tr:hover td {
-    background: linear-gradient(145deg, rgba(74,144,226,0.10), rgba(74,144,226,0.05));
-}
- 
-/* ── BOTÓN VER (igual que .btn-accion) ────────────────── */
-.btn-ver-home {
+/* badges */
+.badge {
     display: inline-block;
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
-    font-size: 15px;
-    border-radius: 5px;
-    background: #f5f9fc;
-    border: 1px solid #c8d0d8;
-    box-shadow: 4px 4px 8px #c8d0d8, -4px -4px 8px #ffffff;
-    cursor: pointer;
-    transition: all 0.2s;
-    padding: 0;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
 }
  
-.btn-ver-home:hover {
-    box-shadow: inset 4px 4px 8px #c8d0d8, inset -4px -4px 8px #ffffff;
-    transform: scale(1.05);
-}
+.badge-activo     { background: #d4edda; color: #155724; }
+.badge-inactivo   { background: #f8d7da; color: #721c24; }
+.badge-disponible { background: #d1ecf1; color: #0c5460; }
+.badge-agotado    { background: #f8d7da; color: #721c24; }
+.badge-vencido    { background: #fff3cd; color: #856404; }
  
-/* ── SEMÁFORO ─────────────────────────────────────────── */
+/* semáforo */
 .sem-verde    { color: #27ae60; font-weight: 700; }
 .sem-amarillo { color: #f39c12; font-weight: 700; }
 .sem-rojo     { color: #e74c3c; font-weight: 700; }
  
-/* ── PAGINACIÓN (idéntica a gestionProductos) ─────────── */
-.paginacion {
-    margin-top: 10px;
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    align-items: center;
+/* placeholder vacío */
+.tabla-vacia {
+    text-align: center;
+    padding: 40px;
+    color: #aab;
+    font-size: 1rem;
 }
  
-.pag-btn {
-    padding: 6px 12px;
-    border: 1.5px solid #dde2ef;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #34506b;
-    background: linear-gradient(145deg, rgba(240,240,245,0.55), rgba(230,230,235,0.45));
-    box-shadow: 6px 6px 12px rgba(0,0,0,0.14), -6px -6px 12px rgba(230,230,235,0.80);
-    min-width: 40px;
-    transition: all 0.2s;
+.tabla-vacia .ico { font-size: 2.5rem; display: block; margin-bottom: 8px; }
+ 
+/* spinner */
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #c8d0d8;
+    border-top-color: #4a90e2;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
 }
  
-.pag-btn:hover:not(:disabled) {
-    transform: translateY(-4px) scale(1.03);
-    background: linear-gradient(145deg, rgba(74,144,226,0.28), rgba(74,144,226,0.18));
-    color: #4a90e2;
-    box-shadow: 10px 10px 20px rgba(0,0,0,0.16),
-                -10px -10px 20px rgba(255,255,255,0.95),
-                0 0 18px rgba(74,144,226,0.40);
-}
+@keyframes spin { to { transform: rotate(360deg); } }
  
-.pag-btn.active {
-    background: linear-gradient(145deg, rgba(74,144,226,0.22), rgba(74,144,226,0.12));
-    color: #3a7bd5;
-    box-shadow: inset 6px 6px 12px rgba(0,0,0,0.18),
-                inset -6px -6px 12px rgba(255,255,255,0.55);
-    transform: translateY(2px);
-}
- 
-.pag-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
- 
-.pag-info {
-    font-size: 0.82rem;
-    color: #7a90a8;
-    margin-left: 8px;
-}
- 
-/* ── MODAL VER PRODUCTO ───────────────────────────────── */
-.home-modal-overlay {
-    display: none;
+/* toast */
+.toast-rep {
     position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 5000;
-    justify-content: center;
-    align-items: center;
-}
- 
-.home-modal-overlay.active { display: flex; }
- 
-.home-modal {
-    background: #f0f4fa;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 620px;
-    max-height: 88vh;
-    overflow-y: auto;
-    padding: 28px 30px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    position: relative;
-}
- 
-.home-modal::-webkit-scrollbar { width: 6px; }
-.home-modal::-webkit-scrollbar-thumb { background: #3b5bdb; border-radius: 6px; }
- 
-.home-modal h3 {
-    font-size: 1.3rem;
-    color: #3b5bdb;
-    font-weight: 700;
-    margin-bottom: 6px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #dce3f0;
-}
- 
-.home-modal-close {
-    position: absolute;
-    top: 16px; right: 18px;
-    background: none;
-    border: none;
-    font-size: 1.4rem;
-    cursor: pointer;
-    color: #888;
-    line-height: 1;
-}
-.home-modal-close:hover { color: #333; }
- 
-.modal-section { margin-top: 18px; }
- 
-.modal-section legend {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: #4a90e2;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 10px;
-    display: block;
-}
- 
-.modal-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
- 
-.modal-grid.full { grid-template-columns: 1fr; }
- 
-.modal-field label {
-    font-size: 0.78rem;
-    color: #7a90a8;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 4px;
-}
- 
-.modal-field input,
-.modal-field textarea {
-    width: 100%;
-    padding: 9px 12px;
-    border-radius: 10px;
-    border: none;
-    background: #f0f4f8;
-    color: #34506b;
+    bottom: 24px;
+    right: 24px;
+    padding: 12px 20px;
+    border-radius: 12px;
     font-size: 0.9rem;
-    box-shadow: inset 5px 5px 10px #c8d0d8, inset -5px -5px 10px #ffffff;
-    resize: none;
-}
- 
-.modal-field textarea { min-height: 60px; }
- 
-.modal-footer { margin-top: 20px; text-align: right; }
- 
-.btn-cerrar-modal {
-    padding: 9px 24px;
-    background: #f5f9fc;
-    border: 1px solid #c8d0d8;
-    border-radius: 10px;
     font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    color: #34506b;
-    box-shadow: 5px 5px 10px #c8d0d8, -5px -5px 10px #ffffff;
-    transition: 0.2s;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.35s;
+    z-index: 9999;
+    pointer-events: none;
 }
  
-.btn-cerrar-modal:hover {
-    box-shadow: inset 5px 5px 10px #c8d0d8, inset -5px -5px 10px #ffffff;
-}
+.toast-rep.show    { opacity: 1; transform: translateY(0); }
+.toast-rep.success { background: #27ae60; }
+.toast-rep.error   { background: #e74c3c; }
+ 
+/* filtros condicionales */
+.filtro-condicional { transition: opacity 0.3s; }
+.filtro-condicional.oculto { opacity: 0; pointer-events: none; }
+ 

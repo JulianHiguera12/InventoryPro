@@ -6,7 +6,7 @@
     --text-color: #333;
     --danger-color: #e74c3c;
 }
-
+ 
 /* APP LAYOUT */
 .app-layout {
     display: flex;
@@ -17,7 +17,7 @@
     background-size: 420px;
     background-attachment: fixed;
 }
-
+ 
 /* HEADER */
 .topbar {
     display: flex;
@@ -30,14 +30,14 @@
     top: 0;
     z-index: 1000;
 }
-
+ 
 .topbar-left .logo {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: #4a90e2; /* azul fijo, no depende de variable */
     margin-left: 30px;      
 }
-
+ 
 /* Búsqueda */
 .topbar-center .search-input {
     width: 900px;
@@ -47,20 +47,20 @@
     font-size: 1.1rem;
     transition: all 0.3s ease;
 }
-
+ 
 .search-input:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 8px rgba(74,144,226,0.3);
 }
-
+ 
 /* Topbar derecha */
 .topbar-right {
     display: flex;
     align-items: center;
     gap: 20px;
 }
-
+ 
 /* NOTIFICACIONES */
 .notification-btn {
     position: relative;
@@ -71,18 +71,18 @@
     border-radius: 50%;
     transition: background 0.2s ease, transform 0.2s ease;
 }
-
+ 
 .notification-btn .icon-bell {
     font-size: 2rem;
     line-height: 1;
     display: block;
 }
-
+ 
 .notification-btn:hover {
     background-color: rgba(74,144,226,0.1);
     transform: translateY(-2px);
 }
-
+ 
 .notification-btn .badge {
     position: absolute;
     top: -6px;
@@ -94,12 +94,12 @@
     border-radius: 50%;
     font-weight: 700;
 }
-
+ 
 /* MENÚ DE USUARIO */
 .user-menu {
     position: relative;
 }
-
+ 
 /* Botón del usuario */
 .user-info {
     display: inline-flex;
@@ -115,12 +115,12 @@
     color: var(--text-color);
     transition: background 0.2s ease, box-shadow 0.2s ease;
 }
-
+ 
 .user-info:hover {
     background-color: rgba(74,144,226,0.1);
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
-
+ 
 /* Avatar */
 .user-icon {
     width: 35px;
@@ -128,7 +128,7 @@
     border-radius: 50%;
     object-fit: cover;
 }
-
+ 
 .user-dropdown {
     position: absolute;
     top: 120%;
@@ -144,18 +144,18 @@
     flex-direction: column;
     animation: fadeIn 0.5s ease;
 }
-
+ 
 /* Mostrar dropdown activo */
 .user-dropdown.active {
     display: flex;
 }
-
+ 
 /* Animación */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-5px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
+ 
 /* Items flex: icon y label */
 .user-dropdown a,
 .user-dropdown button {
@@ -172,29 +172,29 @@
     text-decoration: none;
     transition: background 0.2s ease;
 }
-
+ 
 /* Hover visible */
 .user-dropdown a:hover,
 .user-dropdown button:hover {
     background-color: rgba(0, 0, 0, 0.08); 
     border-radius: 10px;
 }
-
+ 
 /* Botón cerrar sesión destacado */
 .logout-btn {
     color: #e74c3c;
     font-weight: 600;
 }
-
+ 
 /* RESPONSIVE */
 @media (max-width: 1200px) {
     .topbar-center .search-input { width: 400px; }
 }
-
+ 
 @media (max-width: 900px) {
     .topbar-center .search-input { width: 250px; }
 }
-
+ 
 @media (max-width: 700px) {
     .topbar-center { display: none; }
 }

@@ -245,14 +245,6 @@ onAuthStateChanged(auth, async (user) => {
 // ── EVENTOS DOM ───────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
  
-    // Control bienvenida (también en el script inline del HTML, doble seguro)
-    const yaMostrada = sessionStorage.getItem('bienvenidaMostrada');
-    if (yaMostrada === 'true') {
-        const anim = document.getElementById('animacionBienvenida');
-        if (anim) anim.style.display = 'none';
-    } else {
-        sessionStorage.setItem('bienvenidaMostrada', 'true');
-    }
  
     // Cerrar modal ver
     document.getElementById('cerrarModalVer')?.addEventListener('click',  cerrarModalVer);

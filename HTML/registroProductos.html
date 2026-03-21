@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="/CSS/gestionUsuarios.css">
 
     <!-- CSS PRODUCTOS -->
-    <link rel="stylesheet" href="../CSS/gestionProductos.css">
-    <link rel="stylesheet" href="../CSS/modalesRegistroProducto.css">
+    <link rel="stylesheet" href="/CSS/gestionProductos.css">
+    <link rel="stylesheet" href="/CSS/modalesRegistroProducto.css">
 
     <!-- CSS paginación y filtros -->
     <style>
@@ -68,6 +68,7 @@
 </head>
 
 <body>
+<div class="app-layout">
     <!-- HEADER SUPERIOR -->
     <header class="topbar">
         <div class="topbar-left">
@@ -77,7 +78,7 @@
         <div class="topbar-right">
             <nav class="user-menu" aria-label="Menú de usuario">
                 <button class="user-info" id="userInfo" aria-haspopup="true" aria-expanded="false">
-                    <img src="../IMG/man.png" alt="Avatar del usuario" class="user-icon">
+                    <img src="/IMG/man.png" alt="Avatar del usuario" class="user-icon">
                     <span id="nombreUsuario">Cargando...</span>
                 </button>
                 <div class="user-dropdown" id="userDropdown">
@@ -511,6 +512,8 @@
         </div>
 
     </div>
+
+</div><!-- /app-layout -->
 
     <!-- SCRIPTS -->
     <script type="module" src="/JS/firebase.js"></script>

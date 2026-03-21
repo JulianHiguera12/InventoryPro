@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InventoryPro - Reportes</title>
- 
+
     <link rel="icon" type="image/png" href="/IMG/Logo_InventoryProCopy.png">
-    <link rel="stylesheet" href="../CSS/header.css">
-    <link rel="stylesheet" href="../CSS/mainContainer.css">
- 
+    <link rel="stylesheet" href="/CSS/header.css">
+    <link rel="stylesheet" href="/CSS/mainContainer.css">
+    <link rel="stylesheet" href="/CSS/reportes.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" defer></script>
- 
-    <link rel="stylesheet" href="../CSS/reportes.css">
 </head>
 <body>
- 
+
 <div class="app-layout">
- 
+
     <!-- HEADER -->
     <header class="topbar">
         <div class="topbar-left">
@@ -28,20 +27,20 @@
             <button class="notification-btn"></button>
             <nav class="user-menu">
                 <button class="user-info" id="userInfo">
-                    <img src="../IMG/man.png" class="user-icon" alt="avatar">
+                    <img src="/IMG/man.png" class="user-icon" alt="avatar">
                     <span id="nombreUsuario">Cargando...</span>
                 </button>
                 <div class="user-dropdown" id="userDropdown">
-                    <a href="../HTML/gestionUsuarios.html">👤 Mi Perfil</a>
+                    <a href="/HTML/gestionUsuarios.html">👤 Mi Perfil</a>
                     <button id="btnCerrarSesion">🚪 Cerrar Sesión</button>
                 </div>
             </nav>
         </div>
     </header>
- 
+
     <!-- CONTENEDOR -->
     <div class="main-container">
- 
+
         <!-- SIDEBAR -->
         <aside class="sidebar">
             <nav class="sidebar-nav">
@@ -56,15 +55,14 @@
                 <img src="/IMG/Logo_InventoryProCopy.png" class="logo-img" alt="logo">
             </div>
         </aside>
- 
+
         <!-- CONTENIDO REPORTES -->
         <section class="rep-content">
             <h2>📊 Generador de Reportes</h2>
- 
+
             <!-- FILTROS -->
             <div class="filtros-panel">
- 
-                <!-- Tipo de reporte -->
+
                 <div class="filtro-grupo">
                     <label>Tipo de reporte</label>
                     <select id="filtroTipo">
@@ -73,8 +71,7 @@
                         <option value="usuarios">👥 Usuarios</option>
                     </select>
                 </div>
- 
-                <!-- Filtro estado INVENTARIO -->
+
                 <div class="filtro-grupo filtro-condicional oculto" id="grupoEstadoProducto">
                     <label>Estado del producto</label>
                     <select id="filtroEstadoProducto">
@@ -84,8 +81,7 @@
                         <option value="vencido">Vencido</option>
                     </select>
                 </div>
- 
-                <!-- Filtro tipo INVENTARIO -->
+
                 <div class="filtro-grupo filtro-condicional oculto" id="grupoTipoProducto">
                     <label>Categoría</label>
                     <select id="filtroTipoProducto">
@@ -100,8 +96,7 @@
                         <option value="Grano">Grano</option>
                     </select>
                 </div>
- 
-                <!-- Filtro vencimiento INVENTARIO -->
+
                 <div class="filtro-grupo filtro-condicional oculto" id="grupoVencimiento">
                     <label>Vencimiento</label>
                     <select id="filtroVencimiento">
@@ -111,8 +106,7 @@
                         <option value="vencido">🔴 Vencido</option>
                     </select>
                 </div>
- 
-                <!-- Filtro activo USUARIOS -->
+
                 <div class="filtro-grupo filtro-condicional oculto" id="grupoActivoUsuario">
                     <label>Estado del usuario</label>
                     <select id="filtroActivoUsuario">
@@ -121,8 +115,7 @@
                         <option value="inactivo">Inactivos</option>
                     </select>
                 </div>
- 
-                <!-- Filtro rol USUARIOS -->
+
                 <div class="filtro-grupo filtro-condicional oculto" id="grupoRolUsuario">
                     <label>Rol</label>
                     <select id="filtroRolUsuario">
@@ -131,12 +124,12 @@
                         <option value="auxiliar">Auxiliar</option>
                     </select>
                 </div>
- 
+
                 <button class="btn-generar" id="btnGenerar">
                     🔍 Generar Vista Previa
                 </button>
             </div>
- 
+
             <!-- RESULTADO -->
             <div class="resultado-panel">
                 <div class="resultado-header">
@@ -153,7 +146,7 @@
                         </button>
                     </div>
                 </div>
- 
+
                 <div class="tabla-scroll" id="tablaContenedor">
                     <div class="tabla-vacia">
                         <span class="ico">📋</span>
@@ -162,15 +155,13 @@
                 </div>
             </div>
         </section>
- 
+
     </div>
 </div>
- 
+
 <div class="toast-rep" id="toastRep"></div>
- 
-<!-- SCRIPTS -->
-<script type="module" src="../JS/reportes.js"></script>
- 
+
+<script type="module" src="/JS/reportes.js"></script>
+
 </body>
 </html>
- 

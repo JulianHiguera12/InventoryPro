@@ -16,7 +16,8 @@
 /* 🔷 TABLA */
 .inventory-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     font-size: 0.9rem;
 }
 
@@ -114,6 +115,28 @@
     background: #eaeef7;
 }
 
+/* SCROLL BONITO (gris) */
+.tabla-scroll {
+  max-height: 420px;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: thin;               /* Firefox */
+  scrollbar-color: #9aa0a6 #e5e7eb;    /* thumb | track */
+}
+
+.tabla-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tabla-scroll::-webkit-scrollbar-thumb {
+  background: #9aa0a6;   /* gris */
+  border-radius: 10px;
+}
+
+.tabla-scroll::-webkit-scrollbar-track {
+  background: #e5e7eb;   /* gris claro */
+}
+
 /* OPCIONAL: encabezado fijo */
 .tabla-inventario thead th {
     position: sticky;
@@ -169,4 +192,11 @@
 .estado-rojo {
     color: red;
     font-weight: bold;
+}
+
+/* Contenedor con scroll vertical */
+.tabla-scroll {
+  max-height: 420px;   /* ajusta la altura visible */
+  overflow-y: auto;    /* scroll de arriba a abajo */
+  overflow-x: auto;    /* mantiene scroll horizontal si se necesita */
 }

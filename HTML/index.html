@@ -173,38 +173,6 @@
     <script type="module" src="../JS/login.js"></script>
     <script type="module" src="../JS/usuarios.js"></script>
 
-
-    <!-- Script Carrusel inline inicial -->
-    <!-- <script defer>
-        let slideActual = 0;
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelectorAll('.dot');
-        let intervalo = setInterval(() => mostrarSlide(slideActual + 1), 4000);
-
-        function mostrarSlide(index) {
-            slides.forEach(s => s.classList.remove('active'));
-            dots.forEach(d => d.classList.remove('active'));
-            slideActual = (index + slides.length) % slides.length;
-            slides[slideActual].classList.add('active');
-            dots[slideActual].classList.add('active');
-        }
-
-        function moverCarrusel(direccion) {
-            mostrarSlide(slideActual + direccion);
-            reiniciarIntervalo();
-        }
-
-        function irASlide(index) {
-            mostrarSlide(index);
-            reiniciarIntervalo();
-        }
-
-        function reiniciarIntervalo() {
-            clearInterval(intervalo);
-            intervalo = setInterval(() => mostrarSlide(slideActual + 1), 4000);
-        }
-    </script> -->
-
     <!-- Saludo de Bienvenida -->
     <script>
         const loginTitle = document.getElementById('login-title');

@@ -114,7 +114,7 @@
 
                 <!-- Opciones login -->
                 <div class="login-options">
-                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                    <a href="#" class="forgot-password" id="link-recuperar">¿Olvidaste tu contraseña?</a>
                 </div>
 
                 <button type="submit" class="btn-submit">Iniciar Sesión</button>
@@ -126,18 +126,56 @@
         </div>
     </div>
 
+    <!-- Modal Recuperar Contraseña -->
+    <div id="modal-recuperar" style="
+    display:none; position:fixed; inset:0;
+    background:rgba(0,0,0,0.5); z-index:9999;
+    align-items:center; justify-content:center;">
+        <div style="
+        background:white; border-radius:15px;
+        padding:32px; width:100%; max-width:420px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.3);
+        display:flex; flex-direction:column; gap:16px;">
+
+            <h2 style="margin:0; font-size:1.4rem; color:#1a1a2e;">
+                Recuperar contraseña
+            </h2>
+            <p style="margin:0; color:#666; font-size:.95rem;">
+                Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.
+            </p>
+
+            <input type="email" id="recuperar-email" placeholder="Correo electrónico" style="padding:10px 14px; border:1.5px solid #dde2ef;
+                   border-radius:8px; font-size:1rem; outline:none;">
+
+            <p id="recuperar-msg" style="display:none; padding:10px;
+            border-radius:8px; font-size:.9rem; text-align:center;"></p>
+
+            <div style="display:flex; gap:10px; justify-content:flex-end;">
+                <button id="btn-cancelar-recuperar" style="
+                padding:10px 20px; border:none; border-radius:8px;
+                background:#f1f3f5; color:#555; font-size:.95rem;
+                font-weight:600; cursor:pointer;">
+                    Cancelar
+                </button>
+                <button id="btn-enviar-recuperar" style="
+                padding:10px 20px; border:none; border-radius:8px;
+                background:#4CAF50; color:white; font-size:.95rem;
+                font-weight:600; cursor:pointer;">
+                    Enviar enlace
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts propios -->
     <script src="../JS/carrusel.js" defer></script>
     <script type="module" src="../JS/firebase.js"></script>
     <script type="module" src="../JS/login.js"></script>
     <script type="module" src="../JS/usuarios.js"></script>
 
-    <!-- <script src="../JS/login.js" defer></script>
-        <script src="../JS/usuarios.js" defer></script> -->
-
 
     <!-- Script Carrusel inline inicial -->
-    <script defer>
+    <!-- <script defer>
         let slideActual = 0;
         const slides = document.querySelectorAll('.carousel-slide');
         const dots = document.querySelectorAll('.dot');
@@ -165,7 +203,7 @@
             clearInterval(intervalo);
             intervalo = setInterval(() => mostrarSlide(slideActual + 1), 4000);
         }
-    </script>
+    </script> -->
 
     <!-- Saludo de Bienvenida -->
     <script>
@@ -186,10 +224,6 @@
         }
 
         loginTitle.textContent = saludo;
-    </script>
-    <script>
-            // Script para mostrar mensaje de error al intentar iniciar sesión sin llenar campos
-
     </script>
 
 </body>

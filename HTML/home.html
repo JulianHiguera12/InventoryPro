@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InventoryPro</title>
- 
+
     <link rel="icon" type="image/jpeg" href="/IMG/Logo_InventoryProCopy.png">
- 
+
     <!-- CSS modular -->
     <link rel="stylesheet" href="../CSS/login.css">
     <link rel="stylesheet" href="../CSS/carousel.css">
@@ -15,16 +15,56 @@
     <link rel="stylesheet" href="../CSS/errorLogin.css">
     <link rel="stylesheet" href="../CSS/header.css">
     <link rel="stylesheet" href="../CSS/inventario.css">
- 
+
     <!-- Librerías externas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" defer></script>
- 
+
+    <!-- CSS filtros y paginación -->
+    <style>
+        .prod-filtro-select {
+            padding: 7px 12px;
+            border: 1.5px solid #dde2ef;
+            border-radius: 6px;
+            font-size: .88rem;
+            color: #444;
+            outline: none;
+            cursor: pointer;
+            background: white;
+        }
+        .prod-filtro-select:focus {
+            border-color: #3b5bdb;
+        }
+        .pag-btn {
+            padding: 6px 12px;
+            border: 1.5px solid #dde2ef;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            font-size: .85rem;
+            font-weight: 600;
+            color: #444;
+            transition: all .2s;
+        }
+        .pag-btn:hover:not(:disabled) {
+            background: #3b5bdb;
+            color: white;
+            border-color: #3b5bdb;
+        }
+        .pag-btn.active {
+            background: #3b5bdb;
+            color: white;
+            border-color: #3b5bdb;
+        }
+        .pag-btn:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
- 
+
 <body class="inventario-page">
- 
     <!-- ANIMACIÓN DE BIENVENIDA -->
     <div id="animacionBienvenida" class="animacion-bienvenida">
         <canvas id="particulasCanvas"></canvas>
@@ -33,9 +73,9 @@
             <h1>¡Bienvenido, <span id="nombreUsuarioAnim"></span>!</h1>
         </div>
     </div>
- 
+
     <div class="app-layout">
- 
+
         <!-- HEADER -->
         <header class="topbar">
             <div class="topbar-left">
@@ -55,10 +95,10 @@
                 </nav>
             </div>
         </header>
- 
+
         <!-- CONTENEDOR -->
         <div class="main-container">
- 
+
             <!-- SIDEBAR -->
             <aside class="sidebar">
                 <nav class="sidebar-nav">
@@ -73,12 +113,12 @@
                     <img src="/IMG/Logo_InventoryProCopy.png" class="logo-img">
                 </div>
             </aside>
- 
+
             <!-- DASHBOARD -->
             <section class="inventory-summary">
- 
+
                 <h2>Resumen del Inventario</h2>
- 
+
                 <!-- TARJETAS -->
                 <div class="cards">
                     <div class="card">
@@ -95,11 +135,43 @@
                         <p id="stockBajo">0</p>
                     </div>
                 </div>
- 
+
                 <!-- TABLA INVENTARIO -->
                 <div class="tabla-inventario">
                     <h3>Inventario General</h3>
- 
+
+                    <!-- FILTROS -->
+                    <div id="home-filtros" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px;">
+                        <select id="home-filtro-tipo" class="prod-filtro-select">
+                            <option value="">Todos los tipos</option>
+                            <option value="Lácteo">Lácteo</option>
+                            <option value="Carne">Carne</option>
+                            <option value="Embutido">Embutido</option>
+                            <option value="Panadería">Panadería</option>
+                            <option value="Bebida">Bebida</option>
+                            <option value="Cereal">Cereal</option>
+                            <option value="Aceite">Aceite</option>
+                        </select>
+                        <select id="home-filtro-estado" class="prod-filtro-select">
+                            <option value="">Todos los estados</option>
+                            <option value="disponible">Disponible</option>
+                            <option value="vendido">Vendido</option>
+                            <option value="devuelto">Devuelto</option>
+                            <option value="inspeccion">En inspección</option>
+                        </select>
+                        <select id="home-filtro-semaforo" class="prod-filtro-select">
+                            <option value="">Todos los vencimientos</option>
+                            <option value="sem-verde">🟢 Seguro</option>
+                            <option value="sem-amarillo">🟡 Cercano</option>
+                            <option value="sem-rojo">🔴 Vencido</option>
+                        </select>
+                        <button id="home-btn-limpiar" style="padding:7px 14px;background:#6c757d;
+                            color:white;border:none;border-radius:6px;cursor:pointer;
+                            font-size:.88rem;font-weight:600;">
+                            🗑 Limpiar filtros
+                        </button>
+                    </div>
+
                     <div class="tabla-scroll">
                         <table class="inventory-table">
                             <thead>
@@ -121,23 +193,23 @@
                             </tbody>
                         </table>
                     </div>
- 
-                    <div style="display:flex; align-items:center; margin-top:10px;">
+
+                    <div style="display:flex; align-items:center; margin-top:10px; gap:8px; flex-wrap:wrap;">
                         <div id="paginacion" class="paginacion"></div>
                         <span id="pagInfo" class="pag-info"></span>
                     </div>
                 </div>
- 
+
             </section>
         </div>
     </div>
- 
+
     <!-- MODAL VER PRODUCTO -->
     <div id="modalVerHome" class="home-modal-overlay">
         <div class="home-modal">
             <button class="home-modal-close" id="cerrarModalVer">&times;</button>
             <h3>Ver Producto</h3>
- 
+
             <div class="modal-section">
                 <legend>Identificación</legend>
                 <div class="modal-grid">
@@ -167,7 +239,7 @@
                     </div>
                 </div>
             </div>
- 
+
             <div class="modal-section">
                 <legend>Fechas importantes</legend>
                 <div class="modal-grid">
@@ -189,7 +261,7 @@
                     </div>
                 </div>
             </div>
- 
+
             <div class="modal-section">
                 <legend>Proveedor y Ubicación</legend>
                 <div class="modal-grid">
@@ -207,7 +279,7 @@
                     </div>
                 </div>
             </div>
- 
+
             <div class="modal-section">
                 <legend>Observaciones</legend>
                 <div class="modal-grid full">
@@ -216,23 +288,23 @@
                     </div>
                 </div>
             </div>
- 
+
             <div class="modal-footer">
                 <button class="btn-cerrar-modal" id="cerrarModalVer2">Cerrar</button>
             </div>
         </div>
     </div>
- 
+
     <!-- SCRIPTS -->
     <script src="../JS/carrusel.js" defer></script>
     <script src="../JS/logo.js" defer></script>
- 
+
     <!-- FIREBASE -->
     <script type="module" src="/JS/firebase.js"></script>
- 
+
     <!-- JS INVENTARIO -->
     <script type="module" src="../JS/home.js"></script>
- 
+
     <!-- Animación de bienvenida -->
     <script defer>
         document.addEventListener('DOMContentLoaded', () => {
@@ -244,61 +316,60 @@
             const avatar = document.getElementById('avatarUsuario');
             const canvas = document.getElementById('particulasCanvas');
             const ctx = canvas.getContext('2d');
- 
-            if(nombreSpanBarra) nombreSpanBarra.textContent = nombre;
-            if(nombreSpanAnim) nombreSpanAnim.textContent = '';
-            if(avatar) avatar.src = '../IMG/man.png';
- 
-            // Mostrar animación solo la primera vez por sesión
+
+            if (nombreSpanBarra) nombreSpanBarra.textContent = nombre;
+            if (nombreSpanAnim)  nombreSpanAnim.textContent  = '';
+            if (avatar)          avatar.src = '../IMG/man.png';
+
             const yaMostrado = sessionStorage.getItem('bienvenidaMostrada');
-            if (yaMostrado) {
-                animacion.remove();
-                return;
-            }
+            if (yaMostrado) { animacion.remove(); return; }
             sessionStorage.setItem('bienvenidaMostrada', 'true');
             animacion.classList.add('show');
- 
+
             const mensaje = `${nombre} - ${rol}`;
             let i = 0;
-            function escribir(){
-                if(i < mensaje.length){
+            function escribir() {
+                if (i < mensaje.length) {
                     nombreSpanAnim.textContent += mensaje[i];
                     i++;
                     setTimeout(escribir, 100);
                 }
             }
             escribir();
- 
-            function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+
+            function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
             window.addEventListener('resize', resizeCanvas);
             resizeCanvas();
- 
+
             const particulas = [];
-            for(let j=0;j<120;j++){
-                particulas.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height,
-                    r: Math.random()*4+1, speed: Math.random()*0.3+0.1, alpha: Math.random()*0.5+0.2 });
+            for (let j = 0; j < 120; j++) {
+                particulas.push({
+                    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                    r: Math.random() * 4 + 1, speed: Math.random() * 0.3 + 0.1,
+                    alpha: Math.random() * 0.5 + 0.2
+                });
             }
-            function dibujarParticulas(){
-                ctx.clearRect(0,0,canvas.width,canvas.height);
-                particulas.forEach(p=>{
-                    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-                    ctx.fillStyle=`rgba(255,255,255,${p.alpha})`; ctx.fill();
-                    p.y -= p.speed; if(p.y < -10) p.y = canvas.height+10;
+            function dibujarParticulas() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particulas.forEach(p => {
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${p.alpha})`; ctx.fill();
+                    p.y -= p.speed; if (p.y < -10) p.y = canvas.height + 10;
                 });
             }
             let animId;
-            function animarParticulas(){ animId = requestAnimationFrame(animarParticulas); dibujarParticulas(); }
+            function animarParticulas() { animId = requestAnimationFrame(animarParticulas); dibujarParticulas(); }
             animarParticulas();
- 
-            setTimeout(()=>{
+
+            setTimeout(() => {
                 animacion.style.transition = 'opacity 1s ease';
                 animacion.style.opacity = 0;
                 animacion.style.pointerEvents = 'none';
                 cancelAnimationFrame(animId);
-                setTimeout(()=> animacion.remove(), 1000);
+                setTimeout(() => animacion.remove(), 1000);
             }, 5000);
         });
     </script>
- 
+
 </body>
 </html>

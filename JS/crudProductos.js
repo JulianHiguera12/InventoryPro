@@ -124,7 +124,7 @@ function actualizarMetricas(productos) {
     });
     document.getElementById('semaforo-verde').textContent = verde;
     document.getElementById('semaforo-amarillo').textContent = amarillo;
-    document.getElementById('semaforo-rojo').textContent = rojo;
+    document.getElementById('semaforo-rojo').textContent = rojo; 
     const totalEl = document.getElementById('semaforo-total');
     if (totalEl) totalEl.textContent = productos.length;
 }
@@ -586,14 +586,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (snap.exists()) {
             const d = snap.data();
 
-            // 🔥 ARMAR NOMBRE COMPLETO
+            //  ARMAR NOMBRE COMPLETO
             const nombreCompleto = `${d.primerNombre} ${d.primerApellido}`;
 
-            // 🔥 MOSTRAR EN PANTALLA
+            //  MOSTRAR EN PANTALLA
             const nombreSpan = document.getElementById('nombreUsuario');
             if (nombreSpan) nombreSpan.textContent = nombreCompleto;
 
-            // 🔥 GUARDAR EN SESSION (CLAVE PARA CSV)
+            //  GUARDAR EN SESSION (CLAVE PARA CSV)
             sessionStorage.setItem('usuario', nombreCompleto);
         }
 
@@ -607,7 +607,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await cargarProductos();
 });
 
-// ── OCULTA BOTON CREAR ──────────────────────────────────────────────────────────────────────
+// ── OCULTA BOTONES CREAR Y CARGA MASIVA ────────────────────────────────────────────────────
 
 function aplicarRestriccionesPorRol() {
     const rol = sessionStorage.getItem('rol');
@@ -617,9 +617,13 @@ function aplicarRestriccionesPorRol() {
     const btnCreate = document.getElementById('prod-btn-create');
     if (btnCreate) btnCreate.style.display = 'none';
 
+    // Ocultar botón Carga Masiva CSV
+    const btnCsv = document.getElementById('prod-btn-carga-csv');
+    if (btnCsv) btnCsv.style.display = 'none';
+
 }
 
-// 🎯 BOTÓN E INPUT
+// BOTÓN E INPUT
 const btnCSV = document.getElementById("btnCargarCSV");
 const inputCSV = document.getElementById("inputCSV");
 
@@ -645,7 +649,7 @@ if (btnCSV && inputCSV) {
 }
 
 
-// ⚙️ FUNCIÓN PRINCIPAL (VERSIÓN PRO)
+// FUNCIÓN PRINCIPAL (VERSIÓN PRO)
 async function procesarCSV(texto) {
   const filas = texto.split("\n");
   const encabezados = filas[0].split(",");
@@ -671,20 +675,20 @@ async function procesarCSV(texto) {
     producto.fechaModificacion = new Date().toISOString();
     producto.usuarioRegistra = sessionStorage.getItem('usuario') || 'admin';
 
-    // 🔥 NO guardamos aún → solo acumulamos
+    //  NO guardamos aún → solo acumulamos
     datos.push(producto);
   }
 
-  // 🔥 guardamos global
+  //  guardamos global
   datosCSVGlobal = datos;
 
-  // 🔥 mostramos resumen
+  //  mostramos resumen
   const resumen = document.getElementById("csvResumen");
   if (resumen) {
     resumen.textContent = `Se cargarán ${datos.length} productos. ¿Deseas continuar?`;
   }
 
-  // 🔥 abrimos modal confirmación
+  //  abrimos modal confirmación
   document.getElementById("modalConfirmCSV")?.classList.add("active");
 }
 
@@ -711,7 +715,7 @@ document.getElementById("confirmarCarga")?.addEventListener("click", async () =>
       await addDoc(collection(db, "productos"), producto);
       count++;
 
-      // 🔥 actualizar progreso en pantalla
+      //  actualizar progreso en pantalla
       const progreso = document.getElementById("progresoTexto");
       if (progreso) {
         progreso.textContent = `${count} productos cargados...`;

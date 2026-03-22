@@ -455,6 +455,11 @@
     color: #1a1a2e;
 }
 
+#modal-cfg-titulo {
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
 .modal-close-cfg {
     position: absolute;
     top: 16px;
@@ -476,8 +481,14 @@
 
 .form-cfg-fila label {
     font-size: 0.88rem;
-    font-weight: 600;
-    color: #555;
+    font-weight: 700;
+    color: #334155;
+    letter-spacing: 0.2px;
+}
+
+.form-cfg-fila label span {
+    color: #ef4444;
+    font-weight: 700;
 }
 
 .form-cfg-fila input,
@@ -504,13 +515,20 @@
 
 .btn-cfg-guardar {
     padding: 10px 24px;
-    background: linear-gradient(135deg, #3b5bdb, #2244c4);
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
     border: none;
     border-radius: 8px;
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.28);
+}
+
+.btn-cfg-guardar:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.35);
 }
 
 .btn-cfg-cancelar {

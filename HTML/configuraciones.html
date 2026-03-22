@@ -136,60 +136,58 @@
                 <button class="modal-close-cfg" id="modal-cfg-close">×</button>
                 <h3 id="modal-cfg-titulo">Nuevo Usuario</h3>
 
-                <form id="form-cfg-usuario" autocomplete="off">
-                    <input type="hidden" id="cfg-usuario-uid">
+            <form id="form-cfg-usuario" autocomplete="off">
+                <input type="hidden" id="cfg-usuario-uid">
 
-                    <div class="form-cfg-fila">
-                        <label>Primer Nombre *</label>
-                        <input type="text" id="cfg-primer-nombre" required placeholder="Ej: Laura">
-                    </div>
-                    <div class="form-cfg-fila">
-                        <label>Segundo Nombre</label>
-                        <input type="text" id="cfg-segundo-nombre" placeholder="Ej: Fernanda">
-                    </div>
-                    <div class="form-cfg-fila">
-                        <label>Primer Apellido *</label>
-                        <input type="text" id="cfg-primer-apellido" required placeholder="Ej: Olmos">
-                    </div>
-                    <div class="form-cfg-fila">
-                        <label>Segundo Apellido</label>
-                        <input type="text" id="cfg-segundo-apellido" placeholder="Ej: Torres">
-                    </div>
-                    <div class="form-cfg-fila">
-                        <label>Correo Electrónico *</label>
-                        <input type="email" id="cfg-correo" required placeholder="ejemplo@empresa.com">
-                    </div>
-                    <div class="form-cfg-fila">
-                        <label>Teléfono</label>
-                        <input type="tel" id="cfg-telefono" placeholder="Ej: 3124567890">
-                    </div>
-                    <div class="form-cfg-fila" id="cfg-password-fila">
-                        <label>Contraseña * <span style="font-weight:400;color:#999">(mínimo 6
-                                caracteres)</span></label>
-                        <input type="password" id="cfg-password" placeholder="Contraseña">
-                    </div>
-                    <div class="form-cfg-fila">
-                        <label>Rol *</label>
-                        <select id="cfg-rol" required>
-                            <option value="">Selecciona un rol</option>
-                            <option value="administrador">Administrador</option>
-                            <option value="auxiliar">Auxiliar</option>
-                        </select>
-                    </div>
-                    <div class="form-cfg-fila">
-                        <label>Estado</label>
-                        <select id="cfg-estado">
-                            <option value="true">Activo</option>
-                            <option value="false">Inactivo</option>
-                        </select>
-                    </div>
+                <div class="form-cfg-fila">
+                    <label>Primer Nombre <span>*</span></label>
+                    <input type="text" id="cfg-primer-nombre" required placeholder="Ej: Laura">
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Segundo Nombre</label>
+                    <input type="text" id="cfg-segundo-nombre" placeholder="Ej: Fernanda">
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Primer Apellido <span>*</span></label>
+                    <input type="text" id="cfg-primer-apellido" required placeholder="Ej: Olmos">
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Segundo Apellido</label>
+                    <input type="text" id="cfg-segundo-apellido" placeholder="Ej: Torres">
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Correo Electrónico <span>*</span></label>
+                    <input type="email" id="cfg-correo" required placeholder="ejemplo@empresa.com">
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Teléfono</label>
+                    <input type="tel" id="cfg-telefono" placeholder="Ej: 3124567890">
+                </div>
+                <div class="form-cfg-fila" id="cfg-password-fila">
+                    <label>Contraseña <span>*</span> <span style="font-weight:400;color:#999">(mínimo 6 caracteres)</span></label>
+                    <input type="password" id="cfg-password" placeholder="Contraseña">
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Rol <span>*</span></label>
+                    <select id="cfg-rol" required>
+                        <option value="">Selecciona un rol</option>
+                        <option value="administrador">Administrador</option>
+                        <option value="auxiliar">Auxiliar</option>
+                    </select>
+                </div>
+                <div class="form-cfg-fila">
+                    <label>Estado</label>
+                    <select id="cfg-estado">
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
 
-                    <div class="form-cfg-botones">
-                        <button type="button" class="btn-cfg-cancelar" id="btn-cfg-cancelar">Cancelar</button>
-                        <button type="submit" class="btn-cfg-guardar">Guardar</button>
-                    </div>
-                </form>
-            </div>
+                <div class="form-cfg-botones">
+                    <button type="button" class="btn-cfg-cancelar" id="btn-cfg-cancelar">Cancelar</button>
+                    <button type="submit" class="btn-cfg-guardar">Guardar</button>
+                </div>
+            </form>
         </div>
 
         <!-- TOAST -->

@@ -7,6 +7,54 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
+/* Scroll vertical gris de toda la pagina Inventario */
+html.inventario-page,
+body.inventario-page {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #9aa0a6 #e5e7eb;
+}
+
+html.inventario-page::-webkit-scrollbar,
+body.inventario-page::-webkit-scrollbar {
+    width: 10px;
+}
+
+html.inventario-page::-webkit-scrollbar-thumb,
+body.inventario-page::-webkit-scrollbar-thumb {
+    background: #9aa0a6;
+    border-radius: 10px;
+}
+
+html.inventario-page::-webkit-scrollbar-track,
+body.inventario-page::-webkit-scrollbar-track {
+    background: #e5e7eb;
+}
+
+/* Scroll gris del panel entre Resumen e Inventario General */
+.inventory-summary {
+    scrollbar-width: thin;
+    scrollbar-color: #9aa0a6 #e5e7eb;
+}
+
+.inventory-summary::-webkit-scrollbar {
+    width: 10px;
+}
+
+.inventory-summary::-webkit-scrollbar-thumb {
+    background: #9aa0a6;
+    border-radius: 10px;
+}
+
+.inventory-summary::-webkit-scrollbar-track {
+    background: #e5e7eb;
+    border-radius: 10px;
+}
+
+.tabla-inventario {
+    border-top: 6px solid #d1d5db;
+}
+
 /* 🔷 TÍTULO */
 .tabla-inventario h3 {
     margin-bottom: 15px;

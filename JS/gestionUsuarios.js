@@ -61,11 +61,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         const docSnap = await getDoc(doc(db, "usuarios", uid));
         if (docSnap.exists()) {
             const data = docSnap.data();
-            const nombreCompleto = `${data.primerNombre} ${data.primerApellido}`;
+            const nombreCompleto = `${data.primerNombre} ${data.primerApellido} ${data.segundoApellido} `;
             document.getElementById('adminNombre').textContent = nombreCompleto;
             document.getElementById('adminRol').textContent =
                 data.rol === 'administrador' ? 'Administrador del Sistema' : 'Auxiliar';
             document.getElementById('adminCorreo').textContent = data.correo;
+            document.getElementById('adminTelefono').textContent = data.telefono || '—';
 
             // También actualizar header
             const nombreSpan = document.getElementById('nombreUsuario');

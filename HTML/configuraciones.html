@@ -59,14 +59,14 @@
 
         <!-- CONTENIDO PRINCIPAL -->
         <section class="dashboard-config">
-            <h2>⚙️ Configuraciones</h2>
+            <h2>Configuraciones</h2>
 
             <!-- ── TARJETA 1: PARÁMETROS DE INVENTARIO ── -->
             <div class="config-card">
                 <div class="config-card-header open" data-target="body-inventario">
-                    <span class="config-icon">📦</span>
+                    <span class="config-icon"></span>
                     <h3>Parámetros de Inventario</h3>
-                    <span class="toggle-arrow">▼</span>
+                    <span class="toggle-arrow"></span>
                 </div>
                 <div class="config-card-body open" id="body-inventario">
                     <div class="config-scroll-container-1">
@@ -83,14 +83,14 @@
                             </div>
                         </div>
                     </div>
-                    <button class="config-save-btn" id="btn-guardar-params">💾 Guardar Parámetros</button>
+                    <button class="config-save-btn" id="btn-guardar-params">Guardar Parámetros</button>
                 </div>
             </div>
 
             <!-- ── TARJETA 2: GESTIÓN DE USUARIOS ── -->
             <div class="config-card">
                 <div class="config-card-header open" data-target="body-usuarios">
-                    <span class="config-icon">👥</span>
+                    <span class="config-icon"></span>
                     <h3>Gestión de Usuarios</h3>
                     <span class="toggle-arrow">▼</span>
                 </div>
@@ -132,41 +132,41 @@
     <div id="modal-cfg-usuario" class="modal-cfg">
         <div class="modal-cfg-content">
             <button class="modal-close-cfg" id="modal-cfg-close">×</button>
-            <h3 id="modal-cfg-titulo">✨ Nuevo Usuario</h3>
+            <h3 id="modal-cfg-titulo">Nuevo Usuario</h3>
 
             <form id="form-cfg-usuario" autocomplete="off">
                 <input type="hidden" id="cfg-usuario-uid">
 
                 <div class="form-cfg-fila">
-                    <label>📝 Primer Nombre <span>*</span></label>
+                    <label>Primer Nombre <span>*</span></label>
                     <input type="text" id="cfg-primer-nombre" required placeholder="Ej: Laura">
                 </div>
                 <div class="form-cfg-fila">
-                    <label>📝 Segundo Nombre</label>
+                    <label>Segundo Nombre</label>
                     <input type="text" id="cfg-segundo-nombre" placeholder="Ej: Fernanda">
                 </div>
                 <div class="form-cfg-fila">
-                    <label>🧾 Primer Apellido <span>*</span></label>
+                    <label>Primer Apellido <span>*</span></label>
                     <input type="text" id="cfg-primer-apellido" required placeholder="Ej: Olmos">
                 </div>
                 <div class="form-cfg-fila">
-                    <label>🧾 Segundo Apellido</label>
+                    <label>Segundo Apellido</label>
                     <input type="text" id="cfg-segundo-apellido" placeholder="Ej: Torres">
                 </div>
                 <div class="form-cfg-fila">
-                    <label>📧 Correo Electrónico <span>*</span></label>
+                    <label>Correo Electrónico <span>*</span></label>
                     <input type="email" id="cfg-correo" required placeholder="ejemplo@empresa.com">
                 </div>
                 <div class="form-cfg-fila">
-                    <label>📱 Teléfono</label>
+                    <label>Teléfono</label>
                     <input type="tel" id="cfg-telefono" placeholder="Ej: 3124567890">
                 </div>
                 <div class="form-cfg-fila" id="cfg-password-fila">
-                    <label>🔒 Contraseña <span>*</span> <span style="font-weight:400;color:#999">(mínimo 6 caracteres)</span></label>
+                    <label>Contraseña <span>*</span> <span style="font-weight:400;color:#999">(mínimo 6 caracteres)</span></label>
                     <input type="password" id="cfg-password" placeholder="Contraseña">
                 </div>
                 <div class="form-cfg-fila">
-                    <label>🧑‍💼 Rol <span>*</span></label>
+                    <label>Rol <span>*</span></label>
                     <select id="cfg-rol" required>
                         <option value="">Selecciona un rol</option>
                         <option value="administrador">Administrador</option>
@@ -174,7 +174,7 @@
                     </select>
                 </div>
                 <div class="form-cfg-fila">
-                    <label>✅ Estado</label>
+                    <label>Estado</label>
                     <select id="cfg-estado">
                         <option value="true">Activo</option>
                         <option value="false">Inactivo</option>
@@ -183,7 +183,7 @@
 
                 <div class="form-cfg-botones">
                     <button type="button" class="btn-cfg-cancelar" id="btn-cfg-cancelar">Cancelar</button>
-                    <button type="submit" class="btn-cfg-guardar">💾 Guardar</button>
+                    <button type="submit" class="btn-cfg-guardar">Guardar</button>
                 </div>
             </form>
         </div>

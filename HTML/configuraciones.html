@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,62 +15,63 @@
     <link rel="stylesheet" href="/CSS/modalesUsuarios.css">
 
     <!-- CSS propio de configuraciones -->
-     <link rel="stylesheet" href="/CSS/configuraciones.css">
+    <link rel="stylesheet" href="/CSS/configuraciones.css">
 
 </head>
+
 <body>
-<div class="app-layout">
+    <div class="app-layout">
 
-    <!-- HEADER SUPERIOR -->
-    <header class="topbar">
-        <div class="topbar-left">
-            <div class="logo">InventoryPro</div>
-        </div>
-        <div class="topbar-right">
-            <button class="notification-btn" title="Notificaciones">
-            </button>
-            <nav class="user-menu" aria-label="Menú de usuario">
-                <button class="user-info" id="userInfo" aria-haspopup="true" aria-expanded="false">
-                    <img src="/IMG/woman.png" alt="Avatar del usuario" class="user-icon">
-                    <span id="nombreUsuario">Cargando...</span>
-                </button>
-                <div class="user-dropdown" id="userDropdown">
-                    <a href="/HTML/gestionUsuarios.html" class="dropdown-item">👤 Mi Perfil</a>
-                    <button id="btnCerrarSesion" class="logout-btn">🚪 Cerrar Sesión</button>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <div class="main-container">
-        <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <nav class="sidebar-nav">
-                <ul>
-                    <li id="navInicio"><a href="/HTML/home.html">Inventario</a></li>
-                    <li id="navRegistro"><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
-                    <li id="navReportes"><a href="/HTML/reportes.html">Reportes</a></li>
-                    <li id="navConfiguraciones" class="active"><a href="/HTML/configuraciones.html">Gestión de usuarios</a></li>
-                </ul>
-            </nav>
-            <div class="sidebar-logo">
-                <img src="/IMG/Logo_InventoryProCopy.png" alt="InventoryPro Logo" class="logo-img">
+        <!-- HEADER SUPERIOR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <div class="logo">InventoryPro</div>
             </div>
-        </aside>
+            <div class="topbar-right">
+                <button class="notification-btn" title="Notificaciones">
+                </button>
+                <nav class="user-menu" aria-label="Menú de usuario">
+                    <button class="user-info" id="userInfo" aria-haspopup="true" aria-expanded="false">
+                        <img src="/IMG/woman.png" alt="Avatar del usuario" class="user-icon">
+                        <span id="nombreUsuario">Cargando...</span>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="/HTML/gestionUsuarios.html" class="dropdown-item">👤 Mi Perfil</a>
+                        <button id="btnCerrarSesion" class="logout-btn">🚪 Cerrar Sesión</button>
+                    </div>
+                </nav>
+            </div>
+        </header>
 
-        <!-- CONTENIDO PRINCIPAL -->
-        <section class="dashboard-config">
-            <h2>Configuraciones</h2>
-
-            <!-- ── TARJETA 1: PARÁMETROS DE INVENTARIO ── -->
-            <div class="config-card">
-                <div class="config-card-header open" data-target="body-inventario">
-                    <span class="config-icon"></span>
-                    <h3>Parámetros de Inventario</h3>
-                    <span class="toggle-arrow"></span>
+        <div class="main-container">
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li id="navInicio"><a href="/HTML/home.html">Inventario</a></li>
+                        <li id="navRegistro"><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
+                        <li id="navReportes"><a href="/HTML/reportes.html">Reportes</a></li>
+                        <li id="navConfiguraciones" class="active"><a href="/HTML/configuraciones.html">Gestión de
+                                usuarios</a></li>
+                    </ul>
+                </nav>
+                <div class="sidebar-logo">
+                    <img src="/IMG/Logo_InventoryProCopy.png" alt="InventoryPro Logo" class="logo-img">
                 </div>
-                <div class="config-card-body open" id="body-inventario">
-                    <div class="config-scroll-container-1">
+            </aside>
+
+            <!-- CONTENIDO PRINCIPAL -->
+            <section class="dashboard-config">
+                <h2>⚙️ Configuraciones</h2>
+
+                <!-- ── TARJETA 1: PARÁMETROS DE INVENTARIO ── -->
+                <div class="config-card">
+                    <div class="config-card-header open" data-target="body-inventario">
+                        <span class="config-icon">📦</span>
+                        <h3>Parámetros de Inventario</h3>
+                        <span class="toggle-arrow">▼</span>
+                    </div>
+                    <div class="config-card-body open" id="body-inventario">
                         <div class="config-param-grid">
                             <div class="config-param-item">
                                 <label for="param-umbral-stock">Umbral mínimo de stock</label>
@@ -79,60 +81,60 @@
                             <div class="config-param-item">
                                 <label for="param-dias-vencimiento">Rango de días para vencimientos</label>
                                 <input type="number" id="param-dias-vencimiento" min="1" placeholder="Ej: 30">
-                                <span class="param-hint">Días de anticipación para alertar productos próximos a vencer</span>
+                                <span class="param-hint">Días de anticipación para alertar productos próximos a
+                                    vencer</span>
                             </div>
                         </div>
+                        <button class="config-save-btn" id="btn-guardar-params">💾 Guardar Parámetros</button>
                     </div>
-                    <button class="config-save-btn" id="btn-guardar-params">Guardar Parámetros</button>
                 </div>
-            </div>
 
-            <!-- ── TARJETA 2: GESTIÓN DE USUARIOS ── -->
-            <div class="config-card">
-                <div class="config-card-header open" data-target="body-usuarios">
-                    <span class="config-icon"></span>
-                    <h3>Gestión de Usuarios</h3>
-                    <span class="toggle-arrow">▼</span>
-                </div>
-                <div class="config-card-body open" id="body-usuarios">
-                    <div class="users-toolbar">
-                        <div class="users-filter-tabs">
-                            <button class="filter-tab active" data-filter="todos">Todos</button>
-                            <button class="filter-tab" data-filter="activo">Activos</button>
-                            <button class="filter-tab" data-filter="inactivo">Inactivos</button>
+                <!-- ── TARJETA 2: GESTIÓN DE USUARIOS ── -->
+                <div class="config-card">
+                    <div class="config-card-header open" data-target="body-usuarios">
+                        <span class="config-icon">👥</span>
+                        <h3>Gestión de Usuarios</h3>
+                        <span class="toggle-arrow">▼</span>
+                    </div>
+                    <div class="config-card-body open" id="body-usuarios">
+                        <div class="users-toolbar">
+                            <div class="users-filter-tabs">
+                                <button class="filter-tab active" data-filter="todos">Todos</button>
+                                <button class="filter-tab" data-filter="activo">Activos</button>
+                                <button class="filter-tab" data-filter="inactivo">Inactivos</button>
+                            </div>
+                            <button class="btn-nuevo-usuario" id="btn-nuevo-usuario">➕ Nuevo Usuario</button>
                         </div>
-                        <button class="btn-nuevo-usuario" id="btn-nuevo-usuario">➕ Nuevo Usuario</button>
-                    </div>
 
-                    <div class="config-scroll-container-2">
-                        <table class="users-table">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Correo</th>
-                                    <th>Rol</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="users-table-body">
-                                <tr>
-                                    <td colspan="5" class="empty-table-msg">Cargando usuarios...</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="users-table-wrapper">
+                            <table class="users-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Correo</th>
+                                        <th>Rol</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-table-body">
+                                    <tr>
+                                        <td colspan="5" class="empty-table-msg">Cargando usuarios...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </section>
-    </div>
+            </section>
+        </div>
 
-    <!-- ── MODAL CREAR / EDITAR USUARIO ── -->
-    <div id="modal-cfg-usuario" class="modal-cfg">
-        <div class="modal-cfg-content">
-            <button class="modal-close-cfg" id="modal-cfg-close">×</button>
-            <h3 id="modal-cfg-titulo">Nuevo Usuario</h3>
+        <!-- ── MODAL CREAR / EDITAR USUARIO ── -->
+        <div id="modal-cfg-usuario" class="modal-cfg">
+            <div class="modal-cfg-content">
+                <button class="modal-close-cfg" id="modal-cfg-close">×</button>
+                <h3 id="modal-cfg-titulo">Nuevo Usuario</h3>
 
             <form id="form-cfg-usuario" autocomplete="off">
                 <input type="hidden" id="cfg-usuario-uid">
@@ -187,16 +189,16 @@
                 </div>
             </form>
         </div>
+
+        <!-- TOAST -->
+        <div class="toast" id="toast"></div>
+
+        <!-- Scripts -->
+        <script type="module" src="/JS/firebase.js"></script>
+        <script type="module" src="/JS/configuraciones.js"></script>
+        <script type="module" src="/JS/usuarios.js"></script>
+
     </div>
-
-    <!-- TOAST -->
-    <div class="toast" id="toast"></div>
-
-    <!-- Scripts -->
-    <script type="module" src="/JS/firebase.js"></script>
-    <script type="module" src="/JS/configuraciones.js"></script>
-    <script type="module" src="/JS/usuarios.js"></script>
-
-</div>
 </body>
+
 </html>

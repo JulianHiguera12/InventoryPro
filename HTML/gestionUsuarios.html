@@ -35,9 +35,9 @@
                     <!-- Usuario en el header -->
                 <nav class="user-menu" aria-label="Menú de usuario">
                     <button class="user-info" id="userInfo" aria-haspopup="true" aria-expanded="false">
-                        <img src="../IMG/woman.png" alt="Avatar del usuario" class="user-icon">
-                        <span id="nombreUsuario">Laura Olmos</span>
-                    </button>
+                    <img src="/IMG/man.png" alt="Avatar del usuario" class="user-icon">
+                    <span id="nombreUsuario">Cargando...</span>
+                </button>
 
                     <!-- Dropdown -->
                     <div class="user-dropdown" id="userDropdown">
@@ -53,13 +53,10 @@
             <aside class="sidebar">
                 <nav class="sidebar-nav">
                     <ul>
-                        <li id="navInicio"><a href="/HTML/home.html">Inicio</a></li>
+                        <li id="navInicio"><a href="/HTML/home.html">Inventario</a></li>
                         <li id="navRegistro"><a href="/HTML/registroProductos.html">Registro de Productos</a></li>
-                        <li id="navEstadisticas"><a href="/HTML/estadisticas.html">Estadísticas</a></li>
                         <li id="navReportes"><a href="/HTML/reportes.html">Reportes</a></li>
-                        <li id="navNotificaciones"><a href="/HTML/notificaciones.html">Notificaciones</a></li>
-                        <!--<li id="navMapa"><a href="/HTML/mapa.html">Mapa</a></li> -->
-                        <li id="navConfiguraciones"><a href="/HTML/configuraciones.html">Configuraciones</a></li>
+                        <li id="navConfiguraciones"><a href="/HTML/configuraciones.html">Gestión de usuarios</a></li>
                     </ul>
                 </nav>
 
@@ -73,7 +70,7 @@
             <!--   CONTENIDO PRINCIPAL (dentro de .main-container)  -->
 
             <section class="dashboard-users">
-                <h2>Gestión de Usuarios</h2>
+                <h2>Información de Usuario</h2>
 
             <!-- Información del Administrador -->
             <div class="admin-info">
@@ -82,257 +79,12 @@
                     <h3 id="adminNombre">Cargando...</h3>
                     <p id="adminRol">—</p>
                     <p id="adminCorreo">—</p>
+                    <p id="adminTelefono">—</p>
                 </div>
             </div>
-
-                <!-- Acciones de Usuario -->
-                <div class="user-actions">
-                    <button class="action-btn" id="btnCrear">➕<span>Crear Usuario</span></button>
-                    <button class="action-btn" id="btnActualizar">✏️<span>Actualizar Usuario</span></button>
-                    <button class="action-btn" id="btnEliminar">🗑️<span>Eliminar Usuario</span></button>
-                </div>
 
             </section>
 
-
-            <!-- MODAL CREAR USUARIO -->
-            <div id="modal-usuario-crear" class="modal-usuario modal">
-                <div class="modal-usuario-content modal-content">
-                    <button class="modal-usuario-close close-btn" data-modal="modal-usuario-crear" aria-label="Cerrar modal">×</button>
-
-                    <h3 class="modal-usuario-title">✨ Crear Nuevo Usuario</h3>
-
-                    <!-- Formulario con IDs y clases únicas -->
-                    <form id="form-usuario-nuevo" class="form-usuario-crear" autocomplete="off">
-
-                        <!-- Grupo: Datos personales -->
-                        <div class="form-usuario-grupo">
-                            <h4 class="form-usuario-subtitulo">👤 Datos Personales</h4>
-
-                            <div class="form-usuario-fila">
-                                <label for="usu-nuevo-primer-nombre">📝 Primer Nombre <span>*</span></label>
-                                <input type="text" id="usu-nuevo-primer-nombre" name="primerNombre" required minlength="2" placeholder="Ej: Laura">
-                            </div>
-
-                            <div class="form-usuario-fila">
-                                <label for="usu-nuevo-segundo-nombre">📝 Segundo Nombre</label>
-                                <input type="text" id="usu-nuevo-segundo-nombre" name="segundoNombre" placeholder="Ej: Fernanda">
-                            </div>
-
-                            <div class="form-usuario-fila">
-                                <label for="usu-nuevo-primer-apellido">🧾 Primer Apellido <span>*</span></label>
-                                <input type="text" id="usu-nuevo-primer-apellido" name="primerApellido" required minlength="2" placeholder="Ej: Olmos">
-                            </div>
-
-                            <div class="form-usuario-fila">
-                                <label for="usu-nuevo-segundo-apellido">🧾 Segundo Apellido</label>
-                                <input type="text" id="usu-nuevo-segundo-apellido" name="segundoApellido" placeholder="Ej: Torres">
-                            </div>
-                        </div>
-
-                        <!-- Grupo: Contacto -->
-                        <div class="form-usuario-grupo">
-                            <h4 class="form-usuario-subtitulo">📬 Contacto</h4>
-
-                            <div class="form-usuario-fila">
-                                <label for="usu-nuevo-correo">📧 Correo Electrónico <span>*</span></label>
-                                <input type="email" id="usu-nuevo-correo" name="correo" required placeholder="ejemplo@empresa.com">
-                            </div>
-
-                            <div class="form-usuario-fila">
-                                <label for="usu-nuevo-telefono">📱 Teléfono (10 dígitos)</label>
-                                <input type="tel" id="usu-nuevo-telefono" name="telefono" pattern="[0-9]{10}" placeholder="Ej: 3124567890">
-                            </div>
-
-                            <div class="form-usuario-fila">
-                                <label for="usu-nuevo-direccion">📍 Dirección</label>
-                                <input type="text" id="usu-nuevo-direccion" name="direccion" placeholder="Calle, número, colonia, ciudad">
-                            </div>
-                        </div>
-
-                        <!-- Grupo: Seguridad y rol -->
-                        <div class="form-usuario-grupo">
-                            <h4 class="form-usuario-subtitulo">🔐 Credenciales y Rol</h4>
-
-                            <div class="form-usuario-fila">
-                                <label for="usu-nuevo-password">🔒 Contraseña <span>*</span></label>
-                                <input type="password" id="usu-nuevo-password" name="password" required minlength="8" placeholder="Mínimo 8 caracteres">
-                            </div>
-
-                            <div class="form-usuario-fila">
-                                <label for="usu-nuevo-rol">🧑‍💼 Rol del usuario <span>*</span></label>
-                                <select id="usu-nuevo-rol" name="rol" required>
-                                    <option value="">Selecciona rol</option>
-                                    <option value="administrador">Administrador</option>
-                                    <option value="auxiliar">Auxiliar</option>
-                                </select>
-                            </div>
-
-                            <div class="form-usuario-fila">
-                                <label for="usu-nuevo-estado">✅ Estado inicial</label>
-                                <select id="usu-nuevo-estado" name="activo">
-                                    <option value="1">Activo</option>
-                                    <option value="0">Inactivo</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Botones -->
-                        <div class="form-usuario-botones form-buttons">
-                            <button type="submit" class="btn-usuario-crear btn-submit">💾 Guardar Usuario</button>
-                            <button type="button" class="btn-usuario-cancelar btn-cancel" data-modal="modal-usuario-crear">Cancelar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Modal Actualizar Usuario -->
-            <div id="modalActualizar" class="modal">
-                <div class="modal-content">
-                    <button class="close-btn" data-modal="modalActualizar" aria-label="Cerrar">&times;</button>
-                    
-                    <h3>Actualizar Usuario</h3>
-
-                    <form id="formActualizarUsuario" class="form-usuario-actualizar">
-                        <!-- Identificador del usuario a modificar -->
-                        <div class="form-row full-width">
-                            <label for="usu-actualizar-id">ID o Correo del usuario *</label>
-                            <input type="text" id="usu-actualizar-id" name="idUsuario" required 
-                                placeholder="Ej: 123 o usuario@dominio.com">
-                        </div>
-
-                        <!-- Datos personales -->
-                        <div class="form-grupo">
-                            <h4>Datos Personales</h4>
-                            <div class="form-row">
-                                <label for="usu-actualizar-primer-nombre">Primer Nombre</label>
-                                <input type="text" id="usu-actualizar-primer-nombre" name="primerNombre" placeholder="Nombre actual o nuevo">
-                            </div>
-
-                            <div class="form-row">
-                                <label for="usu-actualizar-segundo-nombre">Segundo Nombre</label>
-                                <input type="text" id="usu-actualizar-segundo-nombre" name="segundoNombre" placeholder="Segundo nombre">
-                            </div>
-
-                            <div class="form-row">
-                                <label for="usu-actualizar-primer-apellido">Primer Apellido</label>
-                                <input type="text" id="usu-actualizar-primer-apellido" name="primerApellido" placeholder="Primer apellido">
-                            </div>
-
-                            <div class="form-row">
-                                <label for="usu-actualizar-segundo-apellido">Segundo Apellido</label>
-                                <input type="text" id="usu-actualizar-segundo-apellido" name="segundoApellido" placeholder="Segundo apellido">
-                            </div>
-                        </div>
-
-                        <!-- Contacto -->
-                        <div class="form-grupo">
-                            <h4>Contacto</h4>
-                            <div class="form-row">
-                                <label for="usu-actualizar-correo">Correo Electrónico</label>
-                                <input type="email" id="usu-actualizar-correo" name="correo" placeholder="Correo actual o nuevo">
-                            </div>
-
-                            <div class="form-row">
-                                <label for="usu-actualizar-telefono">Teléfono</label>
-                                <input type="tel" id="usu-actualizar-telefono" name="telefono" pattern="[0-9]{10}" placeholder="10 dígitos">
-                            </div>
-
-                            <div class="form-row">
-                                <label for="usu-actualizar-direccion">Dirección</label>
-                                <input type="text" id="usu-actualizar-direccion" name="direccion" placeholder="Dirección completa">
-                            </div>
-                        </div>
-
-                        <!-- Permisos y estado -->
-                        <div class="form-grupo">
-                            <h4>Permisos y Estado</h4>
-                            <div class="form-row">
-                                <label for="usu-actualizar-rol">Rol</label>
-                                <select id="usu-actualizar-rol" name="rol">
-                                    <option value="">Mantener actual</option>
-                                    <option value="admin">Administrador</option>
-                                    <option value="aux">Auxiliar</option>
-                                </select>
-                            </div>
-
-                            <div class="form-row">
-                                <label for="usu-actualizar-activo">Estado</label>
-                                <select id="usu-actualizar-activo" name="activo">
-                                    <option value="">Mantener actual</option>
-                                    <option value="1">Activo</option>
-                                    <option value="0">Inactivo</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Trazabilidad -->
-                        <div class="form-grupo trazabilidad">
-                            <h4>Trazabilidad</h4>
-                            <div class="form-row">
-                                <label>Usuario que modifica</label>
-                                <input type="text" value="Laura Olmos" readonly class="input-readonly">
-                            </div>
-                            <div class="form-row">
-                                <label>Fecha y hora de modificación</label>
-                                <input type="text" value="" readonly class="input-readonly fecha-actual">
-                            </div>
-                        </div>
-
-                        <!-- Botones -->
-                        <div class="form-buttons">
-                            <button type="submit" class="btn-submit">Actualizar Usuario</button>
-                            <button type="button" class="btn-cancel" data-modal="modalActualizar">Cancelar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Modal Eliminar Usuario -->
-            <div id="modalEliminar" class="modal">
-                <div class="modal-content modal-eliminar">
-                    <button class="close-btn" data-modal="modalEliminar" aria-label="Cerrar">&times;</button>
-
-                    <h3>Eliminar Usuario</h3>
-
-                    <form id="formEliminarUsuario" class="form-usuario-eliminar">
-                        <div class="aviso-eliminacion">
-                            <p class="texto-peligro">¡Atención! Esta acción es irreversible.</p>
-                            <p>El usuario seleccionado será eliminado permanentemente de la base de datos.</p>
-                        </div>
-
-                        <div class="form-row full-width">
-                            <label for="usu-eliminar-id">ID o Correo del usuario a eliminar *</label>
-                            <input type="text" id="usu-eliminar-id" name="idUsuario" required 
-                                placeholder="Ej: 123 o usuario@dominio.com">
-                        </div>
-
-                        <div class="form-row full-width">
-                            <label for="usu-eliminar-motivo">Motivo de eliminación (opcional - auditoría)</label>
-                            <textarea id="usu-eliminar-motivo" name="motivo" rows="3" 
-                                    placeholder="Ej: Renuncia, duplicado, falta de uso..."></textarea>
-                        </div>
-
-                        <!-- Trazabilidad -->
-                        <div class="form-grupo trazabilidad">
-                            <div class="form-row">
-                                <label>Usuario que elimina</label>
-                                <input type="text" value="Laura Olmos" readonly class="input-readonly">
-                            </div>
-                            <div class="form-row">
-                                <label>Fecha y hora de eliminación</label>
-                                <input type="text" value="" readonly class="input-readonly fecha-actual">
-                            </div>
-                        </div>
-
-                        <!-- Botones -->
-                        <div class="form-buttons">
-                            <button type="submit" class="btn-submit btn-danger">Eliminar Definitivamente</button>
-                            <button type="button" class="btn-cancel" data-modal="modalEliminar">Cancelar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
         <!-- Scripts propios -->
         <script type="module" src="/JS/firebase.js"></script>

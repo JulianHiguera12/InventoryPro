@@ -7,7 +7,7 @@ function obtenerUsuario() {
 
     return {
         nombre: nombre,
-        avatar: "../IMG/man.png" // puedes luego hacerlo dinámico desde Firestore
+        avatar: "../IMG/man.png"
     };
 }
 

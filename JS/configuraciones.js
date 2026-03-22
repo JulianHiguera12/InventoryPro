@@ -164,10 +164,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Llama a la función dentro de tu DOMContentLoaded
 gestionarDropdown();
 
-// Llama a la función dentro de tu DOMContentLoaded
-gestionarDropdown();
-});
-
 // ── CARGAR USUARIOS DESDE FIRESTORE ──────────────────────────────────────────
 async function cargarUsuarios() {
     try {

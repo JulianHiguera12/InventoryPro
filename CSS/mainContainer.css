@@ -26,7 +26,6 @@ body {
     overflow: hidden;
     align-items: stretch;
 }
-
 /* SIDEBAR */
 .sidebar {
     width: 380px;
@@ -50,7 +49,8 @@ body {
 }
 
 .sidebar-nav li {
-    padding: 15px;
+    /* ★ Sin padding aquí — lo lleva el <a> */
+    padding: 0;
     margin: 10px;
     border-radius: 16px;
     cursor: pointer;
@@ -67,7 +67,12 @@ body {
 .sidebar-nav a {
     text-decoration: none;
     color: inherit;
+    /* ★ El <a> ocupa todo el <li> y lleva el padding */
     display: block;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 16px;
 }
 
 .sidebar-nav li.active {

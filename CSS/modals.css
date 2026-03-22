@@ -1,0 +1,127 @@
+/* Modal de visualizacion de producto en Home */
+.home-modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.55);
+    z-index: 3000;
+}
+
+.home-modal-overlay.active {
+    display: flex;
+}
+
+.home-modal {
+    width: min(980px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
+    position: relative;
+}
+
+.home-modal h3 {
+    margin: 0 0 16px 0;
+    color: #1f2937;
+    text-align: center;
+}
+
+.home-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background: #e5e7eb;
+    color: #1f2937;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.home-modal-close:hover {
+    background: #d1d5db;
+}
+
+.modal-section {
+    margin-bottom: 16px;
+    padding: 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+.modal-section legend {
+    font-weight: 700;
+    color: #334155;
+    padding: 0 6px;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.modal-grid.full {
+    grid-template-columns: 1fr;
+}
+
+.modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.modal-field label {
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.modal-field input,
+.modal-field textarea {
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 10px;
+    background: #f8fafc;
+    color: #334155;
+}
+
+.modal-field textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-cerrar-modal {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    background: #3b82f6;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-cerrar-modal:hover {
+    background: #2563eb;
+}
+
+@media (max-width: 768px) {
+    .home-modal {
+        padding: 16px;
+    }
+
+    .modal-grid {
+        grid-template-columns: 1fr;
+    }
+}

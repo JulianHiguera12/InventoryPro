@@ -13,7 +13,7 @@ InventarioPro es una aplicación diseñada para gestionar inventarios de manera 
 - JavaScript
 - React
 - Node.js
-- MongoDB
+- Firebase
 
 ## Instrucciones de Instalación
 1. Clona el repositorio: `git clone https://github.com/JulianHiguera12/InventoryPro.git`
@@ -48,6 +48,3 @@ Si deseas contribuir al proyecto, sigue estos pasos:
 3. Realiza tus cambios y realiza un commit.
 4. Envía un push: `git push origin feature/nueva-funcionalidad`
 5. Abre un pull request.
-
-## Información de Contacto
-Para consultas, contáctame en: [tu_correo@example.com](mailto:tu_correo@example.com)

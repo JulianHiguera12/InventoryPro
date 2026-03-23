@@ -1,7 +1,7 @@
-# InventarioPro
+# InventoryPro
 
 ## Resumen del Proyecto
-InventarioPro es una aplicación diseñada para gestionar inventarios de manera eficiente. Permite a los usuarios realizar un seguimiento de artículos, cantidades, y más, todo desde una interfaz intuitiva.
+InventoryPro es una aplicación diseñada para gestionar inventarios de manera eficiente. Permite a los usuarios realizar un seguimiento de artículos, cantidades, y más, todo desde una interfaz intuitiva.
 
 ## Características
 - Gestión fácil de artículos de inventario
